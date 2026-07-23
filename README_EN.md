@@ -54,17 +54,17 @@ Generic edition (Claude Code / Codex / other skill-capable clients):
 A report you can share — and hand to your AI assistant to remember:
 
 - **Verdict line**: "根据测试结果，您是 INTP（药水姐）" — deterministic, no manual override; identical answers always produce the identical result
-- **Main type + near type (次人格)**: character art, portrait, 3 strengths, 3 pitfalls, social style, decisions, stress, observation tips; exactly one near type when the margin is smallest
+- **Main type + near type (第二候选人格)**: character art, portrait, 3 strengths, 3 pitfalls, social style, decisions, stress, observation tips; exactly one near type when the margin is smallest
 - **Eight-pole scores**: raw scores, ratios, and differences across E/I, S/N, T/F, J/P; exact ties are marked X
 - **Two ways to take it with you**: **Save the analysis** (a single long PNG with everything) or **Copy the archive prompt** (≤2000 characters — paste to your assistant for long-term memory, to be one reference in future decision analysis)
 
 <table>
   <tr>
-    <td width="46%"><img src="assets/result-preview.svg" width="100%" alt="Fictional INTP result preview: eight-pole scores and profile" /></td>
+    <td width="46%"><img src="assets/result-page-sample.webp" width="100%" alt="Real screenshot of the web analysis report: verdict line, character and profile" /></td>
     <td width="54%"><img src="assets/report-sample.png" width="100%" alt="Real generated long-image report sample (fictional ISTJ result)" /></td>
   </tr>
   <tr>
-    <td align="center"><sub>Report layout preview (fictional INTP data)</sub></td>
+    <td align="center"><sub>Analysis report page (real screenshot, fictional INFP data)</sub></td>
     <td align="center"><sub>Real long-image sample (fictional ISTJ data)</sub></td>
   </tr>
 </table>

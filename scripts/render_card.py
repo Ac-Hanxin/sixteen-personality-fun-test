@@ -167,7 +167,7 @@ def main() -> int:
             second_note = f"原始类型含平分维度（{result['raw_type']}），主结果为固定顺序首个候选；此候选与你的答案同样接近{extra}："
         if second_note:
             y += 10 + 34
-            text("次人格", PAD, fonts["h3"], "#243B78")
+            text("第二候选人格", PAD, fonts["h3"], "#243B78")
             y += 8
             wrapped(second_note, fonts["small"], "#56627A", 34)
             for t in second_list:

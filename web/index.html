@@ -138,7 +138,7 @@
     </div>
 
     <div class="card hidden" id="secondCard">
-      <h2>次人格</h2>
+      <h2>第二候选人格</h2>
       <div id="secondBody"></div>
     </div>
 
@@ -398,7 +398,7 @@
       ? "\n平分维度：" + result.boundary_axes.join("、") + "（原始类型 " + result.raw_type + "，按固定规则展示首个候选 " + chosenType + "）"
       : "";
     var second = result.second_candidates.length
-      ? "\n次人格：" + result.second_candidates.map(function (t) {
+      ? "\n第二候选人格：" + result.second_candidates.map(function (t) {
           return t + " · " + profiles[t].nick + "（" + profiles[t].meme + "）";
         }).join("、")
       : "";
@@ -525,12 +525,12 @@
         gap(8);
         wrapped(pair[1], '27px ' + FONT, "#394760", 44);
       });
-    // 次人格（第二候选）
+    // 第二候选人格（第二候选）
     var sinfo = secondInfo();
     if (sinfo) {
       gap(10);
       y += 34;
-      text("次人格", PAD, '700 31px ' + FONT, "#243B78");
+      text("第二候选人格", PAD, '700 31px ' + FONT, "#243B78");
       gap(8);
       wrapped(sinfo.note, '24px ' + FONT, "#56627A", 34);
       sinfo.list.forEach(function (t) {
