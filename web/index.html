@@ -150,8 +150,9 @@
 
     <div class="card">
       <h2>保存或分享</h2>
-      <p class="muted">两个选项：保存一张包含全部结果的长图，或复制存档提示词发给你的 AI 助理。</p>
-      <button class="btn" id="saveImageBtn">保存分析结果（长图）</button>
+      <p class="muted">分享版发圈晒人设，分析长图留给自己看，存档提示词发给 AI 助理记住你。</p>
+      <button class="btn" id="shareImageBtn">保存分享版（朋友圈/社媒）</button>
+      <button class="btn ghost" id="saveImageBtn">保存分析结果（长图）</button>
       <pre class="cardtext" id="resultCard"></pre>
       <button class="btn ghost" id="copyPromptBtn">复制「发给助理」的存档提示词</button>
       <p class="fineprint" id="copyHint" style="margin-top:8px;"></p>
@@ -439,6 +440,138 @@
     } else fallback();
   }
 
+  /* ---------- 分享版生成 ---------- */
+
+  var GROUP_BG = {
+    NT: ["#F0EAFB", "#CDBCF0"], NF: ["#E7F4EC", "#B9DECA"],
+    SJ: ["#E7F0FA", "#BAD3EE"], SP: ["#FBF4DD", "#F1DFA3"],
+  };
+
+  function typeGroup(code) {
+    if (code[1] === "S") return code[3] === "J" ? "SJ" : "SP";
+    return code[2] === "F" ? "NF" : "NT";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function paintShareImage(ctx, W, H, imgs) {
+    var FONT = '-apple-system, "PingFang SC", "Microsoft YaHei", sans-serif';
+    var p = profiles[chosenType];
+    var bg = GROUP_BG[typeGroup(chosenType)];
+    var grad = ctx.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0, bg[0]);
+    grad.addColorStop(1, bg[1]);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    function t(str, x, y, font, color, align) {
+      ctx.font = font; ctx.fillStyle = color; ctx.textAlign = align || "left";
+      ctx.fillText(str, x, y);
+    }
+    function chip(x, y, text) {
+      ctx.font = '600 26px ' + FONT;
+      var w = ctx.measureText(text).width + 36;
+      ctx.fillStyle = "rgba(255,255,255,0.88)";
+      roundRect(ctx, x, y, w, 48, 24); ctx.fill();
+      ctx.fillStyle = "#243B78";
+      ctx.textAlign = "left";
+      ctx.fillText(text, x + 18, y + 34);
+      return w;
+    }
+
+    var PAD = 64;
+    // 顶部品牌
+    t("16 型人格趣味测试 · OJTS 2.1 娱乐版", PAD, 74, '600 24px ' + FONT, "rgba(23,32,51,0.55)");
+
+    // 角色卡（右上）
+    var AV = 300;
+    var av = imgs[chosenType];
+    if (av) {
+      ctx.save();
+      roundRect(ctx, W - PAD - AV, 110, AV, AV * av.height / av.width, 28);
+      ctx.clip();
+      ctx.drawImage(av, W - PAD - AV, 110, AV, AV * av.height / av.width);
+      ctx.restore();
+    }
+
+    // 结论区
+    t("我是", PAD, 168, '600 30px ' + FONT, "rgba(23,32,51,0.6)");
+    t(chosenType, PAD, 262, '800 96px ' + FONT, "#1C2740");
+    t("（" + p.meme + "）", PAD, 342, '800 52px ' + FONT, "#243B78");
+    t(p.nick, PAD, 402, '700 30px ' + FONT, "rgba(23,32,51,0.75)");
+
+    // 梗标签
+    var cx = PAD, cy = 448, maxX = W - PAD;
+    p.tags.forEach(function (tag) {
+      var w = ctx.measureText(tag).width + 36;
+      if (cx + w > maxX) { cx = PAD; cy += 62; }
+      cx += chip(cx, cy, tag) + 14;
+    });
+    var tagsBottom = cy + 48;
+
+    // 趣味指数条（真实分数驱动）
+    var s = result.scores;
+    var meters = [
+      ["外向指数", s.E / (s.E + s.I)],
+      ["脑洞指数", s.N / (s.S + s.N)],
+      ["理性指数", s.T / (s.T + s.F)],
+      ["计划指数", s.J / (s.J + s.P)],
+    ];
+    var my = tagsBottom + 56;
+    t("我的人格指数", PAD, my, '700 28px ' + FONT, "#1C2740");
+    meters.forEach(function (m, i) {
+      var y = my + 40 + i * 62;
+      t(m[0], PAD, y + 10, '600 24px ' + FONT, "rgba(23,32,51,0.75)");
+      var bx = PAD + 130, bw = W - PAD * 2 - 130 - 90;
+      ctx.fillStyle = "rgba(255,255,255,0.65)";
+      roundRect(ctx, bx, y - 8, bw, 22, 11); ctx.fill();
+      ctx.fillStyle = "#243B78";
+      roundRect(ctx, bx, y - 8, Math.max(22, bw * m[1]), 22, 11); ctx.fill();
+      t(Math.round(m[1] * 100) + "%", bx + bw + 18, y + 10, '700 24px ' + FONT, "#243B78");
+    });
+    var metersBottom = my + 40 + 3 * 62 + 14;
+
+    // 第二候选人格卡条
+    var info = secondInfo();
+    if (info) {
+      var st = info.list[0], sp = profiles[st];
+      var cardY = metersBottom + 36;
+      ctx.fillStyle = "rgba(255,255,255,0.82)";
+      roundRect(ctx, PAD, cardY, W - PAD * 2, 168, 22); ctx.fill();
+      var sav = imgs[st];
+      if (sav) ctx.drawImage(sav, PAD + 24, cardY + 24, 120, 120 * sav.height / sav.width);
+      var tx = PAD + 168;
+      t("我的第二候选人格", tx, cardY + 48, '600 22px ' + FONT, "rgba(23,32,51,0.55)");
+      t(st + " · " + sp.nick + "（" + sp.meme + "）", tx, cardY + 92, '700 30px ' + FONT, "#1C2740");
+      ctx.font = '24px ' + FONT;
+      var lines = wrapLines(ctx, sp.one, W - PAD * 2 - 168 - 24).slice(0, 2);
+      lines.forEach(function (ln, i) {
+        t(ln, tx, cardY + 130 + i * 32, '24px ' + FONT, "rgba(23,32,51,0.7)");
+      });
+    }
+
+    // 底部引流区
+    var fy = H - 156;
+    ctx.strokeStyle = "rgba(23,32,51,0.15)"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(PAD, fy); ctx.lineTo(W - PAD, fy); ctx.stroke();
+    t("来测测你是哪一种", PAD, fy + 62, '700 30px ' + FONT, "#1C2740");
+    t("ac-hanxin.github.io/sixteen-personality-fun-test/web/", PAD, fy + 102, '600 22px ' + FONT, "rgba(23,32,51,0.6)");
+    t("改编自 OJTS 2.1（CC BY-NC-SA 4.0）· 仅供娱乐", PAD, fy + 140, '20px ' + FONT, "rgba(23,32,51,0.45)");
+    if (imgs.__qr__) {
+      ctx.fillStyle = "#FFFFFF";
+      roundRect(ctx, W - PAD - 140, fy + 10, 140, 140, 16); ctx.fill();
+      ctx.drawImage(imgs.__qr__, W - PAD - 130, fy + 20, 120, 120);
+    }
+  }
+
   /* ---------- 长图生成 ---------- */
 
   function loadAvatars64(cb) {
@@ -596,6 +729,49 @@
     return y;
   }
 
+  function saveShareImage() {
+    var hint = $("copyHint");
+    hint.textContent = "正在生成分享版…";
+    loadAvatars64(function () {
+      var codes = [chosenType].concat(secondInfo() ? secondInfo().list : []);
+      var imgs = {}, pending = codes.length + (window.OJTS_QR ? 1 : 0);
+      function done() { if (--pending === 0) paint(imgs); }
+      codes.forEach(function (c) {
+        var im = new Image();
+        im.onload = function () { imgs[c] = im; done(); };
+        im.onerror = done;
+        im.src = window.OJTS_AVATARS[c];
+      });
+      if (window.OJTS_QR) {
+        var q = new Image();
+        q.onload = function () { imgs.__qr__ = q; done(); };
+        q.onerror = done;
+        q.src = window.OJTS_QR;
+      }
+      function paint(imgs) {
+        var W = 1080, H = 1350;
+        var canvas = document.createElement("canvas");
+        canvas.width = W; canvas.height = H;
+        var ctx = canvas.getContext("2d");
+        paintShareImage(ctx, W, H, imgs);
+        if (location.hash === "#shotshare") {
+          canvas.style.width = "100%";
+          document.body.appendChild(canvas);
+          return;
+        }
+        canvas.toBlob(function (blob) {
+          if (!blob) { hint.textContent = "图片生成失败（浏览器内存不足），请重试。"; return; }
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "16型人格-分享版-" + chosenType + "-" + today() + ".png";
+          a.click();
+          setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
+          hint.textContent = "分享版已保存，去发朋友圈吧。";
+        }, "image/png");
+      }
+    });
+  }
+
   function saveLongImage() {
     var hint = $("copyHint");
     hint.textContent = "正在生成图片…";
@@ -664,6 +840,7 @@
   };
   $("freshBtn").onclick = startFresh;
   $("undoBtn").onclick = function () { if (cur > 0) { cur--; renderQuestion(); saveState(); } };
+  $("shareImageBtn").onclick = saveShareImage;
   $("saveImageBtn").onclick = saveLongImage;
   $("copyPromptBtn").onclick = function () {
     copyText(
@@ -700,11 +877,12 @@
   if (location.hash === "#quiz") {
     show("quiz");
     renderQuestion();
-  } else if (location.hash === "#demo" || location.hash === "#shot") {
+  } else if (location.hash === "#demo" || location.hash === "#shot" || location.hash === "#shotshare") {
     readOnly = true;  // 演示结果不写入本地记录
     answers = DEMO_ANSWERS.slice();
     finish();
     if (location.hash === "#shot") setTimeout(saveLongImage, 300);
+    if (location.hash === "#shotshare") setTimeout(saveShareImage, 300);
   } else {
     updateWelcomeButtons();
   }

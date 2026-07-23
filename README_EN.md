@@ -56,7 +56,7 @@ A report you can share — and hand to your AI assistant to remember:
 - **Verdict line**: "根据测试结果，您是 INTP（药水姐）" — deterministic, no manual override; identical answers always produce the identical result
 - **Main type + near type (第二候选人格)**: character art, portrait, 3 strengths, 3 pitfalls, social style, decisions, stress, observation tips; exactly one near type when the margin is smallest
 - **Eight-pole scores**: raw scores, ratios, and differences across E/I, S/N, T/F, J/P; exact ties are marked X
-- **Two ways to take it with you**: **Save the analysis** (a single long PNG with everything) or **Copy the archive prompt** (≤2000 characters — paste to your assistant for long-term memory, to be one reference in future decision analysis)
+- **Three ways to take it with you**: **share poster** (group-colored vertical card with the character, meme tags, fun meters, second-candidate type and a QR code — built for social feeds), **analysis long image** (the full report, for keeping), **archive prompt** (≤2000 characters — paste to your assistant for long-term memory, to be one reference in future decision analysis)
 
 <table>
   <tr>
