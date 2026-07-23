@@ -52,7 +52,7 @@
 
 不想安装任何东西？仓库自带纯前端网页版，手机浏览器也能用：
 
-**https://a31897240-coder.github.io/sixteen-personality-fun-test/web/**
+**https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/**
 
 - 48 题逐题作答，随时撤销上一题；进度自动保存在本机浏览器（localStorage），刷新或切出后可断点续答，计分全部在本地完成，答案不离开你的设备。
 - 结果页包含角色形象、八极分数条、完整画像与「结果卡」，一键复制即可发给你的 AI 助理。
@@ -65,13 +65,13 @@
 **Hermes 版**（演示同款，利用其长期记忆沉淀结果）：
 
 ```text
-请克隆 GitHub 项目 https://github.com/a31897240-coder/sixteen-personality-fun-test ，将整个目录复制到 ~/.hermes/skills/sixteen-personality-fun-test（保留 SKILL.md、references/、scripts/、assets/ 的相对位置），确认 sixteen-personality-fun-test 技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
+请克隆 GitHub 项目 https://github.com/Ac-Hanxin/sixteen-personality-fun-test ，将整个目录复制到 ~/.hermes/skills/sixteen-personality-fun-test（保留 SKILL.md、references/、scripts/、assets/ 的相对位置），确认 sixteen-personality-fun-test 技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
 ```
 
 **通用版**（Claude Code / Codex / 其他支持 Skills 的客户端）：
 
 ```text
-请克隆 GitHub 项目 https://github.com/a31897240-coder/sixteen-personality-fun-test ，将整个目录复制到我的技能目录（Claude Code 为 ~/.claude/skills/，Codex 为 ~/.codex/skills/，其他客户端以实际配置为准），目录名保持 sixteen-personality-fun-test 并保留内部相对结构，确认技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
+请克隆 GitHub 项目 https://github.com/Ac-Hanxin/sixteen-personality-fun-test ，将整个目录复制到我的技能目录（Claude Code 为 ~/.claude/skills/，Codex 为 ~/.codex/skills/，其他客户端以实际配置为准），目录名保持 sixteen-personality-fun-test 并保留内部相对结构，确认技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
 ```
 
 ## 快速开始
@@ -84,7 +84,7 @@
 **安装**
 
 ```bash
-git clone https://github.com/a31897240-coder/sixteen-personality-fun-test.git
+git clone https://github.com/Ac-Hanxin/sixteen-personality-fun-test.git
 cd sixteen-personality-fun-test
 ```
 

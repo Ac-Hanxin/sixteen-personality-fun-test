@@ -54,7 +54,7 @@ Turn your AI agent into a restrained, transparent test host: 48 questions in 6 g
 
 Nothing to install? The repo ships a fully client-side web version that works on phones:
 
-**https://a31897240-coder.github.io/sixteen-personality-fun-test/web/**
+**https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/**
 
 - 48 questions, one per screen, with undo; progress auto-saves to your browser's localStorage so a refresh or app switch never loses it; all scoring runs locally — answers never leave your device.
 - The result page includes the type character, eight-pole bars, the full profile, and a compact result card you can copy to your AI assistant.
@@ -67,13 +67,13 @@ To publish it (repo owner): GitHub → Settings → Pages → Deploy from a bran
 **Hermes edition** (demo setup; its long-term memory keeps the result):
 
 ```text
-请克隆 GitHub 项目 https://github.com/a31897240-coder/sixteen-personality-fun-test ，将整个目录复制到 ~/.hermes/skills/sixteen-personality-fun-test（保留 SKILL.md、references/、scripts/、assets/ 的相对位置），确认 sixteen-personality-fun-test 技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
+请克隆 GitHub 项目 https://github.com/Ac-Hanxin/sixteen-personality-fun-test ，将整个目录复制到 ~/.hermes/skills/sixteen-personality-fun-test（保留 SKILL.md、references/、scripts/、assets/ 的相对位置），确认 sixteen-personality-fun-test 技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
 ```
 
 **Generic edition** (Claude Code / Codex / other skill-capable clients):
 
 ```text
-请克隆 GitHub 项目 https://github.com/a31897240-coder/sixteen-personality-fun-test ，将整个目录复制到我的技能目录（Claude Code 为 ~/.claude/skills/，Codex 为 ~/.codex/skills/，其他客户端以实际配置为准），目录名保持 sixteen-personality-fun-test 并保留内部相对结构，确认技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
+请克隆 GitHub 项目 https://github.com/Ac-Hanxin/sixteen-personality-fun-test ，将整个目录复制到我的技能目录（Claude Code 为 ~/.claude/skills/，Codex 为 ~/.codex/skills/，其他客户端以实际配置为准），目录名保持 sixteen-personality-fun-test 并保留内部相对结构，确认技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
 ```
 
 (The prompts are intentionally in Chinese — they drive a Chinese-language assessment.)
@@ -88,7 +88,7 @@ To publish it (repo owner): GitHub → Settings → Pages → Deploy from a bran
 **Install**
 
 ```bash
-git clone https://github.com/a31897240-coder/sixteen-personality-fun-test.git
+git clone https://github.com/Ac-Hanxin/sixteen-personality-fun-test.git
 cd sixteen-personality-fun-test
 ```
 
