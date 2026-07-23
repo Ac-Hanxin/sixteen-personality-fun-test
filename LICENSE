@@ -1,0 +1,12 @@
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+This package is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. You may share and adapt the material with appropriate attribution, for noncommercial purposes, and under the same license. The canonical license terms at the URL above control.
+
+This package adapts the Open Jungian Type Scales / Open Extended Jungian Type Scales by Eric Jorgenson.
+Source: https://openpsychometrics.org/tests/OJTS/
+License: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International.
+
+Adaptations include a Simplified Chinese translation, Agent interaction workflow, deterministic scoring implementation, original type-profile copy, original SVG documentation graphics, and AI-generated original character illustrations used in the README.
+
+This package is not affiliated with or endorsed by Eric Jorgenson, The Myers-Briggs Company, or 16Personalities.

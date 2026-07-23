@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>16 型人格趣味测试 · 零安装在线版</title>
+<meta name="description" content="基于 OJTS 2.1 的 48 题中文 16 型人格娱乐测试，浏览器本地计分，结果不上传。">
+<style>
+  :root {
+    --navy: #243B78; --ink: #172033; --muted: #56627A; --line: #E3E7EE;
+    --teal: #2E8B72; --amber: #C08A00; --red: #C0554A; --bg: #F6F8FC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.6;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 20px 16px 48px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px; margin-bottom: 16px; }
+  h1 { font-size: 26px; margin-bottom: 6px; }
+  h2 { font-size: 20px; margin-bottom: 10px; }
+  h3 { font-size: 16px; margin: 18px 0 6px; color: var(--navy); }
+  .muted { color: var(--muted); font-size: 14px; }
+  .hero { width: 100%; border-radius: 12px; display: block; }
+  .btn {
+    display: block; width: 100%; padding: 14px; margin-top: 12px; border: 0; border-radius: 12px;
+    background: var(--navy); color: #fff; font-size: 17px; font-weight: 700; cursor: pointer;
+  }
+  .btn.ghost { background: #fff; color: var(--navy); border: 2px solid var(--navy); }
+  .progress-track { height: 8px; background: #E5EAF3; border-radius: 4px; overflow: hidden; margin: 10px 0 4px; }
+  .progress-fill { height: 100%; background: var(--navy); border-radius: 4px; transition: width .2s; }
+  .qtext { font-size: 20px; font-weight: 700; margin: 14px 0 18px; line-height: 1.5; }
+  .opt {
+    display: flex; align-items: center; width: 100%; text-align: left; padding: 13px 16px; margin-top: 10px;
+    background: #fff; border: 2px solid var(--line); border-radius: 12px; font-size: 16px; cursor: pointer;
+  }
+  .opt:hover, .opt:focus { border-color: var(--navy); }
+  .opt .dot { width: 26px; height: 26px; border-radius: 50%; background: var(--navy); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; margin-right: 12px; flex: none; }
+  .bi-scale { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin: 18px 0 6px; }
+  .bi-word { flex: 1; font-size: 15px; font-weight: 700; color: var(--navy); }
+  .bi-word.right { text-align: right; }
+  .bi-opts { display: flex; justify-content: center; gap: 10px; margin: 14px 0 4px; }
+  .bi-opt { width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--line); background: #fff;
+    font-size: 17px; font-weight: 700; cursor: pointer; color: var(--muted); }
+  .bi-opt:hover, .bi-opt:focus { border-color: var(--navy); color: var(--navy); }
+  .bi-hint { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+  .bi-hint span { width: 33%; }
+  .bi-hint span:nth-child(2) { text-align: center; }
+  .bi-hint span:last-child { text-align: right; }
+  .row { display: flex; gap: 10px; margin-top: 14px; }
+  .row .btn { margin-top: 0; }
+  .avatar { width: 168px; border-radius: 14px; display: block; margin: 4px auto 12px; }
+  .type-code { font-size: 34px; font-weight: 800; letter-spacing: 2px; color: var(--navy); text-align: center; }
+  .type-nick { font-size: 19px; font-weight: 700; text-align: center; }
+  .type-meme { text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+  .axis { margin-top: 12px; }
+  .axis-label { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .axis-bar { height: 14px; border-radius: 7px; background: #E5EAF3; display: flex; overflow: hidden; }
+  .axis-bar > div { height: 100%; }
+  .axis-note { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .chip { padding: 8px 14px; border-radius: 999px; border: 2px solid var(--navy); background: #fff;
+    color: var(--navy); font-weight: 700; font-size: 14px; cursor: pointer; }
+  .chip.on { background: var(--navy); color: #fff; }
+  pre.cardtext {
+    background: #F2F5FB; border: 1px solid var(--line); border-radius: 12px; padding: 14px;
+    font-size: 13.5px; line-height: 1.7; white-space: pre-wrap; word-break: break-all;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin-top: 12px;
+  }
+  .second-item { display: flex; gap: 12px; margin-top: 14px; align-items: center; }
+  .second-avatar { width: 64px; border-radius: 10px; flex: none; }
+  .second-title { font-weight: 700; font-size: 15px; }
+  .second-one { font-size: 13.5px; color: var(--muted); }
+  .fineprint { font-size: 12.5px; color: var(--muted); }
+  .hidden { display: none; }
+  a { color: var(--navy); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 欢迎页 -->
+  <section id="welcome">
+    <div class="card">
+      <h1>16 型人格趣味测试</h1>
+      <p class="muted">基于 Open Jungian Type Scales 2.1 · 本地确定性计分 · 仅供娱乐</p>
+      <p style="margin:14px 0;"><img class="hero" src="../assets/type-characters.webp" alt="16 型人格角色群像"></p>
+      <p>共 <strong>48 题</strong>，约 5–8 分钟。前 40 题选同意程度，后 8 题选左右倾向。</p>
+      <p class="muted" style="margin-top:8px;">所有计分都在你的浏览器里完成：答案只保存在本机浏览器中用于断点续答，不上传、不共享；点「重新测试」即清除。本测试不是官方 MBTI，仅供娱乐与自我探索，不能用于医疗、招聘等用途。</p>
+      <button class="btn" id="startBtn">开始测试</button>
+      <button class="btn ghost hidden" id="freshBtn">重新开始（清除本地记录）</button>
+    </div>
+  </section>
+
+  <!-- 答题页 -->
+  <section id="quiz" class="hidden">
+    <div class="card">
+      <div class="muted" id="counter">第 1 / 48 题</div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:2%"></div></div>
+      <div id="likertBox">
+        <div class="qtext" id="qtext"></div>
+        <div id="likertOpts"></div>
+      </div>
+      <div id="bipolarBox" class="hidden">
+        <div class="bi-scale">
+          <div class="bi-word" id="leftWord"></div>
+          <div class="bi-word right" id="rightWord"></div>
+        </div>
+        <div class="bi-opts" id="bipolarOpts"></div>
+        <div class="bi-hint"><span>1 偏左</span><span>3 居中</span><span>5 偏右</span></div>
+      </div>
+      <div class="row">
+        <button class="btn ghost" id="undoBtn" style="visibility:hidden">上一题</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 结果页：画像在前，八极分数在后 -->
+  <section id="result" class="hidden">
+    <div class="card">
+      <img class="avatar" id="avatar" src="" alt="类型角色形象">
+      <div class="type-code" id="typeCode"></div>
+      <div class="type-nick" id="typeNick"></div>
+      <div class="type-meme" id="typeMeme"></div>
+      <p class="muted" id="typeOne" style="text-align:center;"></p>
+    </div>
+
+    <div class="card hidden" id="candidateCard">
+      <h2>这组维度平分了</h2>
+      <p class="muted" id="boundaryNote"></p>
+      <p class="muted" style="margin-top:8px;">按固定规则展示全部候选中的首个类型；同一组答案永远得到同一结果，不支持手动调换。</p>
+    </div>
+
+    <div class="card" id="profileCard">
+      <h2 id="profileTitle"></h2>
+      <div id="profileBody"></div>
+    </div>
+
+    <div class="card hidden" id="secondCard">
+      <h2>次人格</h2>
+      <div id="secondBody"></div>
+    </div>
+
+    <div class="card" id="boundaryCard">
+      <h2>八极分数</h2>
+      <div id="axesBox"></div>
+      <div id="secondBox" class="muted" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="card">
+      <h2>保存或分享</h2>
+      <p class="muted">两个选项：保存一张包含全部结果的长图，或复制存档提示词发给你的 AI 助理。</p>
+      <button class="btn" id="saveImageBtn">保存分析结果（长图）</button>
+      <pre class="cardtext" id="resultCard"></pre>
+      <button class="btn ghost" id="copyPromptBtn">复制「发给助理」的存档提示词</button>
+      <p class="fineprint" id="copyHint" style="margin-top:8px;"></p>
+    </div>
+
+    <div class="card">
+      <p class="fineprint">
+        本测试改编自 Eric Jorgenson 的 Open Jungian Type Scales 2.1（CC BY-NC-SA 4.0），
+        中文翻译与页面由 sixteen-personality-fun-test 项目提供，与 16Personalities、The Myers-Briggs Company 均无关联。
+        结果仅供娱乐与自我观察，不构成医学、心理或招聘建议。计分全程在本地浏览器完成。
+      </p>
+      <button class="btn ghost" id="restartBtn" style="margin-top:14px;">重新测试</button>
+    </div>
+  </section>
+
+</div>
+
+<script src="data.js"></script>
+<script src="scoring.js"></script>
+<script>
+(function () {
+  "use strict";
+  var DATA = window.OJTS_DATA, SCORING = window.OJTS_SCORING;
+  var items = DATA.items, profiles = DATA.profiles;
+  var answers = new Array(48).fill(null);
+  var cur = 0, result = null, chosenType = null;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var LIKERT_LABELS = ["不同意", "较不同意", "中立", "较同意", "同意"];
+
+  /* ---------- 断点续答（localStorage，仅存本机浏览器） ---------- */
+  var STORE_KEY = "ojts21_state";
+  var readOnly = false;  // #demo 等演示模式下不读写本地记录，避免覆盖真实进度
+
+  function saveState() {
+    if (readOnly) return;
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify({ answers: answers, cur: cur, chosenType: chosenType }));
+    } catch (e) { /* 隐私模式等场景下静默失败，不影响作答 */ }
+  }
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return null;
+      var s = JSON.parse(raw);
+      if (!s || !Array.isArray(s.answers) || s.answers.length !== 48) return null;
+      var valid = s.answers.every(function (v) {
+        return v === null || (Number.isInteger(v) && v >= 1 && v <= 5);
+      });
+      return valid ? s : null;
+    } catch (e) { return null; }
+  }
+
+  function clearState() {
+    try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+  }
+
+  function show(id) {
+    ["welcome", "quiz", "result"].forEach(function (s) { $(s).classList.toggle("hidden", s !== id); });
+    window.scrollTo(0, 0);
+  }
+
+  function renderQuestion() {
+    var item = items[cur];
+    $("counter").textContent = "第 " + (cur + 1) + " / 48 题";
+    $("progressFill").style.width = Math.round(((cur + 1) / 48) * 100) + "%";
+    var isBipolar = item.kind === "bipolar";
+    $("likertBox").classList.toggle("hidden", isBipolar);
+    $("bipolarBox").classList.toggle("hidden", !isBipolar);
+    if (isBipolar) {
+      $("leftWord").textContent = item.left_zh;
+      $("rightWord").textContent = item.right_zh;
+      var box = $("bipolarOpts");
+      box.innerHTML = "";
+      for (var v = 1; v <= 5; v++) {
+        (function (val) {
+          var b = document.createElement("button");
+          b.className = "bi-opt";
+          b.textContent = val;
+          b.onclick = function () { answer(val); };
+          box.appendChild(b);
+        })(v);
+      }
+    } else {
+      $("qtext").textContent = item.zh_cn;
+      var lbox = $("likertOpts");
+      lbox.innerHTML = "";
+      LIKERT_LABELS.forEach(function (label, i) {
+        var b = document.createElement("button");
+        b.className = "opt";
+        b.innerHTML = '<span class="dot">' + (i + 1) + "</span><span>" + label + "</span>";
+        b.onclick = function () { answer(i + 1); };
+        lbox.appendChild(b);
+      });
+    }
+    $("undoBtn").style.visibility = cur > 0 ? "visible" : "hidden";
+  }
+
+  function answer(v) {
+    answers[cur] = v;
+    saveState();
+    if (cur < 47) { cur++; renderQuestion(); }
+    else finish();
+  }
+
+  function finish() {
+    result = SCORING.summarizeScores(SCORING.scoreAnswers(items, answers));
+    chosenType = result.candidates[0];  // 固定规则：平分也确定，不可手动调换
+    saveState();
+    renderResult();
+    show("result");
+  }
+
+  function pct(x) { return Math.round(x * 100) + "%"; }
+
+  function renderResult() {
+    renderAxes();
+    renderCandidateCard();
+    renderType(chosenType);
+    renderSecond();
+    renderResultCard();
+  }
+
+  function weakestAxes() {
+    var weakest = Math.min.apply(null, result.axes.map(function (a) { return a.difference; }));
+    return {
+      diff: weakest,
+      axes: result.axes.filter(function (a) { return a.difference === weakest; })
+        .map(function (a) { return a.axis; }).join("、")
+    };
+  }
+
+  function secondInfo() {
+    if (result.second_candidates.length) {
+      var w = weakestAxes();
+      var others = result.second_candidates.slice(1);
+      return {
+        list: [result.second_candidates[0]],
+        note: "你在 " + w.axes + " 维度分差最小（" + w.diff + " 分），这个类型的偏好也可能在不同情境出现" +
+          (others.length ? "（另有 " + others.length + " 个同样接近的类型：" + others.join("、") + "）" : "") + "："
+      };
+    }
+    if (result.boundary_axes.length && result.candidates.length > 1) {
+      return {
+        list: [result.candidates[1]],
+        note: "原始类型含平分维度（" + result.raw_type + "），主结果为固定顺序首个候选；此候选与你的答案同样接近" +
+          (result.candidates.length > 2 ? "（共 " + result.candidates.length + " 个候选，其余不再展开）" : "") + "："
+      };
+    }
+    return null;
+  }
+
+  function renderSecond() {
+    var info = secondInfo();
+    $("secondCard").classList.toggle("hidden", !info);
+    if (!info) return;
+    var list = info.list;
+    var body = $("secondBody");
+    body.innerHTML = "";
+    var note = document.createElement("p");
+    note.className = "muted";
+    note.textContent = info.note;
+    body.appendChild(note);
+    list.forEach(function (t) {
+      var p = profiles[t];
+      var div = document.createElement("div");
+      div.className = "second-item";
+      div.innerHTML = '<img class="second-avatar" src="../assets/avatars/' + t.toLowerCase() + '.webp" alt="' + t + '">' +
+        '<div><div class="second-title">' + t + ' · ' + p.nick + '（' + p.meme + '）</div>' +
+        '<div class="second-one">' + p.one + '</div></div>';
+      body.appendChild(div);
+    });
+  }
+
+  function renderAxes() {
+    var box = $("axesBox");
+    box.innerHTML = "";
+    result.axes.forEach(function (a) {
+      var names = a.axis.split("/");
+      var div = document.createElement("div");
+      div.className = "axis";
+      var note = a.chosen === "X"
+        ? "完全平分（标记为 X）"
+        : "偏向 " + a.chosen + " · 分差 " + a.difference;
+      div.innerHTML =
+        '<div class="axis-label">' + names[0] + " " + a.left + " / " + names[1] + " " + a.right + "</div>" +
+        '<div class="axis-bar"><div style="width:' + pct(a.left_ratio) + ";background:#A2AFC7\"></div>" +
+        '<div style="width:' + pct(a.right_ratio) + ';background:#5069AC"></div></div>' +
+        '<div class="axis-note">' + pct(a.left_ratio) + " : " + pct(a.right_ratio) + " · " + note + "</div>";
+      box.appendChild(div);
+    });
+    $("secondBox").textContent = result.second_candidates.length
+      ? "最接近的第二候选：" + result.second_candidates.join("、") + "（分差最小的维度翻转而来）"
+      : "";
+  }
+
+  function renderCandidateCard() {
+    var has = result.boundary_axes.length > 0;
+    $("candidateCard").classList.toggle("hidden", !has);
+    if (!has) return;
+    $("boundaryNote").textContent =
+      "以下维度完全平分：" + result.boundary_axes.join("、") + "，原始类型为 " + result.raw_type +
+      "；全部候选：" + result.candidates.join("、") + "。";
+  }
+
+  function renderType(code) {
+    var p = profiles[code];
+    $("avatar").src = "../assets/avatars/" + code.toLowerCase() + ".webp";
+    $("avatar").alt = code + " · " + p.nick + "（" + p.meme + "）角色形象";
+    $("typeCode").textContent = code;
+    $("typeNick").textContent = "根据测试结果，您是 " + code + "（" + p.meme + "）";
+    $("typeMeme").textContent = p.nick;
+    $("typeOne").textContent = p.one;
+    $("profileTitle").textContent = code + " · " + p.nick + "（" + p.meme + "）";
+    var body = $("profileBody");
+    body.innerHTML = "";
+    [["画像", p.portrait], ["优势", p.strengths], ["容易踩的坑", p.pitfalls],
+     ["社交", p.social], ["决策", p.decision], ["压力", p.stress], ["观察建议", p.advice]]
+      .forEach(function (pair) {
+        var h = document.createElement("h3");
+        h.textContent = pair[0];
+        var para = document.createElement("p");
+        para.textContent = pair[1];
+        body.appendChild(h);
+        body.appendChild(para);
+      });
+  }
+
+  function today() {
+    var d = new Date();
+    var m = String(d.getMonth() + 1).padStart(2, "0");
+    var day = String(d.getDate()).padStart(2, "0");
+    return d.getFullYear() + "-" + m + "-" + day;
+  }
+
+  function stripMarks(text) {
+    return text.replace(/[①②③]\s*/g, "").replace(/；\s*$/, "").replace(/。$/, "");
+  }
+
+  function resultCardText() {
+    var s = result.scores;
+    var boundary = result.boundary_axes.length
+      ? "\n平分维度：" + result.boundary_axes.join("、") + "（原始类型 " + result.raw_type + "，按固定规则展示首个候选 " + chosenType + "）"
+      : "";
+    var second = result.second_candidates.length
+      ? "\n次人格：" + result.second_candidates.map(function (t) {
+          return t + " · " + profiles[t].nick + "（" + profiles[t].meme + "）";
+        }).join("、")
+      : "";
+    var p = profiles[chosenType];
+    return "【16 型人格趣味测试 · 结果卡】\n" +
+      "日期：" + today() + "\n" +
+      "类型：" + chosenType + " · " + p.nick + "（社区俗称：" + p.meme + "）\n" +
+      "八极分数：E " + s.E + " / I " + s.I + " · S " + s.S + " / N " + s.N +
+        " · T " + s.T + " / F " + s.F + " · J " + s.J + " / P " + s.P + "\n" +
+      "分差：E/I " + Math.abs(s.E - s.I) + " · S/N " + Math.abs(s.S - s.N) +
+        " · T/F " + Math.abs(s.T - s.F) + " · J/P " + Math.abs(s.J - s.P) +
+      second + boundary + "\n" +
+      "一句话：" + p.one + "\n" +
+      "优势：" + stripMarks(p.strengths) + "\n" +
+      "容易踩的坑：" + stripMarks(p.pitfalls) + "\n" +
+      "决策风格：" + p.decision + "\n" +
+      "说明：基于 OJTS 2.1 的中文娱乐测试（非官方 MBTI），非诊断、非临床，仅作自我观察参考。";
+  }
+
+  function renderResultCard() {
+    $("resultCard").textContent = resultCardText();
+  }
+
+  function copyText(text, doneMsg) {
+    var hint = $("copyHint");
+    function ok() { hint.textContent = doneMsg; }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); ok(); }
+      catch (e) { hint.textContent = "复制失败，请长按文本手动选择复制。"; }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(ok, fallback);
+    } else fallback();
+  }
+
+  /* ---------- 长图生成 ---------- */
+
+  function loadAvatars64(cb) {
+    if (window.OJTS_AVATARS) return cb();
+    var s = document.createElement("script");
+    s.src = "avatars64.js";
+    s.onload = function () { cb(); };
+    s.onerror = function () { $("copyHint").textContent = "头像数据加载失败，请联网或通过 GitHub Pages 访问。"; };
+    document.head.appendChild(s);
+  }
+
+  function wrapLines(ctx, text, maxWidth) {
+    var lines = [], line = "";
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i];
+      if (ctx.measureText(line + ch).width > maxWidth && line) {
+        var sp = line.lastIndexOf(" ");
+        if (sp > 0 && /[A-Za-z0-9]/.test(ch)) {
+          lines.push(line.slice(0, sp));
+          line = line.slice(sp + 1) + ch;
+        } else {
+          lines.push(line);
+          line = ch;
+        }
+      } else line += ch;
+    }
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  function paintLongImage(ctx, W, imgs, measure) {
+    var PAD = 56, CW = W - PAD * 2, y = 0;
+    var p = profiles[chosenType];
+    var FONT = '-apple-system, "PingFang SC", "Microsoft YaHei", sans-serif';
+    function text(str, x, font, color, align) {
+      ctx.font = font; ctx.fillStyle = color; ctx.textAlign = align || "left";
+      if (!measure) ctx.fillText(str, x, y);
+    }
+    function wrapped(str, font, color, lineH, align) {
+      ctx.font = font;
+      var lines = wrapLines(ctx, str, CW);
+      for (var i = 0; i < lines.length; i++) {
+        y += lineH;
+        text(lines[i], align === "center" ? W / 2 : PAD, font, color, align);
+      }
+      return lines.length;
+    }
+    function gap(h) { y += h; }
+    function divider() {
+      gap(22);
+      if (!measure) {
+        ctx.strokeStyle = "#E3E7EE"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y); ctx.stroke();
+      }
+      gap(22);
+    }
+
+    // 头部
+    gap(44);
+    text("16 型人格趣味测试 · 分析报告", PAD, '700 30px ' + FONT, "#56627A");
+    gap(48);
+    text(today() + " · 基于 OJTS 2.1 · 仅供娱乐", PAD, '24px ' + FONT, "#8A93A6");
+    gap(28);
+    var AV = 240;
+    var mainAvatar = imgs[chosenType] || null;
+    if (!measure && mainAvatar) ctx.drawImage(mainAvatar, (W - AV) / 2, y, AV, AV * mainAvatar.height / mainAvatar.width);
+    gap(AV * (mainAvatar ? mainAvatar.height / mainAvatar.width : 1) + 40);
+    text("根据测试结果，您是", W / 2, '28px ' + FONT, "#56627A", "center");
+    gap(108);
+    text(chosenType + "（" + p.meme + "）", W / 2, '800 64px ' + FONT, "#243B78", "center");
+    gap(80);
+    text(p.nick, W / 2, '700 34px ' + FONT, "#172033", "center");
+    gap(56);
+    wrapped(p.one, '27px ' + FONT, "#56627A", 40, "center");
+    divider();
+
+    // 画像等段落（在八极分数之前）
+    [["画像", p.portrait], ["优势", p.strengths], ["容易踩的坑", p.pitfalls],
+     ["社交", p.social], ["决策", p.decision], ["压力", p.stress], ["观察建议", p.advice]]
+      .forEach(function (pair) {
+        gap(24);
+        y += 34;
+        text(pair[0], PAD, '700 31px ' + FONT, "#243B78");
+        gap(8);
+        wrapped(pair[1], '27px ' + FONT, "#394760", 44);
+      });
+    // 次人格（第二候选）
+    var sinfo = secondInfo();
+    if (sinfo) {
+      gap(10);
+      y += 34;
+      text("次人格", PAD, '700 31px ' + FONT, "#243B78");
+      gap(8);
+      wrapped(sinfo.note, '24px ' + FONT, "#56627A", 34);
+      sinfo.list.forEach(function (t) {
+        var sp = profiles[t];
+        var img2 = imgs[t] || null;
+        var ah = img2 ? Math.round(96 * img2.height / img2.width) : 96;
+        gap(18);
+        var top = y;
+        if (!measure && img2) ctx.drawImage(img2, PAD, top, 96, ah);
+        var tx = PAD + 116;
+        ctx.font = '700 27px ' + FONT;
+        if (!measure) {
+          ctx.fillStyle = "#172033"; ctx.textAlign = "left";
+          ctx.fillText(t + " · " + sp.nick + "（" + sp.meme + "）", tx, top + 34);
+        }
+        ctx.font = '24px ' + FONT;
+        var lines = wrapLines(ctx, sp.one, CW - 116);
+        if (!measure) {
+          ctx.fillStyle = "#56627A"; ctx.textAlign = "left";
+          for (var i = 0; i < lines.length; i++) ctx.fillText(lines[i], tx, top + 70 + i * 32);
+        }
+        var textH = 70 + (lines.length - 1) * 32 + 8;
+        y = top + Math.max(ah, textH) + 6;
+      });
+    }
+    divider();
+
+    // 八极分数
+    gap(6);
+    text("八极分数", PAD, '700 31px ' + FONT, "#243B78");
+    gap(14);
+    result.axes.forEach(function (a) {
+      var names = a.axis.split("/");
+      gap(40);
+      text(names[0] + " " + a.left + " / " + names[1] + " " + a.right, PAD, '700 27px ' + FONT, "#172033");
+      gap(12);
+      var bh = 22, bw1 = Math.round(CW * a.left_ratio), bw2 = CW - bw1;
+      if (!measure) {
+        ctx.fillStyle = "#A2AFC7"; ctx.fillRect(PAD, y, bw1, bh);
+        ctx.fillStyle = "#5069AC"; ctx.fillRect(PAD + bw1, y, bw2, bh);
+      }
+      gap(bh + 24);
+      var note = a.chosen === "X" ? "完全平分（X）" : "偏向 " + a.chosen + " · 分差 " + a.difference;
+      text(Math.round(a.left_ratio * 100) + "% : " + Math.round(a.right_ratio * 100) + "% · " + note,
+        PAD, '23px ' + FONT, "#56627A");
+      gap(34);
+    });
+    if (result.second_candidates.length) {
+      gap(6);
+      wrapped("最接近的第二候选：" + result.second_candidates.join("、"), '24px ' + FONT, "#56627A", 34);
+    }
+    if (result.boundary_axes.length) {
+      gap(6);
+      wrapped("完全平分维度：" + result.boundary_axes.join("、") + "（原始类型 " + result.raw_type + "，按固定规则展示首个候选 " + chosenType + "）",
+        '24px ' + FONT, "#56627A", 34);
+    }
+    divider();
+
+    // 页脚
+    wrapped("改编自 Eric Jorgenson 的 OJTS 2.1（CC BY-NC-SA 4.0）· 与 16Personalities、The Myers-Briggs Company 均无关联 · 非诊断、非临床",
+      '22px ' + FONT, "#8A93A6", 32, "center");
+    gap(40);
+    return y;
+  }
+
+  function saveLongImage() {
+    var hint = $("copyHint");
+    hint.textContent = "正在生成图片…";
+    loadAvatars64(function () {
+      var codes = [chosenType].concat(secondInfo() ? secondInfo().list : []);
+      var imgs = {}, pending = codes.length;
+      codes.forEach(function (c) {
+        var im = new Image();
+        im.onload = function () { imgs[c] = im; if (--pending === 0) paint(imgs); };
+        im.onerror = function () { if (--pending === 0) paint(imgs); };
+        im.src = window.OJTS_AVATARS[c];
+      });
+      function paint(imgs) {
+        var W = 1080;
+        var probe = document.createElement("canvas").getContext("2d");
+        var H = paintLongImage(probe, W, imgs, true);
+        var canvas = document.createElement("canvas");
+        canvas.width = W; canvas.height = H;
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#FFFFFF"; ctx.fillRect(0, 0, W, H);
+        paintLongImage(ctx, W, imgs, false);
+        if (location.hash === "#shot") {  // 自测钩子：插入页面供截图，不触发下载
+          canvas.style.width = "100%";
+          document.body.appendChild(canvas);
+          return;
+        }
+        canvas.toBlob(function (blob) {
+          if (!blob) { hint.textContent = "图片生成失败（浏览器内存不足），请重试。"; return; }
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "16型人格-" + chosenType + "-" + today() + ".png";
+          a.click();
+          setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
+          hint.textContent = "长图已保存（在下载记录里找）。";
+        }, "image/png");
+      }
+    });
+  }
+
+  function startFresh() {
+    readOnly = false;
+    clearState();
+    answers = new Array(48).fill(null);
+    cur = 0; result = null; chosenType = null;
+    show("quiz");
+    renderQuestion();
+  }
+
+  $("startBtn").onclick = function () {
+    readOnly = false;
+    var s = loadState();
+    if (s) {
+      answers = s.answers;
+      cur = Math.min(Math.max(0, s.cur || 0), 47);
+      chosenType = s.chosenType || null;
+      if (answers.every(function (v) { return v !== null; })) { finish(); return; }
+      while (cur < 47 && answers[cur] !== null) cur++;  // 跳到第一个未答题
+      show("quiz");
+      renderQuestion();
+      return;
+    }
+    answers = new Array(48).fill(null);
+    cur = 0;
+    show("quiz");
+    renderQuestion();
+  };
+  $("freshBtn").onclick = startFresh;
+  $("undoBtn").onclick = function () { if (cur > 0) { cur--; renderQuestion(); saveState(); } };
+  $("saveImageBtn").onclick = saveLongImage;
+  $("copyPromptBtn").onclick = function () {
+    copyText(
+      "下面是我的 16 型人格趣味测试结果卡，请把它存入你的长期记忆。\n\n" +
+        resultCardText() +
+        "\n\n使用约定：以后我向你咨询决策、复盘或自我分析时，请把以上人格档案作为分析的参考依据之一，结合具体问题综合判断；它来自娱乐测试，代表倾向而非定论，不要据此给我贴标签或做宿命式断言。",
+      "已复制存档提示词，直接发给你的助理即可。"
+    );
+  };
+  $("restartBtn").onclick = function () {
+    if (!readOnly) clearState();
+    readOnly = false;
+    answers = new Array(48).fill(null);
+    cur = 0; result = null; chosenType = null;
+    show("welcome");
+    updateWelcomeButtons();
+  };
+
+  function updateWelcomeButtons() {
+    var s = loadState();
+    var has = !!(s && s.answers.some(function (v) { return v !== null; }));
+    $("freshBtn").classList.toggle("hidden", !has);
+    if (!has) {
+      $("startBtn").textContent = "开始测试";
+      return;
+    }
+    var done = s.answers.filter(function (v) { return v !== null; }).length;
+    $("startBtn").textContent = done >= 48 ? "查看上次结果" : "继续上次作答（" + done + "/48）";
+  }
+
+  // 深链：#quiz 直接开测；#demo 用示例答案直接查看结果页样式
+  var DEMO_ANSWERS = [5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2,
+    1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3];
+  if (location.hash === "#quiz") {
+    show("quiz");
+    renderQuestion();
+  } else if (location.hash === "#demo" || location.hash === "#shot") {
+    readOnly = true;  // 演示结果不写入本地记录
+    answers = DEMO_ANSWERS.slice();
+    finish();
+    if (location.hash === "#shot") setTimeout(saveLongImage, 300);
+  } else {
+    updateWelcomeButtons();
+  }
+})();
+</script>
+</body>
+</html>

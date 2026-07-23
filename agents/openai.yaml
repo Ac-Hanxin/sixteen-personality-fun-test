@@ -1,0 +1,4 @@
+interface:
+  display_name: "16 型人格趣味测试"
+  short_description: "基于开放量表与透明计分的中文 16 型人格娱乐测试"
+  default_prompt: "请使用 $sixteen-personality-fun-test 为我进行一次完整的 16 型人格趣味测试。"

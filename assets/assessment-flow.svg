@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">本地可复现测评流程</title>
+  <desc id="desc">6 轮每轮 8 题，经过格式校验和本地 score.py，得到八极分数与娱乐化报告。完全平分标记为 X；非平分展示分差并给出最接近的第二候选。本 Skill 不把答案写入本地文件，不另行提交给 OJTS 或第三方测试服务；当前对话受平台数据政策与配置约束。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#56627A"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#172033" flood-opacity="0.09"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="675" fill="#F7F9FC"/>
+  <text x="64" y="76" fill="#172033" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif" font-size="34" font-weight="700">本地脚本确定性计分，结果可以复算</text>
+  <text x="64" y="114" fill="#4A5B78" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif" font-size="18">从收集到报告的六个明确步骤</text>
+
+  <g fill="none" stroke="#56627A" stroke-width="2.5" marker-end="url(#arrow)">
+    <path d="M 208 303 H 218"/>
+    <path d="M 398 303 H 408"/>
+    <path d="M 588 303 H 598"/>
+    <path d="M 778 303 H 788"/>
+    <path d="M 968 303 H 978"/>
+  </g>
+
+  <g filter="url(#shadow)" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif">
+    <rect x="34" y="222" width="170" height="162" rx="18" fill="#FFFFFF" stroke="#B7C4E8" stroke-width="2"/>
+    <rect x="224" y="222" width="170" height="162" rx="18" fill="#FFFFFF" stroke="#A8D5D0" stroke-width="2"/>
+    <rect x="414" y="222" width="170" height="162" rx="18" fill="#FFFFFF" stroke="#E4C98D" stroke-width="2"/>
+    <rect x="604" y="222" width="170" height="162" rx="18" fill="#FFFFFF" stroke="#B7C4E8" stroke-width="2"/>
+    <rect x="794" y="222" width="170" height="162" rx="18" fill="#FFFFFF" stroke="#A8D5D0" stroke-width="2"/>
+    <rect x="984" y="222" width="182" height="162" rx="18" fill="#243B78"/>
+  </g>
+
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif">
+    <text x="58" y="255" fill="#5D6B83" font-size="14" font-weight="700">STEP 01</text>
+    <text x="119" y="307" text-anchor="middle" fill="#243B78" font-size="26" font-weight="750">6 轮 × 8 题</text>
+    <text x="119" y="341" text-anchor="middle" fill="#56627A" font-size="15">逐轮收齐 48 个答案</text>
+
+    <text x="248" y="255" fill="#5D6B83" font-size="14" font-weight="700">STEP 02</text>
+    <text x="309" y="307" text-anchor="middle" fill="#176B63" font-size="24" font-weight="750">格式校验</text>
+    <text x="309" y="341" text-anchor="middle" fill="#56627A" font-size="15">数量、类型与范围</text>
+
+    <text x="438" y="255" fill="#5D6B83" font-size="14" font-weight="700">STEP 03</text>
+    <text x="499" y="296" text-anchor="middle" fill="#8B5B08" font-size="22" font-weight="750">本地</text>
+    <text x="499" y="325" text-anchor="middle" fill="#8B5B08" font-size="22" font-weight="750">score.py</text>
+    <text x="499" y="354" text-anchor="middle" fill="#56627A" font-size="15">确定性计分</text>
+
+    <text x="628" y="255" fill="#5D6B83" font-size="14" font-weight="700">STEP 04</text>
+    <text x="689" y="307" text-anchor="middle" fill="#243B78" font-size="24" font-weight="750">八极分数</text>
+    <text x="689" y="341" text-anchor="middle" fill="#56627A" font-size="15">E I · S N · T F · J P</text>
+
+    <text x="818" y="255" fill="#5D6B83" font-size="14" font-weight="700">STEP 05</text>
+    <text x="879" y="292" text-anchor="middle" fill="#176B63" font-size="21" font-weight="750">平分与候选</text>
+    <text x="879" y="326" text-anchor="middle" fill="#56627A" font-size="13">完全平分标记为 X</text>
+    <text x="879" y="349" text-anchor="middle" fill="#56627A" font-size="11">非平分展示分差</text>
+    <text x="879" y="369" text-anchor="middle" fill="#56627A" font-size="11">并给出最接近的第二候选</text>
+
+    <text x="1008" y="255" fill="#DCE5FF" font-size="14" font-weight="700">STEP 06</text>
+    <text x="1075" y="307" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="750">娱乐化报告</text>
+    <text x="1075" y="341" text-anchor="middle" fill="#DCE5FF" font-size="15">倾向，不是诊断</text>
+  </g>
+
+  <rect x="124" y="456" width="952" height="124" rx="36" fill="#E9EDF6"/>
+  <text x="600" y="490" text-anchor="middle" fill="#172033" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif" font-size="18" font-weight="700">本地文件 + Python 标准库</text>
+  <text x="600" y="522" text-anchor="middle" fill="#56627A" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif" font-size="15">本 Skill 不把答案写入本地文件，也不另行提交给 OJTS 或第三方测试服务</text>
+  <text x="600" y="551" text-anchor="middle" fill="#56627A" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif" font-size="15">答案仍由当前对话平台处理，受平台数据政策与配置约束</text>
+</svg>
