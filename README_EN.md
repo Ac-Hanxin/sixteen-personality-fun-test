@@ -113,12 +113,12 @@ The "community meme" names are Chinese internet nicknames for the 16Personalitie
 - **Traceable source**: `references/questions.json` keeps OJTS 2.1 original English items, IDs, scoring keys, version, and author attribution — compare it with the first-hand sources below.
 - **Reproducible scoring**: `scripts/score.py` uses only local deterministic rules (Python standard library, no external calls); identical 48 answers always yield identical scores and type. The web version's `web/scoring.js` is its score-by-score JS equivalent.
 - **Deterministic boundaries**: **exact ties are marked X**, with the first candidate (fixed order) shown; **non-tied axes show the difference and the closest second candidate**; ties for the smallest difference can yield multiple second candidates.
-- **Tested**: 32 unit tests — fixtures compared score-by-score with the public site, JS/Python scoring parity (requires `node`; skipped when absent), bank integrity, wording boundaries, and asset consistency.
+- **Tested**: 31 unit tests — fixtures compared score-by-score with the public site, JS/Python scoring parity (requires `node`; skipped when absent), bank integrity, wording boundaries, and asset consistency.
 
 **Development evidence**: the OJTS developer's public page describes the screening pipeline — **2,230** people took part in item exploration, a pool of **278** candidate items was generated, data from **25,568** participants was used for screening, and **48** final items were selected.
 
 <p align="center">
-  <img src="assets/evidence-chain.svg" width="760" alt="OJTS public development evidence chain: from participants and candidate items to 48 final items" />
+  <img src="assets/evidence-funnel.webp" width="640" alt="OJTS 2.1 public development evidence chain: 2,230 contributors, 278 candidate items, screened with 25,568 participants, 48 final items" />
 </p>
 
 All of **2,230, 278, 25,568, and 48** come from the developer's public page. They document a traceable development process — they are **not independent clinical certification**, and they cannot show the test is fit for medical diagnosis, hiring, or other high-stakes decisions.
@@ -203,7 +203,7 @@ sixteen-personality-fun-test/
 │   └── avatars64.js          # Base64 avatars for canvas rendering (generated)
 ├── assets/                   # Group image, 16 avatars, banner, sample images, SVG graphics
 ├── docs/character-prompts.md # AI-generation prompts and divergence rules for the characters
-├── tests/                    # 32 unit tests
+├── tests/                    # 31 unit tests
 └── LICENSE                   # CC BY-NC-SA 4.0
 ```
 
@@ -222,7 +222,7 @@ Assessment flow:
 python3 -m unittest discover -s tests -v
 ```
 
-32 tests cover: scoring correctness (including fixtures compared with the public site), score-by-score parity between the web version's JS and the Python scorer (requires `node`; skipped automatically when absent), question-bank integrity, profile structure and wording boundaries, the SKILL.md contract, and the consistency of this README with its image assets.
+31 tests cover: scoring correctness (including fixtures compared with the public site), score-by-score parity between the web version's JS and the Python scorer (requires `node`; skipped automatically when absent), question-bank integrity, profile structure and wording boundaries, the SKILL.md contract, and the consistency of this README with its image assets.
 
 </details>
 
