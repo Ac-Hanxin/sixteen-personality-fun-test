@@ -1,76 +1,47 @@
-<h1 align="center">16 Personalities Fun Test</h1>
-
 <p align="center">
-  <strong>A reproducible, agent-native Chinese workflow for the Open Jungian Type Scales 2.1</strong><br/>
-  <sub>48 questions · deterministic local scoring · strictly for entertainment</sub>
+  <img src="assets/banner.webp" width="900" alt="16 Personalities Fun Test: based on OJTS 2.1, deterministic local scoring, for entertainment" />
 </p>
 
 <p align="center">
-  <img alt="48 questions" src="https://img.shields.io/badge/questions-48-2f4b7c?style=flat-square" />
-  <img alt="4 axes, 8 poles" src="https://img.shields.io/badge/dimensions-4_axes_8_poles-2f4b7c?style=flat-square" />
-  <img alt="Python 3.9+" src="https://img.shields.io/badge/python-3.9%2B-2f4b7c?style=flat-square" />
-  <img alt="web version, zero install" src="https://img.shields.io/badge/web-zero_install-2f4b7c?style=flat-square" />
-  <img alt="local and deterministic scoring" src="https://img.shields.io/badge/scoring-local_%26_deterministic-2f4b7c?style=flat-square" />
-  <img alt="License: CC BY-NC-SA 4.0" src="https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-2f4b7c?style=flat-square" />
+  <strong>Turn your answers into a personality report that is honest about its boundaries: 48 questions · deterministic local scoring · type characters · shareable long image · archivable memory card</strong><br/>
+  <sub>A reproducible, agent-native Chinese workflow for the Open Jungian Type Scales 2.1 — for entertainment only.</sub>
 </p>
 
 <p align="center">
-  <a href="README.md">中文</a> · <strong>English</strong>
+  <a href="https://img.shields.io/badge/web-zero_install-2f4b7c?style=flat-square"><img alt="web version, zero install" src="https://img.shields.io/badge/web-zero_install-2f4b7c?style=flat-square" /></a>
+  <a href="https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-2f4b7c?style=flat-square"><img alt="License: CC BY-NC-SA 4.0" src="https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-2f4b7c?style=flat-square" /></a>
 </p>
 
 <p align="center">
-  <a href="#zero-install-web-version">Web version</a> ·
-  <a href="#one-prompt-deployment-copy--paste-to-your-agent">Deploy prompt</a> ·
-  <a href="#quick-start">Quick start</a> ·
-  <a href="#the-sixteen-types-at-a-glance">Type table</a> ·
-  <a href="#scoring-rules-and-boundaries">Scoring</a> ·
-  <a href="#where-credibility-comes-from">Credibility</a> ·
-  <a href="#privacy">Privacy</a> ·
-  <a href="#sources-attribution--license">License</a>
-</p>
-
-<p align="center">
-  <img src="assets/type-characters.webp" width="820" alt="16 personality type characters with their Chinese community nicknames" />
+  <a href="README.md">中文</a> · <strong>English</strong> ·
+  <a href="#three-ways-to-use-it">Usage</a> ·
+  <a href="#what-you-get">Results</a> ·
+  <a href="#the-sixteen-types-at-a-glance">Types</a> ·
+  <a href="#credibility--development-evidence">Credibility</a> ·
+  <a href="#developers">Developers</a>
 </p>
 
 ---
 
 > **Note:** the assessment itself — questions, reports, and type profiles — is in **Simplified Chinese**. This README is for developers who want to understand, install, or adapt the project.
 
-Turn your AI agent into a restrained, transparent test host: 48 questions in 6 guided rounds, deterministic local scoring, and a Chinese report that is honest about its own boundaries. No guessing, no exaggeration, no impersonating official instruments — every number can be traced back to a first-hand source.
+## Three ways to use it
 
-| Capability | Details |
-| --- | --- |
-| Zero-install web version | Open in a browser and start; mobile-friendly; fully client-side scoring; one-tap result card for your AI assistant |
-| One-prompt deployment | Paste a single prompt to your agent: clone, install, run the assessment, and save the result to long-term memory |
-| Guided answering | 48 questions in 6 rounds of 8; answers separated by spaces, commas (English or Chinese), or semicolons; only wrong slots are re-asked |
-| Deterministic local scoring | `scripts/score.py` uses only the Python standard library; identical answers always yield identical results |
-| Deterministic boundary handling | Exact ties are marked X; the first candidate (fixed order) is shown; non-tied axes show the difference and the closest second candidate |
-| Original Chinese profiles | Tendency-based copy for all 16 types: 3 strengths, 3 pitfalls, social style, decisions, stress, and observation tips |
-| Privacy-respecting | Answers are never written to local files, never submitted to OJTS or third-party test services, and no identity is requested |
-| Fully auditable | The bank keeps original English items, IDs, and scoring keys; 31 unit tests include fixtures compared score-by-score with the public site |
+| | Who | How |
+| --- | --- | --- |
+| **A · Web version** | Anyone, phone-friendly | Open **https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/** and start — nothing to install; `#demo` shows a sample result |
+| **B · One-prompt deploy** | People with an AI agent | Paste a prompt below to your agent: clone, install, assess, and save to long-term memory |
+| **C · Manual install** | Developers | See the [Developers](#developers) sections |
 
-## Zero-install web version
+**The prompt for B (copy & paste)**
 
-Nothing to install? The repo ships a fully client-side web version that works on phones:
-
-**https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/**
-
-- 48 questions, one per screen, with undo; progress auto-saves to your browser's localStorage so a refresh or app switch never loses it; all scoring runs locally — answers never leave your device.
-- The result page includes the type character, eight-pole bars, the full profile, and a compact result card you can copy to your AI assistant.
-- Preview the result page via `#demo`, or jump straight into the quiz via `#quiz`.
-
-To publish it (repo owner): GitHub → Settings → Pages → Deploy from a branch → `main` / `(root)`. The link goes live a few minutes later.
-
-## One-prompt deployment (copy & paste to your agent)
-
-**Hermes edition** (demo setup; its long-term memory keeps the result):
+Hermes edition (its long-term memory keeps the result):
 
 ```text
 请克隆 GitHub 项目 https://github.com/Ac-Hanxin/sixteen-personality-fun-test ，将整个目录复制到 ~/.hermes/skills/sixteen-personality-fun-test（保留 SKILL.md、references/、scripts/、assets/ 的相对位置），确认 sixteen-personality-fun-test 技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
 ```
 
-**Generic edition** (Claude Code / Codex / other skill-capable clients):
+Generic edition (Claude Code / Codex / other skill-capable clients):
 
 ```text
 请克隆 GitHub 项目 https://github.com/Ac-Hanxin/sixteen-personality-fun-test ，将整个目录复制到我的技能目录（Claude Code 为 ~/.claude/skills/，Codex 为 ~/.codex/skills/，其他客户端以实际配置为准），目录名保持 sixteen-personality-fun-test 并保留内部相对结构，确认技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
@@ -78,78 +49,41 @@ To publish it (repo owner): GitHub → Settings → Pages → Deploy from a bran
 
 (The prompts are intentionally in Chinese — they drive a Chinese-language assessment.)
 
-## Quick start
+## What you get
 
-**Requirements**
+A report you can share — and hand to your AI assistant to remember:
 
-- Python 3.9+ (scoring uses only the standard library, zero dependencies; exporting the result image requires `pip3 install Pillow`)
-- An agent client that supports Skills: Codex, Claude Code, or anything that discovers `SKILL.md`
+- **Verdict line**: "根据测试结果，您是 INTP（药水姐）" — deterministic, no manual override; identical answers always produce the identical result
+- **Main type + near type (次人格)**: character art, portrait, 3 strengths, 3 pitfalls, social style, decisions, stress, observation tips; exactly one near type when the margin is smallest
+- **Eight-pole scores**: raw scores, ratios, and differences across E/I, S/N, T/F, J/P; exact ties are marked X
+- **Two ways to take it with you**: **Save the analysis** (a single long PNG with everything) or **Copy the archive prompt** (≤2000 characters — paste to your assistant for long-term memory, to be one reference in future decision analysis)
 
-**Install**
+<table>
+  <tr>
+    <td width="46%"><img src="assets/result-preview.svg" width="100%" alt="Fictional INTP result preview: eight-pole scores and profile" /></td>
+    <td width="54%"><img src="assets/report-sample.png" width="100%" alt="Real generated long-image report sample (fictional ISTJ result)" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Report layout preview (fictional INTP data)</sub></td>
+    <td align="center"><sub>Real long-image sample (fictional ISTJ data)</sub></td>
+  </tr>
+</table>
 
-```bash
-git clone https://github.com/Ac-Hanxin/sixteen-personality-fun-test.git
-cd sixteen-personality-fun-test
-```
-
-Copy the whole directory into your client's skills directory, preserving the relative layout of `SKILL.md`, `references/`, `scripts/`, and `assets/`:
-
-```bash
-# Claude Code (user-level)
-cp -R . ~/.claude/skills/sixteen-personality-fun-test
-
-# Codex (user-level)
-cp -R . ~/.codex/skills/sixteen-personality-fun-test
-
-# Hermes Agent (user-level)
-cp -R . ~/.hermes/skills/sixteen-personality-fun-test
-```
-
-Skill directories vary by client and version; trust your own client's configuration and skill discovery over any install command the project has not verified on your machine.
-
-**Verify**
-
-Start a new conversation and type:
-
-> 帮我做一次完整的 16 型人格趣味测试
-
-The agent should discover the `sixteen-personality-fun-test` skill: 6 rounds of 8 questions, validation, local scoring, then the report.
-
-**Demo / quick-retake shortcut**
-
-Skip the rounds entirely: send all 48 answers at once, in Q1–Q40 then S1–S8 order (integers 1–5, separated by spaces or commas). Once validated, the agent scores and reports immediately — ideal for demos and retakes.
-
-### Score without an agent
-
-Already have 48 answers (integers 1–5 in Q1–Q40, S1–S8 order)? Score directly:
-
-```bash
-python3 scripts/score.py --answers "3 3 3 … (48 values, space or comma separated)"
-```
-
-The JSON output contains the eight-pole `scores`, per-axis ratios and differences in `axes`, the `raw_type` (tied axes marked `X`), plus `candidates` and `second_candidates`.
-
-## Assessment flow
+## Three steps from answers to image
 
 <p align="center">
-  <img src="assets/assessment-flow.svg" width="760" alt="Assessment flow: six rounds, format validation, local scoring, boundary handling, entertainment report" />
+  <img src="assets/flow-triptych.webp" width="900" alt="Real screenshots: answering, the analysis report, and the shareable long image" />
 </p>
 
-The first 40 items are statements (1 = disagree, 3 = neutral, 5 = agree); the last 8 are bipolar word pairs (1 = left pole, 3 = middle, 5 = right pole). You may revise the previous round or restart at any time.
-
-## Sample result
-
-<p align="center">
-  <img src="assets/result-preview.svg" width="760" alt="Fictional INTP result preview: eight-pole scores and profile" />
-</p>
-
-The preview shows a fictional **INTP · 原理拆解者** with sample scores `E 12 / I 27`, `S 15 / N 29`, `T 30 / F 14`, `J 17 / P 25`. These numbers illustrate the report layout only — they represent **no real user** and are not a diagnosis or rating.
-
-A real report opens with a verdict line (e.g. "根据测试结果，您是 INTP（药水姐）"), then presents, in order: the type character, type code and nickname (with its community meme name), the original Chinese profile (portrait, strengths, pitfalls, social style, decisions, stress, observation tips), plus a "次人格 (near type)" block when the margin is small (the second candidate's character and one-liner), then the eight-pole raw scores, four axis ratios and differences, boundary hints and second candidates, and finally the entertainment disclaimer. It ends with two options: **Save the analysis** — a single long PNG containing the entire report (rendered by `scripts/render_card.py` on the agent side, requires `pip3 install Pillow`; generated in-browser in the web version); **Copy the archive prompt** — a sub-2000-character result card to paste to your AI assistant for long-term memory.
+The first 40 items are statements (1 = disagree, 3 = neutral, 5 = agree); the last 8 are bipolar word pairs (1 = left pole, 3 = middle, 5 = right pole). The web version auto-saves progress to your browser's localStorage — refresh and resume anytime.
 
 ## The sixteen types at a glance
 
-The hero image above shows the 16 type characters (original AI-generated renders; prompts and divergence rules in [`docs/character-prompts.md`](docs/character-prompts.md)). The project's own nicknames and one-line summaries:
+<p align="center">
+  <img src="assets/type-characters.webp" width="820" alt="16 personality type characters with their Chinese community nicknames" />
+</p>
+
+Characters are original AI-generated renders (prompts and divergence rules in [`docs/character-prompts.md`](docs/character-prompts.md)). The project's own nicknames and one-line summaries:
 
 | Group | Type | Project nickname | Community meme | One-liner (translated) |
 | --- | --- | --- | --- | --- |
@@ -172,44 +106,28 @@ The hero image above shows the 16 type characters (original AI-generated renders
 
 The "community meme" names are Chinese internet nicknames for the 16Personalities characters (matching the captions in the hero image). They are not any brand's official names and not this project's official naming — the project's own nicknames are in the "Project nickname" column; full profiles live in `references/type-profiles.md`.
 
-## Scoring rules and boundaries
-
-The assessment has **48 questions**: 40 statements plus 8 bipolar items. Scores accumulate separately for the eight poles E, I, S, N, T, F, J, P (theoretical range **0–36** each), then the two sides of E/I, S/N, T/F, J/P are compared to form the four-letter raw type.
-
-- **Exact ties are marked X**; all candidates are listed and the first candidate (fixed order) is shown — identical answers always produce the identical page, with no manual override.
-- **Non-tied axes show the difference and the closest second candidate**; ties for the smallest difference can yield multiple second candidates.
-- Scoring calls no external models or online APIs; answers are processed in the current conversation by the platform.
-
-## Known difference from the official site: the E/I axis
-
-This project scores semantically — agreeing with "I am the life of the party" raises your E score.
-
-As of July 2026, the live OJTS 2.1 site at openpsychometrics.org scores the E/I axis opposite to its own page annotations: its front-end comments label Q1–Q3 as I and Q4–Q6 as E, yet the server credits Q4–Q6 to I (bipolar items S4 and S8 likewise). S/N, T/F, and J/P match the official site exactly; on E/I, the same answers can produce opposite letters.
-
-Reproduce it yourself: on the official site, answer *Strongly agree* to *I want a huge social circle.*, *I am the life of the party.*, and *I make lots of noise.*, and neutral to everything else — semantically extraverted, yet the site reports a type starting with I. Two fixtures (V4, V5) in our unit tests record this difference score by score.
-
-## Where credibility comes from
+## Credibility & development evidence
 
 "Credible" here does not mean authoritative endorsement — it means sources, method, computation, and limits are all laid out for you to check.
 
-| Checkable dimension | What this project does | How you can verify |
-| --- | --- | --- |
-| Traceable source | Keeps OJTS 2.1 original English items, IDs, scoring keys, version, and author attribution | Compare `references/questions.json` with the first-hand sources below |
-| Traceable method | Lists the developer's published sample and screening numbers without dressing them up as clinical certification | Read the OJTS development page and the OEJTS comparison page |
-| Reproducible scoring | `scripts/score.py` uses only local deterministic rules; same 48 answers → same scores and type | Run the local tests, or recompute item by item with the scoring keys |
-| Deterministic tie display | Exact ties are marked X; non-tied axes show the difference and the closest second candidate | Inspect the raw eight-pole scores, candidates, and differences |
+- **Traceable source**: `references/questions.json` keeps OJTS 2.1 original English items, IDs, scoring keys, version, and author attribution — compare it with the first-hand sources below.
+- **Reproducible scoring**: `scripts/score.py` uses only local deterministic rules (Python standard library, no external calls); identical 48 answers always yield identical scores and type. The web version's `web/scoring.js` is its score-by-score JS equivalent.
+- **Deterministic boundaries**: **exact ties are marked X**, with the first candidate (fixed order) shown; **non-tied axes show the difference and the closest second candidate**; ties for the smallest difference can yield multiple second candidates.
+- **Tested**: 32 unit tests — fixtures compared score-by-score with the public site, JS/Python scoring parity (requires `node`; skipped when absent), bank integrity, wording boundaries, and asset consistency.
 
-## Development evidence
+**Development evidence**: the OJTS developer's public page describes the screening pipeline — **2,230** people took part in item exploration, a pool of **278** candidate items was generated, data from **25,568** participants was used for screening, and **48** final items were selected.
 
 <p align="center">
   <img src="assets/evidence-chain.svg" width="760" alt="OJTS public development evidence chain: from participants and candidate items to 48 final items" />
 </p>
 
-The OJTS developer's public page describes the screening pipeline: **2,230** people took part in item exploration, a pool of **278** candidate items was generated, data from **25,568** participants was used for screening, and **48** final items were selected.
-
 All of **2,230, 278, 25,568, and 48** come from the developer's public page. They document a traceable development process — they are **not independent clinical certification**, and they cannot show the test is fit for medical diagnosis, hiring, or other high-stakes decisions.
 
-## What you may / may not say
+**Known difference from the official site (E/I axis)**: this project scores semantically — agreeing with "I am the life of the party" raises your E score. As of July 2026, the live OJTS 2.1 site at openpsychometrics.org scores the E/I axis opposite to its own page annotations: its front-end comments label Q1–Q3 as I and Q4–Q6 as E, yet the server credits Q4–Q6 to I (bipolar items S4 and S8 likewise). S/N, T/F, and J/P match the official site exactly; on E/I, the same answers can produce opposite letters. Reproduce it: on the official site, answer *Strongly agree* to *I want a huge social circle.*, *I am the life of the party.*, and *I make lots of noise.*, and neutral to everything else — semantically extraverted, yet the site reports a type starting with I. Two fixtures (V4, V5) in our unit tests record this difference score by score.
+
+## Privacy & boundaries
+
+At runtime the skill only reads the local question bank and calls a local Python standard-library script. It never writes answers to local files, never submits them to OJTS or third-party test services, and never asks for names, accounts, or other identity information. Answers are processed by the platform within the current conversation; how conversations are stored and used is governed by the platform's data policy and configuration, which is outside this skill's control. In the web version, all scoring runs locally in your browser — answers never leave your device; resume progress is stored only in your browser and cleared by "重新测试".
 
 | You may say | You may not say |
 | --- | --- |
@@ -220,11 +138,51 @@ All of **2,230, 278, 25,568, and 48** come from the developer's public page. The
 
 This project is **not the official MBTI**; it is for entertainment and self-exploration only. Do not use results for clinical, medical, educational-tracking, hiring, performance, or other decisions with significant personal impact.
 
-## Privacy
+## Developers
 
-At runtime the skill only reads the local question bank and calls a local Python standard-library script. It never writes answers to local files, never submits them to OJTS or third-party test services, and never asks for names, accounts, or other identity information. Answers are processed by the platform within the current conversation; how conversations are stored and used is governed by the platform's data policy and configuration, which is outside this skill's control. In the web version, all scoring runs locally in your browser — answers never leave your device.
+<details>
+<summary><strong>Manual install</strong></summary>
 
-## Project structure
+Requirements: Python 3.9+ (scoring uses only the standard library; exporting the result image requires `pip3 install Pillow`), plus an agent client that supports Skills.
+
+```bash
+git clone https://github.com/Ac-Hanxin/sixteen-personality-fun-test.git
+cd sixteen-personality-fun-test
+
+# Claude Code (user-level)
+cp -R . ~/.claude/skills/sixteen-personality-fun-test
+
+# Codex (user-level)
+cp -R . ~/.codex/skills/sixteen-personality-fun-test
+
+# Hermes Agent (user-level)
+cp -R . ~/.hermes/skills/sixteen-personality-fun-test
+```
+
+Skill directories vary by client and version; trust your own client's configuration and skill discovery over any install command the project has not verified on your machine. Start a new conversation and type 「帮我做一次完整的 16 型人格趣味测试」 to verify.
+
+**Demo / quick-retake shortcut**: send all 48 answers at once, in Q1–Q40 then S1–S8 order (integers 1–5, separated by spaces or commas). Once validated, the agent scores and reports immediately.
+
+</details>
+
+<details>
+<summary><strong>Score without an agent (CLI)</strong></summary>
+
+```bash
+python3 scripts/score.py --answers "3 3 3 … (48 values, space or comma separated)"
+```
+
+The JSON output contains the eight-pole `scores`, per-axis ratios and differences in `axes`, the `raw_type` (tied axes marked `X`), plus `candidates` and `second_candidates`. Render the long result image:
+
+```bash
+pip3 install Pillow
+python3 scripts/render_card.py --answers "<48 answers>" --out result.png
+```
+
+</details>
+
+<details>
+<summary><strong>Project structure</strong></summary>
 
 ```
 sixteen-personality-fun-test/
@@ -243,22 +201,30 @@ sixteen-personality-fun-test/
 │   ├── scoring.js            # JS equivalent of score.py (tested score-by-score against it)
 │   ├── data.js               # Question & profile data (generated — do not hand-edit)
 │   └── avatars64.js          # Base64 avatars for canvas rendering (generated)
-├── assets/
-│   ├── type-characters.webp  # 16-type group image (README hero)
-│   ├── avatars/              # 16 individual type avatars (used by reports and the web version)
-│   └── *.svg                 # Documentation graphics (static, no scripts, no remote refs)
+├── assets/                   # Group image, 16 avatars, banner, sample images, SVG graphics
 ├── docs/character-prompts.md # AI-generation prompts and divergence rules for the characters
-├── tests/                    # 31 unit tests
+├── tests/                    # 32 unit tests
 └── LICENSE                   # CC BY-NC-SA 4.0
 ```
 
-## Running the tests
+Assessment flow:
+
+<p align="center">
+  <img src="assets/assessment-flow.svg" width="760" alt="Assessment flow: six rounds, format validation, local scoring, boundary handling, entertainment report" />
+</p>
+
+</details>
+
+<details>
+<summary><strong>Running the tests</strong></summary>
 
 ```bash
 python3 -m unittest discover -s tests -v
 ```
 
-31 tests cover: scoring correctness (including fixtures compared with the public site), score-by-score parity between the web version's JS and the Python scorer (requires `node`; skipped automatically when absent), question-bank integrity, profile structure and wording boundaries, the SKILL.md contract, and the consistency of this README with its image assets.
+32 tests cover: scoring correctness (including fixtures compared with the public site), score-by-score parity between the web version's JS and the Python scorer (requires `node`; skipped automatically when absent), question-bank integrity, profile structure and wording boundaries, the SKILL.md contract, and the consistency of this README with its image assets.
+
+</details>
 
 ## Sources, attribution & license
 

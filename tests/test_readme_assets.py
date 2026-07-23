@@ -69,6 +69,13 @@ class ReadmeAssetTests(unittest.TestCase):
         self.assertLess(img.stat().st_size, 800 * 1024)
         self.assertIn("assets/type-characters.webp", self.readme)
 
+    def test_readme_visual_assets_exist_and_are_compact(self):
+        for name in ("banner.webp", "flow-triptych.webp", "report-sample.png"):
+            img = ROOT / "assets" / name
+            self.assertTrue(img.is_file(), img)
+            self.assertLess(img.stat().st_size, 1024 * 1024, img)
+            self.assertIn(f"assets/{name}", self.readme)
+
     def test_avatars_exist_for_all_sixteen_types(self):
         codes = (
             "intj intp entj entp infj infp enfj enfp "

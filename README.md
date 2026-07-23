@@ -1,151 +1,85 @@
-<h1 align="center">16 型人格趣味测试</h1>
+<p align="center">
+  <img src="assets/banner.webp" width="900" alt="16 型人格趣味测试：基于 OJTS 2.1，本地确定性计分，仅供娱乐" />
+</p>
 
 <p align="center">
-  <strong>基于 Open Jungian Type Scales 2.1 的可复现中文测评 Skill</strong><br/>
+  <strong>把你的答案变成一份看得懂边界的人格报告：48 题 · 本地确定性计分 · 角色形象 · 长图可晒 · 存档可记</strong><br/>
   <sub>A reproducible, agent-native Chinese workflow for the Open Jungian Type Scales 2.1 — for entertainment only.</sub>
 </p>
 
 <p align="center">
-  <img alt="48 questions" src="https://img.shields.io/badge/questions-48-2f4b7c?style=flat-square" />
-  <img alt="4 axes, 8 poles" src="https://img.shields.io/badge/dimensions-4_axes_8_poles-2f4b7c?style=flat-square" />
-  <img alt="Python 3.9+" src="https://img.shields.io/badge/python-3.9%2B-2f4b7c?style=flat-square" />
-  <img alt="web version, zero install" src="https://img.shields.io/badge/web-zero_install-2f4b7c?style=flat-square" />
-  <img alt="local and deterministic scoring" src="https://img.shields.io/badge/scoring-local_%26_deterministic-2f4b7c?style=flat-square" />
-  <img alt="License: CC BY-NC-SA 4.0" src="https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-2f4b7c?style=flat-square" />
+  <a href="https://img.shields.io/badge/web-zero_install-2f4b7c?style=flat-square"><img alt="web version, zero install" src="https://img.shields.io/badge/web-zero_install-2f4b7c?style=flat-square" /></a>
+  <a href="https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-2f4b7c?style=flat-square"><img alt="License: CC BY-NC-SA 4.0" src="https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-2f4b7c?style=flat-square" /></a>
 </p>
 
 <p align="center">
-  <strong>中文</strong> · <a href="README_EN.md">English</a>
-</p>
-
-<p align="center">
-  <a href="#零安装在线版网页版">网页版</a> ·
-  <a href="#一键部署提示词复制发给你的-agent">部署提示词</a> ·
-  <a href="#快速开始">快速开始</a> ·
-  <a href="#十六型速览">十六型速览</a> ·
-  <a href="#计分规则与边界">计分规则</a> ·
-  <a href="#可信度来自哪里">可信度</a> ·
-  <a href="#隐私">隐私</a> ·
-  <a href="#来源署名与许可">许可</a>
-</p>
-
-<p align="center">
-  <img src="assets/type-characters.webp" width="820" alt="16 型人格角色群像：紫老头、药水姐、大姐头、骨折眉毛、绿老头、小蝴蝶、大剑哥、快乐小狗、蓝老头、小护士、尺子姐、男妈妈、电钻哥、小画家、墨镜哥、锤子姐" />
+  <strong>中文</strong> · <a href="README_EN.md">English</a> ·
+  <a href="#三种用法">用法</a> ·
+  <a href="#你会得到什么">结果</a> ·
+  <a href="#十六型速览">十六型</a> ·
+  <a href="#可信度与开发证据">可信度</a> ·
+  <a href="#开发者">开发者</a>
 </p>
 
 ---
 
-把你的 AI Agent 变成一位克制、透明的测评主持人：分 6 轮引导作答 **48 题**，本地脚本确定性计分，再生成一份看得懂边界的中文报告。它不猜测、不夸大、不冒充官方——每一个数字都可以回到来源页面核查。
+## 三种用法
 
-| 能力 | 说明 |
-| --- | --- |
-| 零安装网页版 | 浏览器打开即测，手机可用；纯前端本地计分，结果卡一键复制发给助理 |
-| 一键部署 | 复制一段提示词发给你的 Agent，自动完成克隆、部署、测试与记忆沉淀 |
-| 分批引导作答 | 48 题分 6 轮呈现，每轮恰好 8 题；支持空格、中英文逗号、分号分隔，答错只重问错误位置 |
-| 本地确定性计分 | `scripts/score.py` 只用 Python 标准库，无外部调用；相同 48 个答案永远得到相同结果 |
-| 确定性的边界处理 | 完全平分标记为 X，平分时按固定顺序展示首个候选；非平分展示分差并给出最接近的第二候选 |
-| 原创中文画像 | 16 型文案全部采用倾向性措辞：3 项优势、3 项坑、社交、决策、压力与观察建议 |
-| 隐私克制 | 不把答案写入本地文件，不另行提交给 OJTS 或第三方测试服务，也不请求姓名等身份信息 |
-| 全程可审计 | 题库保留英文原题、题号与计分键；31 项单元测试包含与公开站点逐分对照的固定样本 |
+| | 适合 | 怎么做 |
+| --- | --- | --- |
+| **A · 网页版** | 任何人，手机即可 | 打开 **https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/** 直接开测，无需安装；`#demo` 看示例结果 |
+| **B · 一键部署** | 有 AI Agent 的人 | 复制下方提示词发给你的 Agent，自动完成部署、测试与记忆沉淀 |
+| **C · 手动安装** | 开发者 | 见[开发者](#开发者)折叠区 |
 
-## 零安装在线版（网页版）
+**B 的提示词（复制即用）**
 
-不想安装任何东西？仓库自带纯前端网页版，手机浏览器也能用：
-
-**https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/**
-
-- 48 题逐题作答，随时撤销上一题；进度自动保存在本机浏览器（localStorage），刷新或切出后可断点续答，计分全部在本地完成，答案不离开你的设备。
-- 结果页包含角色形象、八极分数条、完整画像与「结果卡」，一键复制即可发给你的 AI 助理。
-- 想先看结果页长什么样：在链接后加 `#demo`；想直接开测：加 `#quiz`。
-
-仓库作者部署方式：GitHub 仓库 → Settings → Pages → Deploy from a branch → `main` / `(root)`，几分钟后上述链接即可访问。
-
-## 一键部署提示词（复制发给你的 Agent）
-
-**Hermes 版**（演示同款，利用其长期记忆沉淀结果）：
+Hermes 版（利用其长期记忆沉淀结果）：
 
 ```text
 请克隆 GitHub 项目 https://github.com/Ac-Hanxin/sixteen-personality-fun-test ，将整个目录复制到 ~/.hermes/skills/sixteen-personality-fun-test（保留 SKILL.md、references/、scripts/、assets/ 的相对位置），确认 sixteen-personality-fun-test 技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
 ```
 
-**通用版**（Claude Code / Codex / 其他支持 Skills 的客户端）：
+通用版（Claude Code / Codex / 其他支持 Skills 的客户端）：
 
 ```text
 请克隆 GitHub 项目 https://github.com/Ac-Hanxin/sixteen-personality-fun-test ，将整个目录复制到我的技能目录（Claude Code 为 ~/.claude/skills/，Codex 为 ~/.codex/skills/，其他客户端以实际配置为准），目录名保持 sixteen-personality-fun-test 并保留内部相对结构，确认技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
 ```
 
-## 快速开始
+## 你会得到什么
 
-**前置要求**
+一份可以晒出去、也能交给 AI 助理记住的分析报告：
 
-- Python 3.9 或更高版本（计分仅用标准库，零依赖安装；导出结果长图需要 `pip3 install Pillow`）
-- 一个支持 Skills 的 Agent 客户端：Codex、Claude Code，或任何能发现 `SKILL.md` 的客户端
+- **结论句**：「根据测试结果，您是 INTP（药水姐）」——确定、不可手动调换，同一组答案永远得到同一结果
+- **主人格 + 次人格**：角色形象、画像、3 项优势、3 项坑、社交、决策、压力、观察建议；分差最小时展示一个次人格
+- **八极分数**：E/I、S/N、T/F、J/P 四组原始分、占比与分差；完全平分标记为 X
+- **两个带走方式**：**保存分析结果**（一张包含全部内容的长图）或**复制存档提示词**（≤2000 字符，发给助理存入长期记忆，以后做决策时作为参考依据之一）
 
-**安装**
+<table>
+  <tr>
+    <td width="46%"><img src="assets/result-preview.svg" width="100%" alt="虚构 INTP 结果预览：八极分数与原理拆解者类型展示" /></td>
+    <td width="54%"><img src="assets/report-sample.png" width="100%" alt="真实生成的分析报告长图样例（虚构 ISTJ 结果）" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>报告结构预览（虚构 INTP 数据，仅说明样式）</sub></td>
+    <td align="center"><sub>真实长图样例（虚构 ISTJ 数据，不代表真实用户）</sub></td>
+  </tr>
+</table>
 
-```bash
-git clone https://github.com/Ac-Hanxin/sixteen-personality-fun-test.git
-cd sixteen-personality-fun-test
-```
-
-将整个目录复制到客户端的技能目录，并保留 `SKILL.md`、`references/`、`scripts/`、`assets/` 的相对位置：
-
-```bash
-# Claude Code（用户级技能目录）
-cp -R . ~/.claude/skills/sixteen-personality-fun-test
-
-# Codex（用户级技能目录）
-cp -R . ~/.codex/skills/sixteen-personality-fun-test
-
-# Hermes Agent（用户级技能目录）
-cp -R . ~/.hermes/skills/sixteen-personality-fun-test
-```
-
-不同客户端与版本的技能目录可能不同，请以你当前客户端的配置与技能发现结果为准；本项目不承诺某个未经本机验证的第三方安装命令。
-
-**验证安装**
-
-新开一个会话，输入：
-
-> 帮我做一次完整的 16 型人格趣味测试
-
-Agent 应识别名为 `sixteen-personality-fun-test` 的 Skill：分 6 轮呈现题目，每轮 8 题；收齐并校验 48 个答案后，调用本地计分器生成报告。
-
-**演示 / 复测快捷用法**
-
-不想逐轮作答时，把 48 个答案按 Q1–Q40、S1–S8 的顺序（1–5 的整数，空格或逗号分隔）一次性发给 Agent，校验通过后会直接计分并生成报告，适合演示和复测。
-
-### 不用 Agent，直接计分
-
-如果你已经有一组答案（按 Q1–Q40、S1–S8 顺序的 48 个 1–5 整数），可以跳过对话直接计分：
-
-```bash
-python3 scripts/score.py --answers "3 3 3 …（共 48 个，空格或逗号分隔）"
-```
-
-输出 JSON 包含八极 `scores`、四轴占比与分差 `axes`、原始类型 `raw_type`（平分轴记为 `X`）、`candidates` 与 `second_candidates`。
-
-## 测评流程
+## 从答题到出图，就这三步
 
 <p align="center">
-  <img src="assets/assessment-flow.svg" width="760" alt="测评流程：六轮作答、格式校验、本地计分、边界判断与娱乐化报告" />
+  <img src="assets/flow-triptych.webp" width="900" alt="答题页、分析报告页、结果长图的真实截图" />
 </p>
 
-前 40 题为陈述题（1 = 不同意，3 = 中立，5 = 同意），后 8 题为双极词组题（1 = 偏左，3 = 居中，5 = 偏右）。作答过程中可以修改上一轮答案或重新开始。
-
-## 结果示例
-
-<p align="center">
-  <img src="assets/result-preview.svg" width="760" alt="虚构 INTP 结果预览：八极分数与原理拆解者类型展示" />
-</p>
-
-预览展示的是虚构结果 **INTP · 原理拆解者**，示例八极分数为 `E 12 / I 27`、`S 15 / N 29`、`T 30 / F 14`、`J 17 / P 25`。这些数字只用于说明报告结构，**不代表任何真实用户**，也不应被解释为诊断或能力评级。
-
-实际报告开头先给结论句（如「根据测试结果，您是 INTP（药水姐）」），再按以下顺序呈现：角色形象、类型与昵称（附社区俗称）、画像、3 项优势、3 项坑、社交、决策、压力、观察建议，以及分差最小时展示的「次人格」（第二候选的角色形象与一句话），然后是八极原始分数、四组占比与分差、边界提示与第二候选，最后是娱乐与许可说明。报告末尾提供两个选项：**保存分析结果**——生成一张包含全部报告内容的 PNG 长图（Agent 端由 `scripts/render_card.py` 渲染，需要 `pip3 install Pillow`；网页版在浏览器内直接生成）；**复制存档提示词**——一段不超过 2000 字符的「结果卡」文本，发给你的 AI 助理请它存入长期记忆，以后分析你的偏好时作为参考之一。
+前 40 题为陈述题（1 = 不同意，3 = 中立，5 = 同意），后 8 题为双极词组题（1 = 偏左，3 = 居中，5 = 偏右）。网页版进度自动保存在本机浏览器，刷新可断点续答。
 
 ## 十六型速览
 
-上方群像即 16 种类型的角色形象（本项目以 AI 工具生成的原创渲染，提示词与差异化规则见 [`docs/character-prompts.md`](docs/character-prompts.md)）。每种类型的正式昵称与概括：
+<p align="center">
+  <img src="assets/type-characters.webp" width="820" alt="16 型人格角色群像：紫老头、药水姐、大姐头、骨折眉毛、绿老头、小蝴蝶、大剑哥、快乐小狗、蓝老头、小护士、尺子姐、男妈妈、电钻哥、小画家、墨镜哥、锤子姐" />
+</p>
+
+角色形象为本项目以 AI 工具生成的原创渲染（提示词与差异化规则见 [`docs/character-prompts.md`](docs/character-prompts.md)）。每种类型的正式昵称与概括：
 
 | 组 | 类型 | 原创昵称 | 社区俗称 | 一句话概括 |
 | --- | --- | --- | --- | --- |
@@ -168,44 +102,28 @@ python3 scripts/score.py --answers "3 3 3 …（共 48 个，空格或逗号分�
 
 「社区俗称」是中文社区围绕 16Personalities 角色形象形成的迷因称呼（与上方群像字幕一致），不是任何品牌的官方名称，也不是本项目的正式命名；本项目正式昵称见「原创昵称」列，完整画像见 `references/type-profiles.md`。
 
-## 计分规则与边界
-
-测评共 **48 题**：前 40 道为陈述题，后 8 道为双极词组题。计分器分别累加 E、I、S、N、T、F、J、P 八个极的分数，每个极的理论范围为 **0–36**，随后在 E/I、S/N、T/F、J/P 四组中分别比较两侧分数，组合出四字母原始类型。
-
-- **完全平分标记为 X**；含 X 时展示全部候选类型，并按固定顺序展示首个候选的画像——同一组答案永远得到同一结果，不提供手动调换。
-- **非平分展示分差并给出最接近的第二候选**；如果多个维度的最小分差并列，第二候选可能不止一个。
-- 计分不调用外部模型或在线接口；答案仍在当前对话中由平台处理。
-
-## 与官方网站的已知差异：E/I 轴
-
-本项目按题目语义计分——同意「聚会时我往往能够带动气氛」会增加 E 分。
-
-截至 2026 年 7 月，openpsychometrics.org 的 OJTS 2.1 在线版本在 E/I 轴上的服务端计分与其页面自身的题注相反：其前端代码将 Q1–Q3 注释为 I、Q4–Q6 注释为 E，服务端却把 Q4–Q6 的分值计入 I（双极题 S4、S8 同样相反）。S/N、T/F、J/P 三轴本项目与官方网站完全一致；E/I 轴上，同一组答案在两边得到的字母可能不同。
-
-你可以这样复现：在官方网站作答时，将 *I want a huge social circle.*、*I am the life of the party.*、*I make lots of noise.* 三题选 Strongly agree、其余全部中立——语义上应偏向 E，官方网站却会显示 I 开头的类型。本项目的单元测试用两组固定样本（V4、V5）逐分记录了上述差异。
-
-## 可信度来自哪里
+## 可信度与开发证据
 
 这里的「可信」不是权威背书，而是把来源、方法、计算和限制同时摊开，允许读者自行核查。
 
-| 可核查维度 | 本项目如何做到 | 你可以怎样验证 |
-| --- | --- | --- |
-| 来源可查 | 保留 OJTS 2.1 英文原题、题号、计分键、版本与作者署名 | 对照 `references/questions.json` 与下方第一手来源 |
-| 开发方法可查 | 列出开发方公开的样本与筛选数字，不把它们包装成临床认证 | 阅读 OJTS 开发页面与 OEJTS 比较页面 |
-| 计分可复算 | `scripts/score.py` 只用本地确定性规则；相同 48 个答案得到相同分数与类型 | 运行本地测试，或逐项按计分键复算 |
-| 平分确定性展示 | 完全平分标记为 X；非平分展示分差并给出最接近的第二候选 | 查看原始八极分数、候选类型和分差 |
+- **来源可查**：题库 `references/questions.json` 保留 OJTS 2.1 英文原题、题号、计分键、版本与作者署名，可直接对照第一手来源页面。
+- **计分可复算**：`scripts/score.py` 只用本地确定性规则（Python 标准库，无外部调用）；相同 48 个答案得到相同分数与类型；网页版 `web/scoring.js` 为其逐分等价的 JS 实现。
+- **边界确定**：**完全平分标记为 X**，按固定顺序展示首个候选；**非平分展示分差并给出最接近的第二候选**；如果多个维度的最小分差并列，第二候选可能不止一个。
+- **测试兜底**：32 项单元测试，包含与公开站点逐分对照的固定样本、JS 与 Python 计分对照（需 node，缺失时自动跳过）、题库完整性、文案边界与资产一致性。
 
-## 开发证据
+**开发证据**：OJTS 开发方公开页面描述了从候选内容到正式量表的筛选过程：**2,230** 人参与题目探索，候选池包含 **278** 道内容，后续使用 **25,568** 人的数据进行筛选，最终形成 **48** 道正式题。
 
 <p align="center">
   <img src="assets/evidence-chain.svg" width="760" alt="OJTS 公开开发证据链：从参与者与候选内容到 48 道正式题" />
 </p>
 
-OJTS 开发方公开页面描述了从候选内容到正式量表的筛选过程：**2,230** 人参与题目探索，候选池包含 **278** 道内容，后续使用 **25,568** 人的数据进行筛选，最终形成 **48** 道正式题。
-
 这些 **2,230、278、25,568、48** 均来自 OJTS 开发方公开页面，是开发过程的可核查说明，**不是独立临床认证**，也不能证明它适合医疗诊断、招聘筛选或其他高风险决策。
 
-## 能说什么 / 不能说什么
+**与官方网站的已知差异（E/I 轴）**：本项目按题目语义计分——同意「聚会时我往往能够带动气氛」会增加 E 分。截至 2026 年 7 月，openpsychometrics.org 的 OJTS 2.1 在线版本在 E/I 轴上的服务端计分与其页面自身的题注相反（其前端代码将 Q1–Q3 注释为 I、Q4–Q6 注释为 E，服务端却把 Q4–Q6 的分值计入 I，双极题 S4、S8 同样相反）。S/N、T/F、J/P 三轴本项目与官方网站完全一致；E/I 轴上，同一组答案在两边得到的字母可能不同。复现方法：在官方网站作答时，将 *I want a huge social circle.*、*I am the life of the party.*、*I make lots of noise.* 三题选 Strongly agree、其余全部中立——语义上应偏向 E，官方网站却会显示 I 开头的类型。本项目的单元测试用两组固定样本（V4、V5）逐分记录了上述差异。
+
+## 隐私与边界
+
+运行时只读取本地题库并调用本地 Python 标准库脚本；本 Skill 不把答案写入本地文件，也不另行提交给 OJTS 或第三方测试服务，并且不请求姓名、账号或其他身份信息。答案仍在当前对话中由平台处理，对话内容如何存储与使用受平台数据政策与配置约束，不属于本 Skill 的控制范围。网页版的所有计分在浏览器本地完成，答案不离开你的设备；断点续答的进度只保存在本机浏览器，点「重新测试」即清除。
 
 | 能说什么 | 不能说什么 |
 | --- | --- |
@@ -216,11 +134,51 @@ OJTS 开发方公开页面描述了从候选内容到正式量表的筛选过程
 
 本项目**不是官方 MBTI**，仅供娱乐与自我探索。不得把结果用于临床、医学、教育分流、招聘、绩效或其他对个人有重大影响的判断。
 
-## 隐私
+## 开发者
 
-运行时只读取本地题库并调用本地 Python 标准库脚本；本 Skill 不把答案写入本地文件，也不另行提交给 OJTS 或第三方测试服务，并且不请求姓名、账号或其他身份信息。答案仍在当前对话中由平台处理，对话内容如何存储与使用受平台数据政策与配置约束，不属于本 Skill 的控制范围。网页版的所有计分在浏览器本地完成，答案不离开你的设备。
+<details>
+<summary><strong>手动安装</strong></summary>
 
-## 项目结构
+前置要求：Python 3.9 或更高版本（计分仅用标准库；导出结果长图需要 `pip3 install Pillow`），以及一个支持 Skills 的 Agent 客户端。
+
+```bash
+git clone https://github.com/Ac-Hanxin/sixteen-personality-fun-test.git
+cd sixteen-personality-fun-test
+
+# Claude Code（用户级技能目录）
+cp -R . ~/.claude/skills/sixteen-personality-fun-test
+
+# Codex（用户级技能目录）
+cp -R . ~/.codex/skills/sixteen-personality-fun-test
+
+# Hermes Agent（用户级技能目录）
+cp -R . ~/.hermes/skills/sixteen-personality-fun-test
+```
+
+不同客户端与版本的技能目录可能不同，请以你当前客户端的配置与技能发现结果为准；本项目不承诺某个未经本机验证的第三方安装命令。安装后新开会话输入「帮我做一次完整的 16 型人格趣味测试」即可验证。
+
+**演示 / 复测快捷用法**：把 48 个答案按 Q1–Q40、S1–S8 的顺序（1–5 的整数，空格或逗号分隔）一次性发给 Agent，校验通过后会直接计分并生成报告。
+
+</details>
+
+<details>
+<summary><strong>不用 Agent，直接计分（CLI）</strong></summary>
+
+```bash
+python3 scripts/score.py --answers "3 3 3 …（共 48 个，空格或逗号分隔）"
+```
+
+输出 JSON 包含八极 `scores`、四轴占比与分差 `axes`、原始类型 `raw_type`（平分轴记为 `X`）、`candidates` 与 `second_candidates`。渲染结果长图：
+
+```bash
+pip3 install Pillow
+python3 scripts/render_card.py --answers "<48 个答案>" --out result.png
+```
+
+</details>
+
+<details>
+<summary><strong>项目结构</strong></summary>
 
 ```
 sixteen-personality-fun-test/
@@ -239,22 +197,30 @@ sixteen-personality-fun-test/
 │   ├── scoring.js            # score.py 的 JS 等价实现（测试与 Python 版逐分对照）
 │   ├── data.js               # 题库与画像数据（脚本生成，请勿手改）
 │   └── avatars64.js          # 头像 base64 数据（供 Canvas 出图，脚本生成）
-├── assets/
-│   ├── type-characters.webp  # 16 型角色群像（README 头图）
-│   ├── avatars/              # 16 张单人角色头像（报告与网页版引用）
-│   └── *.svg                 # 文档图形（静态、无脚本、无远程引用）
+├── assets/                   # 角色群像、16 张单人头像、横幅、样例图与 SVG 文档图形
 ├── docs/character-prompts.md # 16 型角色插画的 AI 生成提示词与差异化规则
-├── tests/                    # 31 项单元测试
+├── tests/                    # 32 项单元测试
 └── LICENSE                   # CC BY-NC-SA 4.0
 ```
 
-## 运行测试
+测评流程示意：
+
+<p align="center">
+  <img src="assets/assessment-flow.svg" width="760" alt="测评流程：六轮作答、格式校验、本地计分、边界判断与娱乐化报告" />
+</p>
+
+</details>
+
+<details>
+<summary><strong>运行测试</strong></summary>
 
 ```bash
 python3 -m unittest discover -s tests -v
 ```
 
-31 项测试覆盖：计分正确性（含与公开站点对照的固定样本）、网页版 JS 与 Python 计分逐分对照（需要本机装有 node，未安装时自动跳过）、题库完整性、16 型文案结构与措辞边界、SKILL.md 契约，以及本 README 与其图像资产的一致性。
+32 项测试覆盖：计分正确性（含与公开站点对照的固定样本）、网页版 JS 与 Python 计分逐分对照（需要 node，未安装时自动跳过）、题库完整性、16 型文案结构与措辞边界、SKILL.md 契约，以及本 README 与其图像资产的一致性。
+
+</details>
 
 ## 来源、署名与许可
 
