@@ -87,22 +87,22 @@ Characters are original AI-generated renders (prompts and divergence rules in [`
 
 | Group | Type | Project nickname | Community meme | One-liner (translated) |
 | --- | --- | --- | --- | --- |
-| NT | INTJ | 系统蓝图师 | 紫老头 | Build the long-term structure in your head first, then commit. |
-| NT | INTP | 原理拆解者 | 药水姐 | Take the problem apart, see the rules, then decide whether to accept the answer. |
-| NT | ENTJ | 目标统筹者 | 大姐头 | Turn vague wishes into goals, resources, and milestones. |
-| NT | ENTP | 可能性试验家 | 骨折眉毛 | Find new openings in debate and test which possibilities survive. |
-| NF | INFJ | 深层洞察者 | 绿老头 | Read the meaning behind words and actions; hold long-term principles. |
-| NF | INFP | 内心故事家 | 小蝴蝶 | Follow authentic feelings and give experiences personal meaning. |
-| NF | ENFJ | 共鸣引导者 | 大剑哥 | Sense what relationships need and rally people toward a shared vision. |
-| NF | ENFP | 灵感点火者 | 快乐小狗 | Lit up by new people and ideas — and lighting up others in return. |
-| SJ | ISTJ | 稳序守护者 | 蓝老头 | Trust verifiable facts and stable processes; honor every commitment. |
-| SJ | ISFJ | 细节照料者 | 小护士 | Remember specific needs and care through small, concrete acts. |
-| SJ | ESTJ | 秩序推进者 | 尺子姐 | Make rules, roles, and deadlines explicit; push work to completion. |
-| SJ | ESFJ | 氛围联结者 | 男妈妈 | Notice who feels left out; keep the group's warmth alive. |
-| SP | ISTP | 冷静解题者 | 电钻哥 | Watch how the scene works, then fix it with the simplest action. |
-| SP | ISFP | 感受收藏家 | 小画家 | Take in the moment in fine detail; express what you treasure gently. |
-| SP | ESTP | 现场破局者 | 墨镜哥 | Read real opportunities fast and break deadlocks by direct trial. |
-| SP | ESFP | 快乐放大者 | 锤子姐 | Dive into the moment and amplify joy for everyone around. |
+| NT · 紫人组 | INTJ | 系统蓝图师 | 紫老头 | Build the long-term structure in your head first, then commit. |
+| NT · 紫人组 | INTP | 原理拆解者 | 药水姐 | Take the problem apart, see the rules, then decide whether to accept the answer. |
+| NT · 紫人组 | ENTJ | 目标统筹者 | 大姐头 | Turn vague wishes into goals, resources, and milestones. |
+| NT · 紫人组 | ENTP | 可能性试验家 | 骨折眉毛 | Find new openings in debate and test which possibilities survive. |
+| NF · 绿人组 | INFJ | 深层洞察者 | 绿老头 | Read the meaning behind words and actions; hold long-term principles. |
+| NF · 绿人组 | INFP | 内心故事家 | 小蝴蝶 | Follow authentic feelings and give experiences personal meaning. |
+| NF · 绿人组 | ENFJ | 共鸣引导者 | 大剑哥 | Sense what relationships need and rally people toward a shared vision. |
+| NF · 绿人组 | ENFP | 灵感点火者 | 快乐小狗 | Lit up by new people and ideas — and lighting up others in return. |
+| SJ · 蓝人组 | ISTJ | 稳序守护者 | 蓝老头 | Trust verifiable facts and stable processes; honor every commitment. |
+| SJ · 蓝人组 | ISFJ | 细节照料者 | 小护士 | Remember specific needs and care through small, concrete acts. |
+| SJ · 蓝人组 | ESTJ | 秩序推进者 | 尺子姐 | Make rules, roles, and deadlines explicit; push work to completion. |
+| SJ · 蓝人组 | ESFJ | 氛围联结者 | 男妈妈 | Notice who feels left out; keep the group's warmth alive. |
+| SP · 黄人组 | ISTP | 冷静解题者 | 电钻哥 | Watch how the scene works, then fix it with the simplest action. |
+| SP · 黄人组 | ISFP | 感受收藏家 | 小画家 | Take in the moment in fine detail; express what you treasure gently. |
+| SP · 黄人组 | ESTP | 现场破局者 | 墨镜哥 | Read real opportunities fast and break deadlocks by direct trial. |
+| SP · 黄人组 | ESFP | 快乐放大者 | 锤子姐 | Dive into the moment and amplify joy for everyone around. |
 
 The "community meme" names are Chinese internet nicknames for the 16Personalities characters (matching the captions in the hero image). They are not any brand's official names and not this project's official naming — the project's own nicknames are in the "Project nickname" column; full profiles live in `references/type-profiles.md`.
 

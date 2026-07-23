@@ -31,30 +31,30 @@
   </g>
 
   <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif">
-    <text x="58" y="255" fill="#5D6B83" font-size="14" font-weight="700">STEP 01</text>
+    <text x="58" y="255" fill="#5D6B83" font-size="14" font-weight="700">步骤 01</text>
     <text x="119" y="307" text-anchor="middle" fill="#243B78" font-size="26" font-weight="750">6 轮 × 8 题</text>
     <text x="119" y="341" text-anchor="middle" fill="#56627A" font-size="15">逐轮收齐 48 个答案</text>
 
-    <text x="248" y="255" fill="#5D6B83" font-size="14" font-weight="700">STEP 02</text>
+    <text x="248" y="255" fill="#5D6B83" font-size="14" font-weight="700">步骤 02</text>
     <text x="309" y="307" text-anchor="middle" fill="#176B63" font-size="24" font-weight="750">格式校验</text>
     <text x="309" y="341" text-anchor="middle" fill="#56627A" font-size="15">数量、类型与范围</text>
 
-    <text x="438" y="255" fill="#5D6B83" font-size="14" font-weight="700">STEP 03</text>
+    <text x="438" y="255" fill="#5D6B83" font-size="14" font-weight="700">步骤 03</text>
     <text x="499" y="296" text-anchor="middle" fill="#8B5B08" font-size="22" font-weight="750">本地</text>
     <text x="499" y="325" text-anchor="middle" fill="#8B5B08" font-size="22" font-weight="750">score.py</text>
     <text x="499" y="354" text-anchor="middle" fill="#56627A" font-size="15">确定性计分</text>
 
-    <text x="628" y="255" fill="#5D6B83" font-size="14" font-weight="700">STEP 04</text>
+    <text x="628" y="255" fill="#5D6B83" font-size="14" font-weight="700">步骤 04</text>
     <text x="689" y="307" text-anchor="middle" fill="#243B78" font-size="24" font-weight="750">八极分数</text>
     <text x="689" y="341" text-anchor="middle" fill="#56627A" font-size="15">E I · S N · T F · J P</text>
 
-    <text x="818" y="255" fill="#5D6B83" font-size="14" font-weight="700">STEP 05</text>
+    <text x="818" y="255" fill="#5D6B83" font-size="14" font-weight="700">步骤 05</text>
     <text x="879" y="292" text-anchor="middle" fill="#176B63" font-size="21" font-weight="750">平分与候选</text>
     <text x="879" y="326" text-anchor="middle" fill="#56627A" font-size="13">完全平分标记为 X</text>
     <text x="879" y="349" text-anchor="middle" fill="#56627A" font-size="11">非平分展示分差</text>
     <text x="879" y="369" text-anchor="middle" fill="#56627A" font-size="11">并给出最接近的第二候选</text>
 
-    <text x="1008" y="255" fill="#DCE5FF" font-size="14" font-weight="700">STEP 06</text>
+    <text x="1008" y="255" fill="#DCE5FF" font-size="14" font-weight="700">步骤 06</text>
     <text x="1075" y="307" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="750">娱乐化报告</text>
     <text x="1075" y="341" text-anchor="middle" fill="#DCE5FF" font-size="15">倾向，不是诊断</text>
   </g>
