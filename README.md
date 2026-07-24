@@ -68,7 +68,7 @@ Hermes 版（利用其长期记忆沉淀结果）：
 ## 从答题到出图，就这三步
 
 <p align="center">
-  <img src="assets/flow-triptych.webp" width="900" alt="答题页、分析报告页、结果长图的真实截图" />
+  <img src="assets/flow-triptych.webp" width="900" alt="三步真实过程：逐题作答、作者实测 INTP 分析长图、作者实测 INTP 分享版海报" />
 </p>
 
 前 40 题为陈述题（1 = 不同意，3 = 中立，5 = 同意），后 8 题为双极词组题（1 = 偏左，3 = 居中，5 = 偏右）。网页版进度自动保存在本机浏览器，刷新可断点续答。

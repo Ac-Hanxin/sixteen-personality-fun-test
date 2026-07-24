@@ -72,7 +72,7 @@ A report you can share — and hand to your AI assistant to remember:
 ## Three steps from answers to image
 
 <p align="center">
-  <img src="assets/flow-triptych.webp" width="900" alt="Real screenshots: answering, the analysis report, and the shareable long image" />
+  <img src="assets/flow-triptych.webp" width="900" alt="The real three steps: answering, the author's INTP analysis long image, and the share poster" />
 </p>
 
 The first 40 items are statements (1 = disagree, 3 = neutral, 5 = agree); the last 8 are bipolar word pairs (1 = left pole, 3 = middle, 5 = right pole). The web version auto-saves progress to your browser's localStorage — refresh and resume anytime.
