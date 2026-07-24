@@ -812,10 +812,11 @@
         q.src = window.OJTS_QR;
       }
       function paint(imgs) {
-        var W = 1080, H = 1400;
+        var W = 1080, H = 1400, K = 1.5;  // 输出 1620x2100 高清版，排版比例不变
         var canvas = document.createElement("canvas");
-        canvas.width = W; canvas.height = H;
+        canvas.width = W * K; canvas.height = H * K;
         var ctx = canvas.getContext("2d");
+        ctx.scale(K, K);
         paintShareImage(ctx, W, H, imgs);
         if (location.hash === "#shotshare") {
           canvas.style.width = "100%";
