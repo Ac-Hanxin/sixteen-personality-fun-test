@@ -511,62 +511,52 @@
       ctx.font = font; ctx.fillStyle = color; ctx.textAlign = align || "left";
       ctx.fillText(str, x, y);
     }
-    function chip(x, y, text, isFlaw) {
-      ctx.font = '600 26px ' + FONT;
-      var w = ctx.measureText(text).width + 36;
-      ctx.fillStyle = isFlaw ? "rgba(255,244,224,0.92)" : "rgba(255,255,255,0.88)";
-      roundRect(ctx, x, y, w, 48, 24); ctx.fill();
-      ctx.fillStyle = isFlaw ? "#8B5B08" : "#243B78";
-      ctx.textAlign = "left";
-      ctx.fillText(text, x + 18, y + 34);
-      return w;
-    }
 
     var PAD = 64;
 
-    // 角色卡（右上）
-    var AV = 300;
+    // 角色卡（右上，加大）
+    var AV = 360;
     var av = imgs[chosenType];
     if (av) {
       ctx.save();
-      roundRect(ctx, W - PAD - AV, 90, AV, AV * av.height / av.width, 28);
+      roundRect(ctx, W - PAD - AV, 110, AV, AV * av.height / av.width, 30);
       ctx.clip();
-      ctx.drawImage(av, W - PAD - AV, 90, AV, AV * av.height / av.width);
+      ctx.drawImage(av, W - PAD - AV, 110, AV, AV * av.height / av.width);
       ctx.restore();
     }
 
     // 结论区
-    t("我是", PAD, 138, '600 30px ' + FONT, "rgba(23,32,51,0.6)");
-    t(chosenType, PAD, 232, '800 96px ' + FONT, "#1C2740");
-    t("（" + p.meme + "）", PAD, 312, '800 52px ' + FONT, "#243B78");
-    t(p.nick, PAD, 368, '700 30px ' + FONT, "rgba(23,32,51,0.75)");
-    t("「" + p.slogan + "」", PAD, 418, '600 27px ' + FONT, "rgba(23,32,51,0.85)");
+    t("我是", PAD, 168, '600 32px ' + FONT, "rgba(23,32,51,0.6)");
+    t(chosenType, PAD, 290, '800 112px ' + FONT, "#1C2740");
+    t("（" + p.meme + "）", PAD, 384, '800 60px ' + FONT, "#243B78");
+    t(p.nick, PAD, 452, '700 33px ' + FONT, "rgba(23,32,51,0.75)");
+    t("「" + p.slogan + "」", PAD, 512, '600 29px ' + FONT, "rgba(23,32,51,0.85)");
 
     // 梗标签（优点 / 损你 两组）
     function tagGroup(label, list, isFlaw, startY) {
-      t(label, PAD, startY, '700 22px ' + FONT, isFlaw ? "#8B5B08" : "#243B78");
-      var cx = PAD, cy = startY + 16, maxX = W - PAD;
-      ctx.font = '600 20px ' + FONT;
+      t(label, PAD, startY, '700 24px ' + FONT, isFlaw ? "#8B5B08" : "#243B78");
+      var cx = PAD, cy = startY + 18, maxX = W - PAD;
+      ctx.font = '600 21px ' + FONT;
       list.forEach(function (tag) {
-        var w = ctx.measureText(tag).width + 30;
-        if (cx + w > maxX) { cx = PAD; cy += 48; }
+        var w = ctx.measureText(tag).width + 32;
+        if (cx + w > maxX) { cx = PAD; cy += 52; }
         ctx.fillStyle = isFlaw ? "rgba(255,244,224,0.92)" : "rgba(255,255,255,0.88)";
-        roundRect(ctx, cx, cy, w, 36, 18); ctx.fill();
+        roundRect(ctx, cx, cy, w, 40, 20); ctx.fill();
         ctx.fillStyle = isFlaw ? "#8B5B08" : "#243B78";
         ctx.textAlign = "left";
-        ctx.fillText(tag, cx + 15, cy + 26);
-        cx += w + 10;
+        ctx.fillText(tag, cx + 16, cy + 28);
+        cx += w + 11;
       });
-      return cy + 36;
+      return cy + 40;
     }
-    var b1 = tagGroup("你的优点", p.tags_strengths, false, 448);
-    var tagsBottom = tagGroup("损你一下", p.tags_flaws, true, b1 + 40) + 14;
+    var b1 = tagGroup("你的优点", p.tags_strengths, false, 592);
+    var tagsBottom = tagGroup("损你一下", p.tags_flaws, true, b1 + 46) + 18;
 
     // 反差萌
-    var cy2 = tagsBottom + 26;
-    t("别人以为的你：" + p.contrast.surface, PAD, cy2, '600 23px ' + FONT, "rgba(23,32,51,0.65)");
-    t("实际上的你：" + p.contrast.truth, PAD, cy2 + 38, '700 25px ' + FONT, "#243B78");
-    tagsBottom = cy2 + 52;
+    var cy2 = tagsBottom + 32;
+    t("别人以为的你：" + p.contrast.surface, PAD, cy2, '600 25px ' + FONT, "rgba(23,32,51,0.65)");
+    t("实际上的你：" + p.contrast.truth, PAD, cy2 + 44, '700 27px ' + FONT, "#243B78");
+    tagsBottom = cy2 + 62;
 
     // 人格指数（紧凑单行版）
     var s = result.scores;
@@ -576,42 +566,43 @@
       ["理性", s.T / (s.T + s.F)],
       ["计划", s.J / (s.J + s.P)],
     ];
-    var my = tagsBottom + 50;
-    t("我的人格指数", PAD, my, '700 26px ' + FONT, "#1C2740");
+    var my = tagsBottom + 56;
+    t("我的人格指数", PAD, my, '700 28px ' + FONT, "#1C2740");
     var colW = (W - PAD * 2) / 4;
     meters.forEach(function (m, i) {
       var x = PAD + i * colW;
-      t(m[0], x, my + 42, '600 22px ' + FONT, "rgba(23,32,51,0.7)");
+      t(m[0], x, my + 48, '600 24px ' + FONT, "rgba(23,32,51,0.7)");
       ctx.fillStyle = "rgba(255,255,255,0.65)";
-      roundRect(ctx, x, my + 58, colW - 28, 16, 8); ctx.fill();
+      roundRect(ctx, x, my + 66, colW - 28, 18, 9); ctx.fill();
       ctx.fillStyle = "#243B78";
-      roundRect(ctx, x, my + 58, Math.max(16, (colW - 28) * m[1]), 16, 8); ctx.fill();
-      t(Math.round(m[1] * 100) + "%", x, my + 106, '700 24px ' + FONT, "#243B78");
+      roundRect(ctx, x, my + 66, Math.max(18, (colW - 28) * m[1]), 18, 9); ctx.fill();
+      t(Math.round(m[1] * 100) + "%", x, my + 126, '700 26px ' + FONT, "#243B78");
     });
-    var metersBottom = my + 118;
+    var metersBottom = my + 140;
+
     // 本周关键词
     t("本周关键词「" + p.fortune.kw + "」 · 幸运物：" + p.fortune.lucky,
-      PAD, metersBottom + 22, '600 23px ' + FONT, "rgba(23,32,51,0.65)");
-    metersBottom += 34;
+      PAD, metersBottom + 26, '600 24px ' + FONT, "rgba(23,32,51,0.65)");
+    metersBottom += 44;
 
     // 双卡片：第二候选人格 + 最佳拍档（均带头像）
-    var cardY = metersBottom + 30;
-    var cardW = (W - PAD * 2 - 24) / 2, cardH = 214;
+    var cardY = metersBottom + 34;
+    var cardW = (W - PAD * 2 - 26) / 2, cardH = 236;
     function miniCard(x, label, code, line2) {
       ctx.fillStyle = "rgba(255,255,255,0.86)";
-      roundRect(ctx, x, cardY, cardW, cardH, 22); ctx.fill();
+      roundRect(ctx, x, cardY, cardW, cardH, 24); ctx.fill();
       var a2 = imgs[code];
-      if (a2) ctx.drawImage(a2, x + 18, cardY + 24, 96, 96 * a2.height / a2.width);
-      var tx = x + 134;
-      t(label, tx, cardY + 48, '600 20px ' + FONT, "rgba(23,32,51,0.55)");
+      if (a2) ctx.drawImage(a2, x + 20, cardY + 26, 108, 108 * a2.height / a2.width);
+      var tx = x + 148;
+      t(label, tx, cardY + 52, '600 21px ' + FONT, "rgba(23,32,51,0.55)");
       var pp = profiles[code];
-      t(code + " · " + pp.nick, tx, cardY + 90, '700 25px ' + FONT, "#1C2740");
-      t("（" + pp.meme + "）", tx, cardY + 126, '700 25px ' + FONT, "#243B78");
+      t(code + " · " + pp.nick, tx, cardY + 98, '700 27px ' + FONT, "#1C2740");
+      t("（" + pp.meme + "）", tx, cardY + 138, '700 27px ' + FONT, "#243B78");
       if (line2) {
-        ctx.font = '22px ' + FONT;
-        var lines = wrapLines(ctx, line2, cardW - 134 - 18).slice(0, 2);
+        ctx.font = '23px ' + FONT;
+        var lines = wrapLines(ctx, line2, cardW - 148 - 18).slice(0, 2);
         lines.forEach(function (ln, i) {
-          t(ln, tx, cardY + 162 + i * 30, '22px ' + FONT, "rgba(23,32,51,0.7)");
+          t(ln, tx, cardY + 176 + i * 32, '23px ' + FONT, "rgba(23,32,51,0.7)");
         });
       }
     }
@@ -619,19 +610,19 @@
     if (info) {
       miniCard(PAD, "我的第二候选人格", info.list[0], profiles[info.list[0]].one);
     }
-    miniCard(info ? PAD + cardW + 24 : PAD, "最佳拍档", p.match, "据说和你最搭，快喊 TA 来测");
+    miniCard(info ? PAD + cardW + 26 : PAD, "最佳拍档", p.match, "据说和你最搭，快喊 TA 来测");
 
     // 底部引流区
-    var fy = H - 156;
+    var fy = H - 186;
     ctx.strokeStyle = "rgba(23,32,51,0.15)"; ctx.lineWidth = 2;
     ctx.beginPath(); ctx.moveTo(PAD, fy); ctx.lineTo(W - PAD, fy); ctx.stroke();
-    t("来测测你是哪一种", PAD, fy + 62, '700 30px ' + FONT, "#1C2740");
-    t("ac-hanxin.github.io/sixteen-personality-fun-test/web/", PAD, fy + 102, '600 22px ' + FONT, "rgba(23,32,51,0.6)");
-    t("改编自 OJTS 2.1（CC BY-NC-SA 4.0）· 仅供娱乐", PAD, fy + 140, '20px ' + FONT, "rgba(23,32,51,0.45)");
+    t("来测测你是哪一种", PAD, fy + 70, '700 32px ' + FONT, "#1C2740");
+    t("ac-hanxin.github.io/sixteen-personality-fun-test/web/", PAD, fy + 116, '600 23px ' + FONT, "rgba(23,32,51,0.6)");
+    t("改编自 OJTS 2.1（CC BY-NC-SA 4.0）· 仅供娱乐", PAD, fy + 156, '21px ' + FONT, "rgba(23,32,51,0.45)");
     if (imgs.__qr__) {
       ctx.fillStyle = "#FFFFFF";
-      roundRect(ctx, W - PAD - 140, fy + 10, 140, 140, 16); ctx.fill();
-      ctx.drawImage(imgs.__qr__, W - PAD - 130, fy + 20, 120, 120);
+      roundRect(ctx, W - PAD - 152, fy + 12, 152, 152, 18); ctx.fill();
+      ctx.drawImage(imgs.__qr__, W - PAD - 140, fy + 24, 128, 128);
     }
   }
 
@@ -812,7 +803,7 @@
         q.src = window.OJTS_QR;
       }
       function paint(imgs) {
-        var W = 1080, H = 1400, K = 1.5;  // 输出 1620x2100 高清版，排版比例不变
+        var W = 1080, H = 1920, K = 1.5;  // 9:16 手机屏比例，输出 1620x2880
         var canvas = document.createElement("canvas");
         canvas.width = W * K; canvas.height = H * K;
         var ctx = canvas.getContext("2d");
