@@ -511,12 +511,12 @@
       ctx.font = font; ctx.fillStyle = color; ctx.textAlign = align || "left";
       ctx.fillText(str, x, y);
     }
-    function chip(x, y, text) {
+    function chip(x, y, text, isFlaw) {
       ctx.font = '600 26px ' + FONT;
       var w = ctx.measureText(text).width + 36;
-      ctx.fillStyle = "rgba(255,255,255,0.88)";
+      ctx.fillStyle = isFlaw ? "rgba(255,244,224,0.92)" : "rgba(255,255,255,0.88)";
       roundRect(ctx, x, y, w, 48, 24); ctx.fill();
-      ctx.fillStyle = "#243B78";
+      ctx.fillStyle = isFlaw ? "#8B5B08" : "#243B78";
       ctx.textAlign = "left";
       ctx.fillText(text, x + 18, y + 34);
       return w;
@@ -544,10 +544,10 @@
 
     // 梗标签
     var cx = PAD, cy = 462, maxX = W - PAD;
-    p.tags.forEach(function (tag) {
+    p.tags.forEach(function (tag, ti) {
       var w = ctx.measureText(tag).width + 36;
       if (cx + w > maxX) { cx = PAD; cy += 62; }
-      cx += chip(cx, cy, tag) + 14;
+      cx += chip(cx, cy, tag, ti >= 5) + 14;
     });
     var tagsBottom = cy + 48;
 
