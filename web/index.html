@@ -72,6 +72,15 @@
   .second-avatar { width: 64px; border-radius: 10px; flex: none; }
   .second-title { font-weight: 700; font-size: 15px; }
   .second-one { font-size: 13.5px; color: var(--muted); }
+  @keyframes popIn { 0% { opacity: 0; transform: translateY(16px) scale(.94); } 100% { opacity: 1; transform: none; } }
+  .pop { opacity: 0; animation: popIn .38s cubic-bezier(.2, 1.5, .4, 1) forwards; }
+  .opt, .bi-opt { transition: transform .16s ease, background .16s ease, border-color .16s ease, color .16s ease; }
+  .opt.picked, .bi-opt.picked { background: var(--navy); border-color: var(--navy); color: #fff; transform: scale(1.04); }
+  .opt.picked .dot { background: #fff; color: var(--navy); }
+  @media (prefers-reduced-motion: reduce) {
+    .pop { animation: none; opacity: 1; }
+    .opt, .bi-opt { transition: none; }
+  }
   .fineprint { font-size: 12.5px; color: var(--muted); }
   .hidden { display: none; }
   a { color: var(--navy); }
@@ -179,9 +188,17 @@
   var items = DATA.items, profiles = DATA.profiles;
   var answers = new Array(48).fill(null);
   var cur = 0, result = null, chosenType = null;
+  var locking = false;
+
+  function pick(btn, val) {
+    if (locking) return;
+    locking = true;
+    btn.classList.add("picked");
+    setTimeout(function () { answer(val); locking = false; }, 300);
+  }
 
   var $ = function (id) { return document.getElementById(id); };
-  var LIKERT_LABELS = ["不同意", "较不同意", "中立", "较同意", "同意"];
+  var LIKERT_LABELS = ["完全符合", "较符合", "中立", "较不符合", "完全不符合"];
 
   /* ---------- 断点续答（localStorage，仅存本机浏览器） ---------- */
   var STORE_KEY = "ojts21_state";
@@ -229,13 +246,14 @@
       var box = $("bipolarOpts");
       box.innerHTML = "";
       for (var v = 1; v <= 5; v++) {
-        (function (val) {
+        (function (val, idx) {
           var b = document.createElement("button");
-          b.className = "bi-opt";
+          b.className = "bi-opt pop";
+          b.style.animationDelay = (idx * 70) + "ms";
           b.textContent = val;
-          b.onclick = function () { answer(val); };
+          b.onclick = function () { pick(b, val); };
           box.appendChild(b);
-        })(v);
+        })(v, v - 1);
       }
     } else {
       $("qtext").textContent = item.zh_cn;
@@ -243,9 +261,10 @@
       lbox.innerHTML = "";
       LIKERT_LABELS.forEach(function (label, i) {
         var b = document.createElement("button");
-        b.className = "opt";
+        b.className = "opt pop";
+        b.style.animationDelay = (i * 70) + "ms";
         b.innerHTML = '<span class="dot">' + (i + 1) + "</span><span>" + label + "</span>";
-        b.onclick = function () { answer(i + 1); };
+        b.onclick = function () { pick(b, i + 1); };
         lbox.appendChild(b);
       });
     }
