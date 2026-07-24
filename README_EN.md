@@ -60,12 +60,12 @@ A report you can share — and hand to your AI assistant to remember:
 
 <table>
   <tr>
-    <td width="46%"><img src="assets/result-page-sample.webp" width="100%" alt="Real screenshot of the web analysis report: verdict line, character and profile" /></td>
-    <td width="54%"><img src="assets/report-sample.png" width="100%" alt="Real generated long-image report sample (fictional ISTJ result)" /></td>
+    <td width="46%"><img src="assets/sample-share-intp.webp" width="100%" alt="Share poster sample: INTP with meme tags, fun meters, second candidate and QR code" /></td>
+    <td width="54%"><img src="assets/sample-analysis-intp.webp" width="100%" alt="Analysis long-image sample: full INTP report with profile, second candidate and eight-pole scores" /></td>
   </tr>
   <tr>
-    <td align="center"><sub>Analysis report page (real screenshot, fictional INFP data)</sub></td>
-    <td align="center"><sub>Real long-image sample (fictional ISTJ data)</sub></td>
+    <td align="center"><sub>Share poster (the author's own result)</sub></td>
+    <td align="center"><sub>Analysis long image (the author's own result)</sub></td>
   </tr>
 </table>
 
@@ -113,6 +113,8 @@ The "community meme" names are Chinese internet nicknames for the 16Personalitie
 - **Traceable source**: `references/questions.json` keeps OJTS 2.1 original English items, IDs, scoring keys, version, and author attribution — compare it with the first-hand sources below.
 - **Reproducible scoring**: `scripts/score.py` uses only local deterministic rules (Python standard library, no external calls); identical 48 answers always yield identical scores and type. The web version's `web/scoring.js` is its score-by-score JS equivalent.
 - **Deterministic boundaries**: **exact ties are marked X**, with the first candidate (fixed order) shown; **non-tied axes show the difference and the closest second candidate**; ties for the smallest difference can yield multiple second candidates.
+- **Fully open screening**: Appendix A of the OJTS development page publishes the full list of screened items; selection was empirical — items survived only if they discriminated self-reported types, not because of theory.
+- **Leading independent comparison**: on the developer's OEJTS comparison of several online tests, the OJTS shows the strongest agreement between self-reported type and test result (linked below).
 - **Tested**: 32 unit tests — fixtures compared score-by-score with the public site, JS/Python scoring parity (requires `node`; skipped when absent), bank integrity, wording boundaries, and asset consistency.
 
 **Development evidence**: the OJTS developer's public page describes the screening pipeline — **2,230** people took part in item exploration, a pool of **278** candidate items was generated, data from **25,568** participants was used for screening, and **48** final items were selected.

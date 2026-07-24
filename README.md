@@ -56,12 +56,12 @@ Hermes 版（利用其长期记忆沉淀结果）：
 
 <table>
   <tr>
-    <td width="46%"><img src="assets/result-page-sample.webp" width="100%" alt="网页版分析报告页真实截图：结论句、角色形象与画像内容" /></td>
-    <td width="54%"><img src="assets/report-sample.png" width="100%" alt="真实生成的分析报告长图样例（虚构 ISTJ 结果）" /></td>
+    <td width="46%"><img src="assets/sample-share-intp.webp" width="100%" alt="分享版海报示例：INTP（药水姐），含梗标签、人格指数、第二候选人格与二维码" /></td>
+    <td width="54%"><img src="assets/sample-analysis-intp.webp" width="100%" alt="分析长图示例：INTP（药水姐）完整报告，含画像、第二候选人格与八极分数" /></td>
   </tr>
   <tr>
-    <td align="center"><sub>分析报告页（真实截图，虚构 INFP 数据）</sub></td>
-    <td align="center"><sub>真实长图样例（虚构 ISTJ 数据，不代表真实用户）</sub></td>
+    <td align="center"><sub>分享版（作者本人实测结果）</sub></td>
+    <td align="center"><sub>分析长图（作者本人实测结果）</sub></td>
   </tr>
 </table>
 
@@ -109,6 +109,8 @@ Hermes 版（利用其长期记忆沉淀结果）：
 - **来源可查**：题库 `references/questions.json` 保留 OJTS 2.1 英文原题、题号、计分键、版本与作者署名，可直接对照第一手来源页面。
 - **计分可复算**：`scripts/score.py` 只用本地确定性规则（Python 标准库，无外部调用）；相同 48 个答案得到相同分数与类型；网页版 `web/scoring.js` 为其逐分等价的 JS 实现。
 - **边界确定**：**完全平分标记为 X**，按固定顺序展示首个候选；**非平分展示分差并给出最接近的第二候选**；如果多个维度的最小分差并列，第二候选可能不止一个。
+- **筛选全程公开**：OJTS 开发页附录 A 公开了全部受筛题目清单（Full list of items screened）；筛选方法是经验实证——只保留能区分自报类型的题目，而非理论臆造。
+- **独立比较领先**：开发方在 OEJTS 比较页面中对多款在线测验做了对比，OJTS 的自报类型与测验结果一致度最高（来源见下方链接）。
 - **测试兜底**：32 项单元测试，包含与公开站点逐分对照的固定样本、JS 与 Python 计分对照（需 node，缺失时自动跳过）、题库完整性、文案边界与资产一致性。
 
 **开发证据**：OJTS 开发方公开页面描述了从候选内容到正式量表的筛选过程：**2,230** 人参与题目探索，候选池包含 **278** 道内容，后续使用 **25,568** 人的数据进行筛选，最终形成 **48** 道正式题。
