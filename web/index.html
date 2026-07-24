@@ -542,9 +542,11 @@
     t(chosenType, PAD, 262, '800 96px ' + FONT, "#1C2740");
     t("（" + p.meme + "）", PAD, 342, '800 52px ' + FONT, "#243B78");
     t(p.nick, PAD, 402, '700 30px ' + FONT, "rgba(23,32,51,0.75)");
+    t("稀有度 1/16 · 恭喜你，测出了十六分之一的自己", PAD, 446, '600 24px ' + FONT, "#243B78");
+    t("「" + p.slogan + "」", PAD, 492, '600 27px ' + FONT, "rgba(23,32,51,0.85)");
 
     // 梗标签
-    var cx = PAD, cy = 448, maxX = W - PAD;
+    var cx = PAD, cy = 536, maxX = W - PAD;
     p.tags.forEach(function (tag) {
       var w = ctx.measureText(tag).width + 36;
       if (cx + w > maxX) { cx = PAD; cy += 62; }
@@ -592,6 +594,19 @@
         t(ln, tx, cardY + 130 + i * 32, '24px ' + FONT, "rgba(23,32,51,0.7)");
       });
     }
+    // 最佳拍档（超宽自动缩字号）
+    var mp = profiles[p.match];
+    var matchY = (info ? cardY + 168 : metersBottom + 36) + 52;
+    var matchText = "据说 " + p.match + " · " + mp.nick + "（" + mp.meme + "）和你最搭，快喊 TA 来测";
+    var matchSize = 25;
+    ctx.font = '600 ' + matchSize + 'px ' + FONT;
+    while (ctx.measureText(matchText).width > W - PAD * 2 && matchSize > 18) {
+      matchSize--;
+      ctx.font = '600 ' + matchSize + 'px ' + FONT;
+    }
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#243B78";
+    ctx.fillText(matchText, W / 2, matchY);
 
     // 底部引流区
     var fy = H - 156;

@@ -13,6 +13,32 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+SLOGANS = {
+    "INTJ": "别人看见的是结果，你早在脑子里放映过结局。",
+    "INTP": "白天拆解世界，晚上拆解自己。",
+    "ENTJ": "世界很乱，所以你来了。",
+    "ENTP": "规矩是用来商量着改的。",
+    "INFJ": "你听见的沉默，比多数人的话多。",
+    "INFP": "心里下着雨，手里递着伞。",
+    "ENFJ": "你一开口，大家就想变成更好的人。",
+    "ENFP": "快乐不是运气，是你的出厂设置。",
+    "ISTJ": "世界可以没有惊喜，但不能没有你答应过的事。",
+    "ISFJ": "你不说爱，但每件小事都知道。",
+    "ESTJ": "混乱一看到你，就开始排队。",
+    "ESFJ": "你把「热闹」两个字，过成了日常。",
+    "ISTP": "话不多，手很稳，问题见你就跑。",
+    "ISFP": "你把日子过成了可以收藏的画面。",
+    "ESTP": "等风来，不如现在就跳。",
+    "ESFP": "你在的地方，快乐自动加一。",
+}
+
+MATCHES = {
+    "INTJ": "ENFP", "ENFP": "INTJ", "INFJ": "ENTP", "ENTP": "INFJ",
+    "INFP": "ENFJ", "ENFJ": "INFP", "INTP": "ENTJ", "ENTJ": "INTP",
+    "ISTJ": "ESFP", "ESFP": "ISTJ", "ISFJ": "ESTP", "ESTP": "ISFJ",
+    "ISFP": "ESTJ", "ESTJ": "ISFP", "ISTP": "ESFJ", "ESFJ": "ISTP",
+}
+
 TAGS = {
     "INTJ": ["计划通", "大脑开十六个窗口", "人间Ctrl+S", "独处充电中", "先赢再说"],
     "INTP": ["逻辑怪", "脑子转不停", "DDL是第一生产力", "冷笑话十级", "社恐但讲理"],
@@ -50,7 +76,7 @@ def parse_profiles() -> dict:
     profiles = {}
     for m in re.finditer(r"^## ([EISNTFJP]{4}) · ([^\n]+)\n(.*?)(?=^## |\Z)", text, re.M | re.S):
         code, nick, block = m.group(1), m.group(2).strip(), m.group(3)
-        entry = {"nick": nick, "tags": TAGS[code]}
+        entry = {"nick": nick, "tags": TAGS[code], "slogan": SLOGANS[code], "match": MATCHES[code]}
         for label, value in re.findall(r"\*\*(\S+?)：\*\*\s*(.+)", block):
             key = FIELD_MAP.get(label)
             if key:
