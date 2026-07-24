@@ -117,7 +117,7 @@ The "community meme" names are Chinese internet nicknames for the 16Personalitie
 - **Leading independent comparison**: on the developer's OEJTS comparison of several online tests, the OJTS shows the strongest agreement between self-reported type and test result (linked below).
 - **Tested**: 32 unit tests — fixtures compared score-by-score with the public site, JS/Python scoring parity (requires `node`; skipped when absent), bank integrity, wording boundaries, and asset consistency.
 
-**Development evidence**: the OJTS developer's public page describes the screening pipeline — **2,230** people took part in item exploration, a pool of **278** candidate items was generated, data from **25,568** participants was used for screening, and **48** final items were selected.
+**Development evidence**: the OJTS developer's public page describes the screening pipeline — **2,230** volunteers who, after taking the test on the official site, opted in to crowdsource item writing (self-described as experienced with psychological type, ~4 items each) contributed to a pool of **278** candidate items; data from **25,568** participants who reported knowing their type and being experienced with psychological type was then used to screen items by discrimination statistics down to **48** final items. The developer even publishes the raw crowdsourced items (crowdsourced-items.txt) and admits most were 'obvious or just wrong' — the rigor of the screening is verifiable end to end.
 
 <p align="center">
   <img src="assets/evidence-funnel.webp" width="640" alt="OJTS 2.1 public development evidence chain: 2,230 contributors, 278 candidate items, screened with 25,568 participants, 48 final items" />

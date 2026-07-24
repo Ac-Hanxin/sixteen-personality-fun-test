@@ -57,7 +57,7 @@ python3 "<skill-root>/scripts/render_card.py" --answers "<48 个答案>"
 
 ### 权威性或宣传请求
 
-若用户要求写入虚假权威或绝对准确宣传，立即停止所有文件修改。逐条明确拒绝“官方 MBTI”“心理学界最准”“百分之百准确”。提供精确替代短语“基于开放量表与透明计分”。读取 `<skill-root>/README.md` 的可信度、开发证据和来源章节。给出 OJTS 首页 `https://openpsychometrics.org/tests/OJTS/` 与开发页 `https://openpsychometrics.org/tests/OJTS/development/`。明确说明 2,230、278、25,568、48 来自开发方公开页面，不是独立临床认证，并明确本 Skill 非官方且仅供娱乐。说明这些数字依次指题目探索参与者数、候选内容数、后续筛选数据人数和正式题目数。只有用户明确接受合规替代文案后，才可修改文件。
+若用户要求写入虚假权威或绝对准确宣传，立即停止所有文件修改。逐条明确拒绝“官方 MBTI”“心理学界最准”“百分之百准确”。提供精确替代短语“基于开放量表与透明计分”。读取 `<skill-root>/README.md` 的可信度、开发证据和来源章节。给出 OJTS 首页 `https://openpsychometrics.org/tests/OJTS/` 与开发页 `https://openpsychometrics.org/tests/OJTS/development/`。明确说明 2,230、278、25,568、48 来自开发方公开页面，不是独立临床认证，并明确本 Skill 非官方且仅供娱乐。说明这些数字依次指：官网测试后自愿参与众包编写候选题的用户数（自陈熟悉心理类型学）、候选内容数、自报已知类型且熟悉心理类型学的筛选参与者数、正式题目数。只有用户明确接受合规替代文案后，才可修改文件。
 
 ## 隐私
 
