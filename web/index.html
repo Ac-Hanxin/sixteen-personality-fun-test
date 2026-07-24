@@ -523,30 +523,27 @@
     }
 
     var PAD = 64;
-    // 顶部品牌
-    t("16 型人格趣味测试 · OJTS 2.1 娱乐版", PAD, 74, '600 24px ' + FONT, "rgba(23,32,51,0.55)");
 
     // 角色卡（右上）
     var AV = 300;
     var av = imgs[chosenType];
     if (av) {
       ctx.save();
-      roundRect(ctx, W - PAD - AV, 110, AV, AV * av.height / av.width, 28);
+      roundRect(ctx, W - PAD - AV, 90, AV, AV * av.height / av.width, 28);
       ctx.clip();
-      ctx.drawImage(av, W - PAD - AV, 110, AV, AV * av.height / av.width);
+      ctx.drawImage(av, W - PAD - AV, 90, AV, AV * av.height / av.width);
       ctx.restore();
     }
 
     // 结论区
-    t("我是", PAD, 168, '600 30px ' + FONT, "rgba(23,32,51,0.6)");
-    t(chosenType, PAD, 262, '800 96px ' + FONT, "#1C2740");
-    t("（" + p.meme + "）", PAD, 342, '800 52px ' + FONT, "#243B78");
-    t(p.nick, PAD, 402, '700 30px ' + FONT, "rgba(23,32,51,0.75)");
-    t("稀有度 1/16 · 恭喜你，测出了十六分之一的自己", PAD, 446, '600 24px ' + FONT, "#243B78");
-    t("「" + p.slogan + "」", PAD, 492, '600 27px ' + FONT, "rgba(23,32,51,0.85)");
+    t("我是", PAD, 138, '600 30px ' + FONT, "rgba(23,32,51,0.6)");
+    t(chosenType, PAD, 232, '800 96px ' + FONT, "#1C2740");
+    t("（" + p.meme + "）", PAD, 312, '800 52px ' + FONT, "#243B78");
+    t(p.nick, PAD, 368, '700 30px ' + FONT, "rgba(23,32,51,0.75)");
+    t("「" + p.slogan + "」", PAD, 418, '600 27px ' + FONT, "rgba(23,32,51,0.85)");
 
     // 梗标签
-    var cx = PAD, cy = 536, maxX = W - PAD;
+    var cx = PAD, cy = 462, maxX = W - PAD;
     p.tags.forEach(function (tag) {
       var w = ctx.measureText(tag).width + 36;
       if (cx + w > maxX) { cx = PAD; cy += 62; }
@@ -554,59 +551,54 @@
     });
     var tagsBottom = cy + 48;
 
-    // 趣味指数条（真实分数驱动）
+    // 人格指数（紧凑单行版）
     var s = result.scores;
     var meters = [
-      ["外向指数", s.E / (s.E + s.I)],
-      ["脑洞指数", s.N / (s.S + s.N)],
-      ["理性指数", s.T / (s.T + s.F)],
-      ["计划指数", s.J / (s.J + s.P)],
+      ["外向", s.E / (s.E + s.I)],
+      ["脑洞", s.N / (s.S + s.N)],
+      ["理性", s.T / (s.T + s.F)],
+      ["计划", s.J / (s.J + s.P)],
     ];
-    var my = tagsBottom + 56;
-    t("我的人格指数", PAD, my, '700 28px ' + FONT, "#1C2740");
+    var my = tagsBottom + 50;
+    t("我的人格指数", PAD, my, '700 26px ' + FONT, "#1C2740");
+    var colW = (W - PAD * 2) / 4;
     meters.forEach(function (m, i) {
-      var y = my + 40 + i * 62;
-      t(m[0], PAD, y + 10, '600 24px ' + FONT, "rgba(23,32,51,0.75)");
-      var bx = PAD + 130, bw = W - PAD * 2 - 130 - 90;
+      var x = PAD + i * colW;
+      t(m[0], x, my + 42, '600 22px ' + FONT, "rgba(23,32,51,0.7)");
       ctx.fillStyle = "rgba(255,255,255,0.65)";
-      roundRect(ctx, bx, y - 8, bw, 22, 11); ctx.fill();
+      roundRect(ctx, x, my + 58, colW - 28, 16, 8); ctx.fill();
       ctx.fillStyle = "#243B78";
-      roundRect(ctx, bx, y - 8, Math.max(22, bw * m[1]), 22, 11); ctx.fill();
-      t(Math.round(m[1] * 100) + "%", bx + bw + 18, y + 10, '700 24px ' + FONT, "#243B78");
+      roundRect(ctx, x, my + 58, Math.max(16, (colW - 28) * m[1]), 16, 8); ctx.fill();
+      t(Math.round(m[1] * 100) + "%", x, my + 106, '700 24px ' + FONT, "#243B78");
     });
-    var metersBottom = my + 40 + 3 * 62 + 14;
+    var metersBottom = my + 118;
 
-    // 第二候选人格卡条
+    // 双卡片：第二候选人格 + 最佳拍档（均带头像）
+    var cardY = metersBottom + 30;
+    var cardW = (W - PAD * 2 - 24) / 2, cardH = 214;
+    function miniCard(x, label, code, line2) {
+      ctx.fillStyle = "rgba(255,255,255,0.86)";
+      roundRect(ctx, x, cardY, cardW, cardH, 22); ctx.fill();
+      var a2 = imgs[code];
+      if (a2) ctx.drawImage(a2, x + 18, cardY + 24, 96, 96 * a2.height / a2.width);
+      var tx = x + 134;
+      t(label, tx, cardY + 48, '600 20px ' + FONT, "rgba(23,32,51,0.55)");
+      var pp = profiles[code];
+      t(code + " · " + pp.nick, tx, cardY + 90, '700 25px ' + FONT, "#1C2740");
+      t("（" + pp.meme + "）", tx, cardY + 126, '700 25px ' + FONT, "#243B78");
+      if (line2) {
+        ctx.font = '22px ' + FONT;
+        var lines = wrapLines(ctx, line2, cardW - 134 - 18).slice(0, 2);
+        lines.forEach(function (ln, i) {
+          t(ln, tx, cardY + 162 + i * 30, '22px ' + FONT, "rgba(23,32,51,0.7)");
+        });
+      }
+    }
     var info = secondInfo();
     if (info) {
-      var st = info.list[0], sp = profiles[st];
-      var cardY = metersBottom + 36;
-      ctx.fillStyle = "rgba(255,255,255,0.82)";
-      roundRect(ctx, PAD, cardY, W - PAD * 2, 168, 22); ctx.fill();
-      var sav = imgs[st];
-      if (sav) ctx.drawImage(sav, PAD + 24, cardY + 24, 120, 120 * sav.height / sav.width);
-      var tx = PAD + 168;
-      t("我的第二候选人格", tx, cardY + 48, '600 22px ' + FONT, "rgba(23,32,51,0.55)");
-      t(st + " · " + sp.nick + "（" + sp.meme + "）", tx, cardY + 92, '700 30px ' + FONT, "#1C2740");
-      ctx.font = '24px ' + FONT;
-      var lines = wrapLines(ctx, sp.one, W - PAD * 2 - 168 - 24).slice(0, 2);
-      lines.forEach(function (ln, i) {
-        t(ln, tx, cardY + 130 + i * 32, '24px ' + FONT, "rgba(23,32,51,0.7)");
-      });
+      miniCard(PAD, "我的第二候选人格", info.list[0], profiles[info.list[0]].one);
     }
-    // 最佳拍档（超宽自动缩字号）
-    var mp = profiles[p.match];
-    var matchY = (info ? cardY + 168 : metersBottom + 36) + 52;
-    var matchText = "据说 " + p.match + " · " + mp.nick + "（" + mp.meme + "）和你最搭，快喊 TA 来测";
-    var matchSize = 25;
-    ctx.font = '600 ' + matchSize + 'px ' + FONT;
-    while (ctx.measureText(matchText).width > W - PAD * 2 && matchSize > 18) {
-      matchSize--;
-      ctx.font = '600 ' + matchSize + 'px ' + FONT;
-    }
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#243B78";
-    ctx.fillText(matchText, W / 2, matchY);
+    miniCard(info ? PAD + cardW + 24 : PAD, "最佳拍档", p.match, "据说和你最搭，快喊 TA 来测");
 
     // 底部引流区
     var fy = H - 156;
@@ -783,7 +775,7 @@
     var hint = $("copyHint");
     hint.textContent = "正在生成分享版…";
     loadAvatars64(function () {
-      var codes = [chosenType].concat(secondInfo() ? secondInfo().list : []);
+      var codes = [chosenType, profiles[chosenType].match].concat(secondInfo() ? secondInfo().list : []);
       var imgs = {}, pending = codes.length + (window.OJTS_QR ? 1 : 0);
       function done() { if (--pending === 0) paint(imgs); }
       codes.forEach(function (c) {
