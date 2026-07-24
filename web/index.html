@@ -77,9 +77,13 @@
   .opt, .bi-opt { transition: transform .16s ease, background .16s ease, border-color .16s ease, color .16s ease; }
   .opt.picked, .bi-opt.picked { background: var(--navy); border-color: var(--navy); color: #fff; transform: scale(1.04); }
   .opt.picked .dot { background: #fff; color: var(--navy); }
+  #qaBox { transition: opacity .19s ease, transform .19s ease; }
+  #qaBox.qa-out { opacity: 0; transform: translateX(-28px); }
+  #qaBox.qa-out-r { opacity: 0; transform: translateX(28px); }
   @media (prefers-reduced-motion: reduce) {
     .pop { animation: none; opacity: 1; }
     .opt, .bi-opt { transition: none; }
+    #qaBox { transition: none; }
   }
   .fineprint { font-size: 12.5px; color: var(--muted); }
   .hidden { display: none; }
@@ -105,6 +109,7 @@
   <!-- 答题页 -->
   <section id="quiz" class="hidden">
     <div class="card">
+      <div id="qaBox">
       <div class="muted" id="counter">第 1 / 48 题</div>
       <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:2%"></div></div>
       <div id="likertBox">
@@ -118,6 +123,7 @@
         </div>
         <div class="bi-opts" id="bipolarOpts"></div>
         <div class="bi-hint"><span>1 偏左</span><span>3 居中</span><span>5 偏右</span></div>
+      </div>
       </div>
       <div class="row">
         <button class="btn ghost" id="undoBtn" style="visibility:hidden">上一题</button>
@@ -194,7 +200,14 @@
     if (locking) return;
     locking = true;
     btn.classList.add("picked");
-    setTimeout(function () { answer(val); locking = false; }, 300);
+    setTimeout(function () {
+      $("qaBox").classList.add("qa-out");
+      setTimeout(function () {
+        answer(val);
+        $("qaBox").classList.remove("qa-out");
+        locking = false;
+      }, 190);
+    }, 300);
   }
 
   var $ = function (id) { return document.getElementById(id); };
@@ -858,7 +871,17 @@
     renderQuestion();
   };
   $("freshBtn").onclick = startFresh;
-  $("undoBtn").onclick = function () { if (cur > 0) { cur--; renderQuestion(); saveState(); } };
+  $("undoBtn").onclick = function () {
+    if (cur > 0 && !locking) {
+      locking = true;
+      $("qaBox").classList.add("qa-out-r");
+      setTimeout(function () {
+        cur--; renderQuestion(); saveState();
+        $("qaBox").classList.remove("qa-out-r");
+        locking = false;
+      }, 190);
+    }
+  };
   $("shareImageBtn").onclick = saveShareImage;
   $("saveImageBtn").onclick = saveLongImage;
   $("copyPromptBtn").onclick = function () {
