@@ -542,14 +542,31 @@
     t(p.nick, PAD, 368, '700 30px ' + FONT, "rgba(23,32,51,0.75)");
     t("「" + p.slogan + "」", PAD, 418, '600 27px ' + FONT, "rgba(23,32,51,0.85)");
 
-    // 梗标签
-    var cx = PAD, cy = 462, maxX = W - PAD;
-    p.tags.forEach(function (tag, ti) {
-      var w = ctx.measureText(tag).width + 36;
-      if (cx + w > maxX) { cx = PAD; cy += 62; }
-      cx += chip(cx, cy, tag, ti >= 5) + 14;
-    });
-    var tagsBottom = cy + 48;
+    // 梗标签（优点 / 损你 两组）
+    function tagGroup(label, list, isFlaw, startY) {
+      t(label, PAD, startY, '700 22px ' + FONT, isFlaw ? "#8B5B08" : "#243B78");
+      var cx = PAD, cy = startY + 16, maxX = W - PAD;
+      ctx.font = '600 20px ' + FONT;
+      list.forEach(function (tag) {
+        var w = ctx.measureText(tag).width + 30;
+        if (cx + w > maxX) { cx = PAD; cy += 48; }
+        ctx.fillStyle = isFlaw ? "rgba(255,244,224,0.92)" : "rgba(255,255,255,0.88)";
+        roundRect(ctx, cx, cy, w, 36, 18); ctx.fill();
+        ctx.fillStyle = isFlaw ? "#8B5B08" : "#243B78";
+        ctx.textAlign = "left";
+        ctx.fillText(tag, cx + 15, cy + 26);
+        cx += w + 10;
+      });
+      return cy + 36;
+    }
+    var b1 = tagGroup("你的优点", p.tags_strengths, false, 448);
+    var tagsBottom = tagGroup("损你一下", p.tags_flaws, true, b1 + 40) + 14;
+
+    // 反差萌
+    var cy2 = tagsBottom + 26;
+    t("别人以为的你：" + p.contrast.surface, PAD, cy2, '600 23px ' + FONT, "rgba(23,32,51,0.65)");
+    t("实际上的你：" + p.contrast.truth, PAD, cy2 + 38, '700 25px ' + FONT, "#243B78");
+    tagsBottom = cy2 + 52;
 
     // 人格指数（紧凑单行版）
     var s = result.scores;
@@ -572,6 +589,10 @@
       t(Math.round(m[1] * 100) + "%", x, my + 106, '700 24px ' + FONT, "#243B78");
     });
     var metersBottom = my + 118;
+    // 本周关键词
+    t("本周关键词「" + p.fortune.kw + "」 · 幸运物：" + p.fortune.lucky,
+      PAD, metersBottom + 22, '600 23px ' + FONT, "rgba(23,32,51,0.65)");
+    metersBottom += 34;
 
     // 双卡片：第二候选人格 + 最佳拍档（均带头像）
     var cardY = metersBottom + 30;
@@ -791,7 +812,7 @@
         q.src = window.OJTS_QR;
       }
       function paint(imgs) {
-        var W = 1080, H = 1350;
+        var W = 1080, H = 1400;
         var canvas = document.createElement("canvas");
         canvas.width = W; canvas.height = H;
         var ctx = canvas.getContext("2d");
