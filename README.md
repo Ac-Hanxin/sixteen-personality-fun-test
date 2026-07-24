@@ -239,5 +239,5 @@ python3 -m unittest discover -s tests -v
 
 ## 作者与交流
 
-- 抖音：[@你的抖音号](https://www.douyin.com/user/你的主页ID)——演示视频、使用反馈与版本更新
+- 抖音：[Ac-Nova（抖音号：Skylines_1997）](https://www.douyin.com/search/Skylines_1997)——演示视频、使用反馈与版本更新（抖音 App 内搜索该抖音号也可直达）
 - 欢迎 Issues 与 PR：题库勘误、翻译建议、客户端适配反馈

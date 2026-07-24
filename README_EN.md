@@ -243,5 +243,5 @@ See [`LICENSE`](LICENSE) for the full license and attribution statement.
 
 ## Author & community
 
-- Douyin (Chinese TikTok): [@your-douyin-handle](https://www.douyin.com/user/your-id) — demo videos, feedback, and release updates
+- Douyin (Chinese TikTok): [Ac-Nova (ID: Skylines_1997)](https://www.douyin.com/search/Skylines_1997) — demo videos, feedback, and release updates (or search the ID in the app)
 - Issues and PRs are welcome: question-bank errata, translation suggestions, client compatibility reports
