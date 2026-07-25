@@ -29,7 +29,9 @@
   .btn.ghost { background: #fff; color: var(--navy); border: 2px solid var(--navy); }
   .progress-track { height: 8px; background: #E5EAF3; border-radius: 4px; overflow: hidden; margin: 10px 0 4px; }
   .progress-fill { height: 100%; background: var(--navy); border-radius: 4px; transition: width .2s; }
-  .qtext { font-size: 20px; font-weight: 700; margin: 14px 0 18px; line-height: 1.5; }
+  .qtext { font-size: 20px; font-weight: 700; margin: 10px 0 18px; line-height: 1.5; }
+  .qemoji { font-size: 44px; line-height: 1.2; margin-top: 12px; }
+  .bi-emoji { display: block; font-size: 32px; margin-bottom: 6px; }
   .opt {
     display: flex; align-items: center; width: 100%; text-align: left; padding: 13px 16px; margin-top: 10px;
     background: #fff; border: 2px solid var(--line); border-radius: 12px; font-size: 16px; cursor: pointer;
@@ -99,7 +101,7 @@
       <h1>16 型人格趣味测试</h1>
       <p class="muted">基于 Open Jungian Type Scales 2.1 · 本地确定性计分 · 仅供娱乐</p>
       <p style="margin:14px 0;"><img class="hero" src="../assets/type-characters.webp" alt="16 型人格角色群像"></p>
-      <p>共 <strong>48 题</strong>，约 5–8 分钟。前 40 题选同意程度，后 8 题选左右倾向。</p>
+      <p>共 <strong>48 题</strong>，约 5–8 分钟。全是日常场景选择题，凭第一直觉选，越不琢磨越准。</p>
       <p class="muted" style="margin-top:8px;">所有计分都在你的浏览器里完成：答案只保存在本机浏览器中用于断点续答，不上传、不共享；点「重新测试」即清除。本测试不是官方 MBTI，仅供娱乐与自我探索，不能用于医疗、招聘等用途。</p>
       <button class="btn" id="startBtn">开始测试</button>
       <button class="btn ghost hidden" id="freshBtn">重新开始（清除本地记录）</button>
@@ -113,13 +115,14 @@
       <div class="muted" id="counter">第 1 / 48 题</div>
       <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:2%"></div></div>
       <div id="likertBox">
+        <div class="qemoji" id="qemoji"></div>
         <div class="qtext" id="qtext"></div>
         <div id="likertOpts"></div>
       </div>
       <div id="bipolarBox" class="hidden">
         <div class="bi-scale">
-          <div class="bi-word" id="leftWord"></div>
-          <div class="bi-word right" id="rightWord"></div>
+          <div class="bi-word" id="leftWord"><span class="bi-emoji" id="leftEmoji"></span><span id="leftText"></span></div>
+          <div class="bi-word right" id="rightWord"><span class="bi-emoji" id="rightEmoji"></span><span id="rightText"></span></div>
         </div>
         <div class="bi-opts" id="bipolarOpts"></div>
         <div class="bi-hint"><span>1 偏左</span><span>3 居中</span><span>5 偏右</span></div>
@@ -211,7 +214,13 @@
   }
 
   var $ = function (id) { return document.getElementById(id); };
-  var LIKERT_LABELS = ["完全不符合", "较不符合", "中立", "较符合", "完全符合"];
+  var LIKERT_LABELS = [
+    ["🚫", "完全不像我"],
+    ["🤏", "不太像我"],
+    ["😐", "一半一半"],
+    ["👌", "有点像我"],
+    ["💯", "完全就是我"],
+  ];
 
   /* ---------- 断点续答（localStorage，仅存本机浏览器） ---------- */
   var STORE_KEY = "ojts21_state";
@@ -254,8 +263,10 @@
     $("likertBox").classList.toggle("hidden", isBipolar);
     $("bipolarBox").classList.toggle("hidden", !isBipolar);
     if (isBipolar) {
-      $("leftWord").textContent = item.left_zh;
-      $("rightWord").textContent = item.right_zh;
+      $("leftEmoji").textContent = item.left_emoji || "";
+      $("rightEmoji").textContent = item.right_emoji || "";
+      $("leftText").textContent = item.left_zh;
+      $("rightText").textContent = item.right_zh;
       var box = $("bipolarOpts");
       box.innerHTML = "";
       for (var v = 1; v <= 5; v++) {
@@ -269,14 +280,15 @@
         })(v, v - 1);
       }
     } else {
+      $("qemoji").textContent = item.emoji || "";
       $("qtext").textContent = item.zh_cn;
       var lbox = $("likertOpts");
       lbox.innerHTML = "";
-      LIKERT_LABELS.forEach(function (label, i) {
+      LIKERT_LABELS.forEach(function (pair, i) {
         var b = document.createElement("button");
         b.className = "opt pop";
         b.style.animationDelay = (i * 70) + "ms";
-        b.innerHTML = '<span class="dot">' + (i + 1) + "</span><span>" + label + "</span>";
+        b.innerHTML = '<span class="dot">' + (i + 1) + "</span><span>" + pair[0] + " " + pair[1] + "</span>";
         b.onclick = function () { pick(b, i + 1); };
         lbox.appendChild(b);
       });

@@ -84,8 +84,8 @@ class ReadmeAssetTests(unittest.TestCase):
     def test_likert_labels_map_disagree_to_one_and_agree_to_five(self):
         import re
         html = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
-        labels = re.search(r'LIKERT_LABELS = \[([^\]]+)\]', html).group(1)
-        items = [x.strip().strip('"') for x in labels.split(",")]
+        block = re.search(r'LIKERT_LABELS = \[(.*?)\];', html, re.S).group(1)
+        items = re.findall(r'\["[^"]*",\s*"([^"]+)"\]', block)
         self.assertEqual(len(items), 5)
         self.assertIn("不", items[0], "数值 1 必须是不符合方向")
         self.assertNotIn("不", items[4], "数值 5 必须是符合方向")

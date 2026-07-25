@@ -15,7 +15,7 @@ description: Use when a user wants to take, score, resume, or interpret a Chines
 
 ## 分批提问
 
-读取 `<skill-root>/references/questions.json`。将 Q1–Q40 分为前 5 轮，每轮 8 题，使用 1–5 同意度量尺。Q1–Q40：1 表示不同意、3 表示中立、5 表示同意。将 S1–S8 独立作为最后第 6 轮，使用 1–5 左右倾向量尺。S1–S8：1 表示偏左、3 表示居中、5 表示偏右。每题只显示本轮序号和中文题目，不显示计分键。
+读取 `<skill-root>/references/questions.json`。将 Q1–Q40 分为前 5 轮，每轮 8 题，使用 1–5 同意度量尺。Q1–Q40：1 表示不同意、3 表示中立、5 表示同意。将 S1–S8 独立作为最后第 6 轮，使用 1–5 左右倾向量尺。S1–S8：1 表示偏左、3 表示居中、5 表示偏右。每题只显示本轮序号和中文题目（likert 题连同 `emoji` 字段一起展示，降低理解成本），不显示计分键。提醒用户凭第一直觉作答，不用反复琢磨。
 
 ## 校验答案
 

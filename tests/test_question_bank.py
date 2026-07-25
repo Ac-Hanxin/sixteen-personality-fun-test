@@ -30,13 +30,14 @@ class QuestionBankTests(unittest.TestCase):
             self.assertEqual(item["kind"], "likert")
             self.assertTrue(item["original_en"].strip())
             self.assertTrue(item["zh_cn"].strip())
+            self.assertTrue(item["emoji"].strip())
             self.assertIn(len(item["keys"]), (1, 2))
             self.assertTrue(set(item["keys"]) <= LETTERS)
 
     def test_bipolar_items_have_two_valid_poles(self):
         for item in self.items[40:]:
             self.assertEqual(item["kind"], "bipolar")
-            for field in ("left_en", "right_en", "left_zh", "right_zh"):
+            for field in ("left_en", "right_en", "left_zh", "right_zh", "left_emoji", "right_emoji"):
                 self.assertTrue(item[field].strip())
             self.assertIn(item["left_key"], LETTERS)
             self.assertIn(item["right_key"], LETTERS)

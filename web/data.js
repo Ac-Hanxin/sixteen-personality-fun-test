@@ -7,7 +7,8 @@ window.OJTS_DATA = {
    "id": "Q1",
    "kind": "likert",
    "original_en": "I don't like to draw attention to myself.",
-   "zh_cn": "我不喜欢让自己成为众人注意的焦点。",
+   "zh_cn": "人一多，我更喜欢待在边上，不想被大家盯着看。",
+   "emoji": "🫥",
    "keys": [
     "I"
    ]
@@ -16,7 +17,8 @@ window.OJTS_DATA = {
    "id": "Q2",
    "kind": "likert",
    "original_en": "I hate situations where people expect me to be funny.",
-   "zh_cn": "我讨厌别人期待我表现得很有趣的场合。",
+   "zh_cn": "饭局上有人起哄「来讲个笑话」，我只想原地消失。",
+   "emoji": "🫠",
    "keys": [
     "I"
    ]
@@ -25,7 +27,8 @@ window.OJTS_DATA = {
    "id": "Q3",
    "kind": "likert",
    "original_en": "I hold back my opinions.",
-   "zh_cn": "我常常保留自己的意见。",
+   "zh_cn": "开会时就算有不同想法，我也常常先憋着不说。",
+   "emoji": "🤐",
    "keys": [
     "I"
    ]
@@ -34,7 +37,8 @@ window.OJTS_DATA = {
    "id": "Q4",
    "kind": "likert",
    "original_en": "I want a huge social circle.",
-   "zh_cn": "我希望拥有非常大的社交圈。",
+   "zh_cn": "朋友越多越好，我巴不得走到哪儿都有熟人。",
+   "emoji": "🤝",
    "keys": [
     "E"
    ]
@@ -43,7 +47,8 @@ window.OJTS_DATA = {
    "id": "Q5",
    "kind": "likert",
    "original_en": "I am the life of the party.",
-   "zh_cn": "聚会时我往往能够带动气氛。",
+   "zh_cn": "聚会冷场时，我通常是那个把气氛重新炒热的人。",
+   "emoji": "🎉",
    "keys": [
     "E"
    ]
@@ -52,7 +57,8 @@ window.OJTS_DATA = {
    "id": "Q6",
    "kind": "likert",
    "original_en": "I make lots of noise.",
-   "zh_cn": "我说话做事时经常制造很大的动静。",
+   "zh_cn": "我一高兴就容易咋咋呼呼，存在感藏不住。",
+   "emoji": "📣",
    "keys": [
     "E"
    ]
@@ -61,7 +67,8 @@ window.OJTS_DATA = {
    "id": "Q7",
    "kind": "likert",
    "original_en": "I avoid philosophical discussions.",
-   "zh_cn": "我会避开哲学讨论。",
+   "zh_cn": "一聊到「人生的意义是什么」，我就想溜。",
+   "emoji": "🏃",
    "keys": [
     "S"
    ]
@@ -70,7 +77,8 @@ window.OJTS_DATA = {
    "id": "Q8",
    "kind": "likert",
    "original_en": "I don't like to analyze literature.",
-   "zh_cn": "我不喜欢分析文学作品。",
+   "zh_cn": "看电影就图个爽，让我分析镜头隐喻我会犯困。",
+   "emoji": "🎬",
    "keys": [
     "S"
    ]
@@ -79,7 +87,8 @@ window.OJTS_DATA = {
    "id": "Q9",
    "kind": "likert",
    "original_en": "I am attached to conventional ways.",
-   "zh_cn": "我依恋传统的做法。",
+   "zh_cn": "用顺手的老办法，我懒得换，一直用下去就挺好。",
+   "emoji": "🏮",
    "keys": [
     "S"
    ]
@@ -88,7 +97,8 @@ window.OJTS_DATA = {
    "id": "Q10",
    "kind": "likert",
    "original_en": "I love to read challenging material.",
-   "zh_cn": "我喜欢阅读有挑战性的材料。",
+   "zh_cn": "越烧脑的书和文章，我读得越起劲。",
+   "emoji": "🧠",
    "keys": [
     "N"
    ]
@@ -97,7 +107,8 @@ window.OJTS_DATA = {
    "id": "Q11",
    "kind": "likert",
    "original_en": "I look for hidden meanings in things.",
-   "zh_cn": "我会寻找事物背后的隐藏含义。",
+   "zh_cn": "朋友随口一句话，我能琢磨出三层意思。",
+   "emoji": "🔍",
    "keys": [
     "N"
    ]
@@ -106,7 +117,8 @@ window.OJTS_DATA = {
    "id": "Q12",
    "kind": "likert",
    "original_en": "I am curious about everything.",
-   "zh_cn": "我对各种事物都充满好奇。",
+   "zh_cn": "刷到没见过的冷知识，我一定会点进去看。",
+   "emoji": "🧐",
    "keys": [
     "N"
    ]
@@ -115,7 +127,8 @@ window.OJTS_DATA = {
    "id": "Q13",
    "kind": "likert",
    "original_en": "I want to experience passion and romance.",
-   "zh_cn": "我希望体验热烈的激情和浪漫。",
+   "zh_cn": "我向往那种轰轰烈烈、像电影一样的感情。",
+   "emoji": "🌹",
    "keys": [
     "F"
    ]
@@ -124,7 +137,8 @@ window.OJTS_DATA = {
    "id": "Q14",
    "kind": "likert",
    "original_en": "I am deeply moved by others' misfortunes.",
-   "zh_cn": "他人的不幸会深深触动我。",
+   "zh_cn": "看到陌生人遇到难处，我心里也会跟着难受半天。",
+   "emoji": "🥺",
    "keys": [
     "F"
    ]
@@ -133,7 +147,8 @@ window.OJTS_DATA = {
    "id": "Q15",
    "kind": "likert",
    "original_en": "I listen to my feelings when making important decisions.",
-   "zh_cn": "做重要决定时，我会听从自己的感受。",
+   "zh_cn": "大事面前，我最后还是会跟着感觉走。",
+   "emoji": "❤️",
    "keys": [
     "F"
    ]
@@ -142,7 +157,8 @@ window.OJTS_DATA = {
    "id": "Q16",
    "kind": "likert",
    "original_en": "I prize logic above all else.",
-   "zh_cn": "我把逻辑看得高于其他因素。",
+   "zh_cn": "讲道理优先，哪怕听起来有点不近人情。",
+   "emoji": "⚖️",
    "keys": [
     "T"
    ]
@@ -151,7 +167,8 @@ window.OJTS_DATA = {
    "id": "Q17",
    "kind": "likert",
    "original_en": "I don't understand people who get emotional.",
-   "zh_cn": "我很难理解情绪化的人。",
+   "zh_cn": "看到有人当场情绪失控，我脑子里只有一串问号。",
+   "emoji": "🤨",
    "keys": [
     "T"
    ]
@@ -160,7 +177,8 @@ window.OJTS_DATA = {
    "id": "Q18",
    "kind": "likert",
    "original_en": "I'd rather be feared than loved.",
-   "zh_cn": "比起被喜欢，我宁愿让人敬畏。",
+   "zh_cn": "与其让人人喜欢我，不如让大家服我、不敢惹我。",
+   "emoji": "👑",
    "keys": [
     "T"
    ]
@@ -169,7 +187,8 @@ window.OJTS_DATA = {
    "id": "Q19",
    "kind": "likert",
    "original_en": "I like order.",
-   "zh_cn": "我喜欢秩序井然。",
+   "zh_cn": "桌面乱、计划乱，我就浑身不自在。",
+   "emoji": "🗂️",
    "keys": [
     "J"
    ]
@@ -178,7 +197,8 @@ window.OJTS_DATA = {
    "id": "Q20",
    "kind": "likert",
    "original_en": "I do things according to a plan.",
-   "zh_cn": "我习惯按照计划做事。",
+   "zh_cn": "出门前我要把行程安排明白，心里才踏实。",
+   "emoji": "🗓️",
    "keys": [
     "J"
    ]
@@ -187,7 +207,8 @@ window.OJTS_DATA = {
    "id": "Q21",
    "kind": "likert",
    "original_en": "I am always prepared.",
-   "zh_cn": "我总会提前做好准备。",
+   "zh_cn": "第二天有重要的事，我头天晚上就把东西收拾好。",
+   "emoji": "🎒",
    "keys": [
     "J"
    ]
@@ -196,7 +217,8 @@ window.OJTS_DATA = {
    "id": "Q22",
    "kind": "likert",
    "original_en": "I often make last-minute plans.",
-   "zh_cn": "我经常临时做计划。",
+   "zh_cn": "周末去哪玩？我基本都是当天早上才决定。",
+   "emoji": "🎲",
    "keys": [
     "P"
    ]
@@ -205,7 +227,8 @@ window.OJTS_DATA = {
    "id": "Q23",
    "kind": "likert",
    "original_en": "I do things for no apparent reason.",
-   "zh_cn": "我有时会做一些说不出明确原因的事。",
+   "zh_cn": "我偶尔会突然想做一件事，自己也说不清为什么。",
+   "emoji": "🤷",
    "keys": [
     "P"
    ]
@@ -214,7 +237,8 @@ window.OJTS_DATA = {
    "id": "Q24",
    "kind": "likert",
    "original_en": "It takes me days to do things that should take hours because I keep getting distracted.",
-   "zh_cn": "一些本可几小时完成的事，我常因不断分心而拖上好几天。",
+   "zh_cn": "两小时能做完的活儿，我刷刷手机就拖成了三天。",
+   "emoji": "📱",
    "keys": [
     "P"
    ]
@@ -223,7 +247,8 @@ window.OJTS_DATA = {
    "id": "Q25",
    "kind": "likert",
    "original_en": "I work on improving myself.",
-   "zh_cn": "我会持续努力让自己变得更好。",
+   "zh_cn": "我总在琢磨怎么提升自己，根本停不下来。",
+   "emoji": "📈",
    "keys": [
     "N",
     "J"
@@ -233,7 +258,8 @@ window.OJTS_DATA = {
    "id": "Q26",
    "kind": "likert",
    "original_en": "I always feel like I need to be doing something important.",
-   "zh_cn": "我总觉得自己应该在做一些重要的事。",
+   "zh_cn": "一闲下来我就慌，总觉得自己该去干点「正事」。",
+   "emoji": "⏳",
    "keys": [
     "N",
     "J"
@@ -243,7 +269,8 @@ window.OJTS_DATA = {
    "id": "Q27",
    "kind": "likert",
    "original_en": "I have unusual beliefs about the world.",
-   "zh_cn": "我对世界持有一些不同寻常的看法。",
+   "zh_cn": "我脑子里有些想法，说出来常被人觉得「怪」。",
+   "emoji": "🛸",
    "keys": [
     "N",
     "P"
@@ -253,7 +280,8 @@ window.OJTS_DATA = {
    "id": "Q28",
    "kind": "likert",
    "original_en": "I dislike routine.",
-   "zh_cn": "我不喜欢一成不变的日常。",
+   "zh_cn": "每天重复一样的生活，我会憋得难受。",
+   "emoji": "🎢",
    "keys": [
     "N",
     "P"
@@ -263,7 +291,8 @@ window.OJTS_DATA = {
    "id": "Q29",
    "kind": "likert",
    "original_en": "I try my best to follow the rules.",
-   "zh_cn": "我会尽力遵守规则。",
+   "zh_cn": "规则立在那儿，我就会老老实实遵守。",
+   "emoji": "🚦",
    "keys": [
     "S",
     "J"
@@ -273,7 +302,8 @@ window.OJTS_DATA = {
    "id": "Q30",
    "kind": "likert",
    "original_en": "I respect authority.",
-   "zh_cn": "我尊重权威。",
+   "zh_cn": "对老师和领导，我基本是尊重服从的。",
+   "emoji": "🫡",
    "keys": [
     "S",
     "J"
@@ -283,7 +313,8 @@ window.OJTS_DATA = {
    "id": "Q31",
    "kind": "likert",
    "original_en": "I like to take it easy.",
-   "zh_cn": "我喜欢放松自在地生活。",
+   "zh_cn": "人生苦短，能躺着的时候我绝不站着。",
+   "emoji": "🛋️",
    "keys": [
     "S",
     "P"
@@ -293,7 +324,8 @@ window.OJTS_DATA = {
    "id": "Q32",
    "kind": "likert",
    "original_en": "I choose the easy way.",
-   "zh_cn": "我倾向选择更省力的方式。",
+   "zh_cn": "有省事的路子，我绝不绕远。",
+   "emoji": "🛝",
    "keys": [
     "S",
     "P"
@@ -303,7 +335,8 @@ window.OJTS_DATA = {
    "id": "Q33",
    "kind": "likert",
    "original_en": "I tell other people my secrets.",
-   "zh_cn": "我会把自己的秘密告诉别人。",
+   "zh_cn": "我心里藏不住事，秘密说着说着就讲出去了。",
+   "emoji": "🗣️",
    "keys": [
     "E",
     "F"
@@ -313,7 +346,8 @@ window.OJTS_DATA = {
    "id": "Q34",
    "kind": "likert",
    "original_en": "I make big gestures of friendship to people.",
-   "zh_cn": "我会用很明显的方式向别人表达友好。",
+   "zh_cn": "喜欢一个人，我会表现得特别明显，藏都藏不住。",
+   "emoji": "💌",
    "keys": [
     "E",
     "F"
@@ -323,7 +357,8 @@ window.OJTS_DATA = {
    "id": "Q35",
    "kind": "likert",
    "original_en": "I enjoy challenges and competition.",
-   "zh_cn": "我喜欢挑战和竞争。",
+   "zh_cn": "一说要比赛、要 PK，我立马来劲。",
+   "emoji": "🏆",
    "keys": [
     "E",
     "T"
@@ -333,7 +368,8 @@ window.OJTS_DATA = {
    "id": "Q36",
    "kind": "likert",
    "original_en": "I have very high self-esteem.",
-   "zh_cn": "我对自己有很高的评价。",
+   "zh_cn": "说实话，我觉得自己挺不错的。",
+   "emoji": "😎",
    "keys": [
     "E",
     "T"
@@ -343,7 +379,8 @@ window.OJTS_DATA = {
    "id": "Q37",
    "kind": "likert",
    "original_en": "I get embarrassed easily.",
-   "zh_cn": "我很容易感到尴尬。",
+   "zh_cn": "别人一句玩笑，我能尴尬得脚趾抠地。",
+   "emoji": "😳",
    "keys": [
     "I",
     "F"
@@ -353,7 +390,8 @@ window.OJTS_DATA = {
    "id": "Q38",
    "kind": "likert",
    "original_en": "I become overwhelmed by events.",
-   "zh_cn": "事情一多，我很容易招架不住。",
+   "zh_cn": "好几件事同时砸过来，我当场就宕机。",
+   "emoji": "🤯",
    "keys": [
     "I",
     "F"
@@ -363,7 +401,8 @@ window.OJTS_DATA = {
    "id": "Q39",
    "kind": "likert",
    "original_en": "I have difficulty expressing my feelings.",
-   "zh_cn": "我不容易表达自己的感受。",
+   "zh_cn": "心里翻江倒海，嘴上也只说得出一句「没事」。",
+   "emoji": "🌫️",
    "keys": [
     "I",
     "T"
@@ -373,7 +412,8 @@ window.OJTS_DATA = {
    "id": "Q40",
    "kind": "likert",
    "original_en": "I don't trust others easily.",
-   "zh_cn": "我不容易信任别人。",
+   "zh_cn": "认识再久，我也很难完全把后背交给别人。",
+   "emoji": "🛡️",
    "keys": [
     "I",
     "T"
@@ -386,6 +426,8 @@ window.OJTS_DATA = {
    "right_en": "wants to believe",
    "left_zh": "倾向怀疑",
    "right_zh": "愿意相信",
+   "left_emoji": "🤨",
+   "right_emoji": "🙏",
    "left_key": "T",
    "right_key": "F"
   },
@@ -396,6 +438,8 @@ window.OJTS_DATA = {
    "right_en": "organized",
    "left_zh": "随性混乱",
    "right_zh": "井然有序",
+   "left_emoji": "🌪️",
+   "right_emoji": "🗂️",
    "left_key": "P",
    "right_key": "J"
   },
@@ -406,6 +450,8 @@ window.OJTS_DATA = {
    "right_en": "wants the details",
    "left_zh": "关注整体图景",
    "right_zh": "关注具体细节",
+   "left_emoji": "🌌",
+   "right_emoji": "🔬",
    "left_key": "N",
    "right_key": "S"
   },
@@ -416,6 +462,8 @@ window.OJTS_DATA = {
    "right_en": "mellow",
    "left_zh": "精力外放",
    "right_zh": "平和内敛",
+   "left_emoji": "⚡",
+   "right_emoji": "🍵",
    "left_key": "E",
    "right_key": "I"
   },
@@ -426,6 +474,8 @@ window.OJTS_DATA = {
    "right_en": "follows the head",
    "left_zh": "跟随内心感受",
    "right_zh": "遵循理性判断",
+   "left_emoji": "❤️",
+   "right_emoji": "🧠",
    "left_key": "F",
    "right_key": "T"
   },
@@ -436,6 +486,8 @@ window.OJTS_DATA = {
    "right_en": "improvises",
    "left_zh": "提前准备",
    "right_zh": "临场发挥",
+   "left_emoji": "🎒",
+   "right_emoji": "🎤",
    "left_key": "J",
    "right_key": "P"
   },
@@ -446,6 +498,8 @@ window.OJTS_DATA = {
    "right_en": "focused on the future",
    "left_zh": "关注当下",
    "right_zh": "关注未来",
+   "left_emoji": "🌞",
+   "right_emoji": "🔭",
    "left_key": "S",
    "right_key": "N"
   },
@@ -456,6 +510,8 @@ window.OJTS_DATA = {
    "right_en": "works best in groups",
    "left_zh": "独自工作状态最佳",
    "right_zh": "团队协作状态最佳",
+   "left_emoji": "🧘",
+   "right_emoji": "🤝",
    "left_key": "I",
    "right_key": "E"
   }
