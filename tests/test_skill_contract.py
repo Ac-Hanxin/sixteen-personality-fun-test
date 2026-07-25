@@ -75,7 +75,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("长期记忆", SKILL_TEXT)
         self.assertIn("一次性提供全部 48 个有效答案", SKILL_TEXT)
         self.assertIn("render_card.py", SKILL_TEXT)
-        self.assertIn("次人格", SKILL_TEXT)
+        self.assertIn("第二候选人格", SKILL_TEXT)
 
 
 if __name__ == "__main__":
