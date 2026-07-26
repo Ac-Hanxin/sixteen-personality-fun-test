@@ -39,6 +39,20 @@
     margin: -40px 0 0 -18px; border: 4px solid #C7D0E0; border-top-color: var(--navy);
     border-radius: 50%; animation: qspin .9s linear infinite; }
   @keyframes qspin { to { transform: rotate(360deg); } }
+  #quiz .card { position: relative; }
+  .milestone { position: absolute; inset: 0; z-index: 5; display: flex; align-items: center;
+    justify-content: center; border-radius: 16px; background: rgba(246,248,252,0.94);
+    opacity: 1; transition: opacity .3s ease; }
+  .milestone.fade { opacity: 0; }
+  .milestone-inner { text-align: center; animation: msPop .45s cubic-bezier(.2, 1.5, .4, 1); }
+  .milestone-emoji { font-size: 56px; line-height: 1.2; }
+  .milestone-text { font-size: 22px; font-weight: 800; color: var(--navy); margin-top: 10px; }
+  .milestone-sub { font-size: 14px; color: var(--muted); margin-top: 6px; }
+  @keyframes msPop { 0% { transform: scale(.7); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  .analyze-ring { width: 52px; height: 52px; margin: 0 auto; border: 5px solid #D5DCE9;
+    border-top-color: var(--navy); border-radius: 50%; animation: qspin .9s linear infinite; }
+  .analyze-step { font-size: 19px; font-weight: 800; color: var(--navy); margin-top: 20px;
+    animation: msPop .3s ease; }
   .qscene { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover;
     display: block; transition: opacity .15s ease; }
   .bi-emoji { display: block; font-size: 32px; margin-bottom: 6px; }
@@ -105,6 +119,9 @@
     .opt, .bi-opt { transition: none; }
     #qaBox { transition: none; }
     .qscene-wrap::after { animation: none; }
+    .milestone-inner { animation: none; }
+    .analyze-ring { animation: none; }
+    .analyze-step { animation: none; }
   }
   .fineprint { font-size: 12.5px; color: var(--muted); }
   .hidden { display: none; }
@@ -152,6 +169,22 @@
           <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:2%"></div></div>
         </div>
       </div>
+      <div class="milestone hidden" id="milestone">
+        <div class="milestone-inner">
+          <div class="milestone-emoji" id="msEmoji"></div>
+          <div class="milestone-text" id="msText"></div>
+          <div class="milestone-sub" id="msSub"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 结果生成过渡页：揭晓前的仪式感 -->
+  <section id="analyzing" class="hidden">
+    <div class="card" style="text-align:center;padding:64px 20px;">
+      <div class="analyze-ring"></div>
+      <div class="analyze-step" id="analyzeStep"></div>
+      <div class="muted" style="margin-top:8px;">48 个选择已收集完毕</div>
     </div>
   </section>
 
@@ -163,6 +196,15 @@
       <div class="type-nick" id="typeNick"></div>
       <div class="type-meme" id="typeMeme"></div>
       <p class="muted" id="typeOne" style="text-align:center;"></p>
+      <button class="btn" id="previewShareBtn">🎨 预览海报</button>
+    </div>
+
+    <div class="card hidden" id="sharePreviewCard">
+      <h2>分享版预览</h2>
+      <p class="muted">看看效果，满意再保存；不满意可以关掉，结果页内容不受影响。</p>
+      <div id="sharePreviewBox" style="margin-top:10px;"></div>
+      <button class="btn" id="sharePreviewSaveBtn">保存海报</button>
+      <button class="btn ghost" id="sharePreviewCloseBtn">收起预览</button>
     </div>
 
     <div class="card hidden" id="candidateCard">
@@ -189,9 +231,8 @@
 
     <div class="card">
       <h2>保存或分享</h2>
-      <p class="muted">分享版发圈晒人设，分析长图留给自己看，存档提示词发给 AI 助理记住你。</p>
-      <button class="btn" id="shareImageBtn">保存分享版</button>
-      <button class="btn ghost" id="saveImageBtn">保存分析结果</button>
+      <p class="muted">分享海报在上方类型卡里预览保存，分析长图留给自己看，存档提示词发给 AI 助理记住你。</p>
+      <button class="btn" id="saveImageBtn">保存分析结果</button>
       <pre class="cardtext" id="resultCard"></pre>
       <button class="btn ghost" id="copyPromptBtn">直接复制发送给“助理”智能体</button>
       <p class="fineprint" id="copyHint" style="margin-top:8px;"></p>
@@ -290,13 +331,36 @@
   preloadScenes(0, 3);  // 欢迎页阶段就把前 3 题拉进缓存，点开始时首题秒出
 
   function show(id) {
-    ["welcome", "quiz", "result"].forEach(function (s) { $(s).classList.toggle("hidden", s !== id); });
+    ["welcome", "quiz", "analyzing", "result"].forEach(function (s) { $(s).classList.toggle("hidden", s !== id); });
     window.scrollTo(0, 0);
+  }
+
+  /* ---------- 里程碑反馈：分段 + 目标梯度，帮用户答完 ---------- */
+  var MILESTONES = {
+    12: ["🧩", "四分之一完成！", "你的轮廓开始浮现了"],
+    24: ["🔍", "过半！", "已经能嗅到你的人格味道"],
+    36: ["🚀", "最后冲刺！", "还剩 12 题，一气呵成"],
+    40: ["⚡", "进入最后 8 题", "左右选倾向，凭直觉飞快"],
+    47: ["🏁", "最后一题！", "答完就揭晓你的类型"],
+  };
+  function maybeMilestone(doneCount) {
+    var m = MILESTONES[doneCount];
+    if (!m) return;
+    $("msEmoji").textContent = m[0];
+    $("msText").textContent = m[1];
+    $("msSub").textContent = m[2] + " · 已完成 " + Math.round(doneCount / 48 * 100) + "%";
+    var ms = $("milestone");
+    ms.classList.remove("hidden", "fade");
+    locking = true;
+    setTimeout(function () { ms.classList.add("fade"); }, 1300);
+    setTimeout(function () { ms.classList.add("hidden"); locking = false; }, 1650);
   }
 
   function renderQuestion() {
     var item = items[cur];
-    $("counter").textContent = "第 " + (cur + 1) + " / 48 题";
+    var remain = 48 - (cur + 1);
+    $("counter").textContent = "第 " + (cur + 1) + " / 48 题" +
+      (remain > 0 && remain <= 12 ? " · 还剩 " + remain + " 题" : "");
     $("progressFill").style.width = Math.round(((cur + 1) / 48) * 100) + "%";
     var isBipolar = item.kind === "bipolar";
     $("likertBox").classList.toggle("hidden", isBipolar);
@@ -349,16 +413,39 @@
   function answer(v) {
     answers[cur] = v;
     saveState();
+    maybeMilestone(cur + 1);
     if (cur < 47) { cur++; renderQuestion(); }
     else finish();
+  }
+
+  var ANALYZE_STEPS = [
+    "统计你的 48 个选择…",
+    "比对八极倾向…",
+    "匹配 16 型人格角色…",
+    "生成你的专属画像…",
+  ];
+  function runAnalysis() {
+    show("analyzing");
+    var i = 0;
+    $("analyzeStep").textContent = ANALYZE_STEPS[0];
+    var timer = setInterval(function () {
+      i++;
+      if (i < ANALYZE_STEPS.length) {
+        $("analyzeStep").textContent = ANALYZE_STEPS[i];
+      } else {
+        clearInterval(timer);
+        renderResult();
+        show("result");
+        previewShareImage(true);  // 结果页自动生成海报预览，用户看到才会想保存
+      }
+    }, 780);
   }
 
   function finish() {
     result = SCORING.summarizeScores(SCORING.scoreAnswers(items, answers));
     chosenType = result.candidates[0];  // 固定规则：平分也确定，不可手动调换
     saveState();
-    renderResult();
-    show("result");
+    runAnalysis();
   }
 
   function pct(x) { return Math.round(x * 100) + "%"; }
@@ -858,13 +945,20 @@
     return y;
   }
 
-  function saveShareImage() {
-    var hint = $("copyHint");
-    hint.textContent = "正在生成分享版…";
+  function buildShareCanvas(cb) {
     loadAvatars64(function () {
       var codes = [chosenType, profiles[chosenType].match].concat(secondInfo() ? secondInfo().list : []);
       var imgs = {}, pending = codes.length + (window.OJTS_QR ? 1 : 0);
-      function done() { if (--pending === 0) paint(imgs); }
+      function done() {
+        if (--pending !== 0) return;
+        var W = 1080, H = 1920, K = 1.5;  // 9:16 手机屏比例，输出 1620x2880
+        var canvas = document.createElement("canvas");
+        canvas.width = W * K; canvas.height = H * K;
+        var ctx = canvas.getContext("2d");
+        ctx.scale(K, K);
+        paintShareImage(ctx, W, H, imgs);
+        cb(canvas);
+      }
       codes.forEach(function (c) {
         var im = new Image();
         im.onload = function () { imgs[c] = im; done(); };
@@ -877,28 +971,43 @@
         q.onerror = done;
         q.src = window.OJTS_QR;
       }
-      function paint(imgs) {
-        var W = 1080, H = 1920, K = 1.5;  // 9:16 手机屏比例，输出 1620x2880
-        var canvas = document.createElement("canvas");
-        canvas.width = W * K; canvas.height = H * K;
-        var ctx = canvas.getContext("2d");
-        ctx.scale(K, K);
-        paintShareImage(ctx, W, H, imgs);
-        if (location.hash === "#shotshare") {
-          canvas.style.width = "100%";
-          document.body.appendChild(canvas);
-          return;
-        }
-        canvas.toBlob(function (blob) {
-          if (!blob) { hint.textContent = "图片生成失败（浏览器内存不足），请重试。"; return; }
-          var a = document.createElement("a");
-          a.href = URL.createObjectURL(blob);
-          a.download = "16型人格-分享版-" + chosenType + "-" + today() + ".png";
-          a.click();
-          setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
-          hint.textContent = "分享版已保存，去发朋友圈吧。";
-        }, "image/png");
+    });
+  }
+
+  function saveShareImage() {
+    var hint = $("copyHint");
+    hint.textContent = "正在生成分享版…";
+    buildShareCanvas(function (canvas) {
+      if (location.hash === "#shotshare") {
+        canvas.style.width = "100%";
+        document.body.appendChild(canvas);
+        return;
       }
+      canvas.toBlob(function (blob) {
+        if (!blob) { hint.textContent = "图片生成失败（浏览器内存不足），请重试。"; return; }
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "16型人格-分享版-" + chosenType + "-" + today() + ".png";
+        a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
+        hint.textContent = "分享版已保存，去发朋友圈吧。";
+      }, "image/png");
+    });
+  }
+
+  function previewShareImage(noScroll) {
+    var hint = $("copyHint");
+    hint.textContent = "正在生成预览…";
+    buildShareCanvas(function (canvas) {
+      canvas.style.width = "100%";
+      canvas.style.borderRadius = "12px";
+      canvas.style.display = "block";
+      var box = $("sharePreviewBox");
+      box.innerHTML = "";
+      box.appendChild(canvas);
+      $("sharePreviewCard").classList.remove("hidden");
+      hint.textContent = "预览已生成，满意的话点预览下方的按钮保存。";
+      if (!noScroll) $("sharePreviewCard").scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
 
@@ -981,7 +1090,11 @@
       }, 190);
     }
   };
-  $("shareImageBtn").onclick = saveShareImage;
+  $("previewShareBtn").onclick = previewShareImage;
+  $("sharePreviewSaveBtn").onclick = saveShareImage;
+  $("sharePreviewCloseBtn").onclick = function () {
+    $("sharePreviewCard").classList.add("hidden");
+  };
   $("saveImageBtn").onclick = saveLongImage;
   $("copyPromptBtn").onclick = function () {
     copyText(
