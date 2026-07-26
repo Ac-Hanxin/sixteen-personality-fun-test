@@ -203,6 +203,7 @@
       <h2>分享版预览</h2>
       <p class="muted">看看效果，满意再保存；不满意可以关掉，结果页内容不受影响。</p>
       <div id="sharePreviewBox" style="margin-top:10px;"></div>
+      <p class="fineprint hidden" id="iosSaveTip" style="margin-top:8px;">💡 iPhone 保存方法：长按海报图片，选「存储图像」即可存入相册。</p>
       <button class="btn" id="sharePreviewSaveBtn">保存海报</button>
       <button class="btn ghost" id="sharePreviewCloseBtn">收起预览</button>
     </div>
@@ -974,9 +975,14 @@
     });
   }
 
+  function isIOS() {
+    return /iP(hone|ad|od)/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  }
+
   function saveShareImage() {
     var hint = $("copyHint");
-    hint.textContent = "正在生成分享版…";
+    hint.textContent = "正在生成海报…";
     buildShareCanvas(function (canvas) {
       if (location.hash === "#shotshare") {
         canvas.style.width = "100%";
@@ -985,12 +991,28 @@
       }
       canvas.toBlob(function (blob) {
         if (!blob) { hint.textContent = "图片生成失败（浏览器内存不足），请重试。"; return; }
+        var name = "16型人格-分享海报-" + chosenType + "-" + today() + ".png";
+        var file = new File([blob], name, { type: "image/png" });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({ files: [file] }).then(function () {
+            hint.textContent = "在系统面板里选「存储图像」即可存入相册。";
+          }, function () {
+            hint.textContent = "已取消。也可以长按预览里的海报保存。";
+          });
+          return;
+        }
+        if (isIOS()) {  // iOS 老版本/微信内：a.download 对 blob 无效，引导长按保存
+          hint.textContent = "请长按预览里的海报图片，选「存储图像」保存。";
+          $("sharePreviewCard").classList.remove("hidden");
+          $("sharePreviewCard").scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
         var a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "16型人格-分享版-" + chosenType + "-" + today() + ".png";
+        a.download = name;
         a.click();
         setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
-        hint.textContent = "分享版已保存，去发朋友圈吧。";
+        hint.textContent = "海报已保存，去发朋友圈吧。";
       }, "image/png");
     });
   }
@@ -999,12 +1021,16 @@
     var hint = $("copyHint");
     hint.textContent = "正在生成预览…";
     buildShareCanvas(function (canvas) {
-      canvas.style.width = "100%";
-      canvas.style.borderRadius = "12px";
-      canvas.style.display = "block";
+      var img = new Image();  // 用 <img> 而非 canvas：iOS 才能长按保存
+      img.src = canvas.toDataURL("image/png");
+      img.alt = "16 型人格分享海报预览";
+      img.style.width = "100%";
+      img.style.borderRadius = "12px";
+      img.style.display = "block";
       var box = $("sharePreviewBox");
       box.innerHTML = "";
-      box.appendChild(canvas);
+      box.appendChild(img);
+      $("iosSaveTip").classList.toggle("hidden", !isIOS());
       $("sharePreviewCard").classList.remove("hidden");
       hint.textContent = "预览已生成，满意的话点预览下方的按钮保存。";
       if (!noScroll) $("sharePreviewCard").scrollIntoView({ behavior: "smooth", block: "start" });
