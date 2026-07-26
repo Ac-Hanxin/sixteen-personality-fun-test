@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>16 型人格趣味测试 · 零安装在线版</title>
 <meta name="description" content="基于 OJTS 2.1 的 48 题中文 16 型人格娱乐测试，浏览器本地计分，结果不上传。">
+<link rel="preload" as="image" href="../assets/questions/q01.webp">
 <style>
   :root {
     --navy: #243B78; --ink: #172033; --muted: #56627A; --line: #E3E7EE;
@@ -30,8 +31,16 @@
   .progress-track { height: 8px; background: #E5EAF3; border-radius: 4px; overflow: hidden; margin: 10px 0 4px; }
   .progress-fill { height: 100%; background: var(--navy); border-radius: 4px; transition: width .2s; }
   .qtext { font-size: 20px; font-weight: 700; margin: 10px 0 18px; line-height: 1.5; }
-  .qscene { width: 100%; border-radius: 12px; display: block; aspect-ratio: 1 / 1;
-    background: #EAEEF5; transition: opacity .15s ease; }
+  .qscene-wrap { position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 12px;
+    background: #EAEEF5; overflow: hidden; }
+  .qscene-wrap::before { content: "场景图加载中…"; position: absolute; inset: 0; display: flex;
+    align-items: center; justify-content: center; padding-top: 52px; color: #97A1B4; font-size: 14px; }
+  .qscene-wrap::after { content: ""; position: absolute; left: 50%; top: 50%; width: 32px; height: 32px;
+    margin: -40px 0 0 -18px; border: 4px solid #C7D0E0; border-top-color: var(--navy);
+    border-radius: 50%; animation: qspin .9s linear infinite; }
+  @keyframes qspin { to { transform: rotate(360deg); } }
+  .qscene { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover;
+    display: block; transition: opacity .15s ease; }
   .bi-emoji { display: block; font-size: 32px; margin-bottom: 6px; }
   .opt {
     display: flex; align-items: center; width: 100%; text-align: left; padding: 13px 16px; margin-top: 10px;
@@ -56,7 +65,7 @@
   @media (max-width: 480px) {
     /* 小屏压缩纵向空间：图、题、五个选项争取一屏看完 */
     .card { padding: 18px 16px; }
-    .qscene { max-height: 300px; object-fit: cover; object-position: center; }
+    .qscene-wrap { max-height: 300px; }
     .qtext { font-size: 19px; margin: 8px 0 12px; }
     .opt { padding: 11px 14px; margin-top: 8px; }
     .bi-opts { margin: 10px 0 2px; }
@@ -95,6 +104,7 @@
     .pop { animation: none; opacity: 1; }
     .opt, .bi-opt { transition: none; }
     #qaBox { transition: none; }
+    .qscene-wrap::after { animation: none; }
   }
   .fineprint { font-size: 12.5px; color: var(--muted); }
   .hidden { display: none; }
@@ -121,7 +131,7 @@
   <section id="quiz" class="hidden">
     <div class="card">
       <div id="qaBox">
-      <img class="qscene" id="qscene" src="" alt="题目场景插画">
+      <div class="qscene-wrap"><img class="qscene" id="qscene" src="" alt="题目场景插画"></div>
       <div id="likertBox">
         <div class="qtext" id="qtext"></div>
         <div id="likertOpts"></div>
@@ -261,7 +271,7 @@
     try { localStorage.removeItem(STORE_KEY); } catch (e) {}
   }
 
-  /* ---------- 场景图预加载：切题时图片必须与题目同帧出现 ---------- */
+  /* ---------- 场景图预加载：前几题优先，之后按答题进度滚动预取 ---------- */
   var sceneCache = {};
   function sceneNameOf(item) {
     return item.id.charAt(0).toLowerCase() + item.id.slice(1).padStart(2, "0");
@@ -277,11 +287,7 @@
       }
     }
   }
-  function preloadAllScenes() {  // 开测后闲时把全套图拉进缓存，每题约 60KB
-    items.forEach(function (item, idx) {
-      setTimeout(function () { preloadScenes(idx, 1); }, 800 + idx * 120);
-    });
-  }
+  preloadScenes(0, 3);  // 欢迎页阶段就把前 3 题拉进缓存，点开始时首题秒出
 
   function show(id) {
     ["welcome", "quiz", "result"].forEach(function (s) { $(s).classList.toggle("hidden", s !== id); });
@@ -305,7 +311,7 @@
     scene.alt = isBipolar
       ? item.left_zh + " 与 " + item.right_zh + " 的对照场景插画"
       : item.zh_cn + "（场景插画）";
-    preloadScenes(cur + 1, 3);  // 答当前题的同时预取后面 3 题
+    preloadScenes(cur + 1, 5);  // 按答题进度滚动预取后面 5 题
     if (isBipolar) {
       $("leftEmoji").textContent = item.left_emoji || "";
       $("rightEmoji").textContent = item.right_emoji || "";
@@ -940,14 +946,13 @@
     clearState();
     answers = new Array(48).fill(null);
     cur = 0; result = null; chosenType = null;
-    preloadAllScenes();
+    preloadScenes(0, 5);
     show("quiz");
     renderQuestion();
   }
 
   $("startBtn").onclick = function () {
     readOnly = false;
-    preloadAllScenes();
     var s = loadState();
     if (s) {
       answers = s.answers;
@@ -1011,7 +1016,6 @@
   var DEMO_ANSWERS = [5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2,
     1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3];
   if (location.hash === "#quiz") {
-    preloadAllScenes();
     show("quiz");
     renderQuestion();
   } else if (location.hash === "#demo" || location.hash === "#shot" || location.hash === "#shotshare") {
