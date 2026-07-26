@@ -37,8 +37,6 @@
     background: #fff; border: 2px solid var(--line); border-radius: 12px; font-size: 16px; cursor: pointer;
   }
   .opt:hover, .opt:focus { border-color: var(--navy); }
-  .opt .dot { width: 26px; height: 26px; border-radius: 50%; background: var(--navy); color: #fff;
-    display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; margin-right: 12px; flex: none; }
   .bi-scale { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin: 18px 0 6px; }
   .bi-word { flex: 1; font-size: 15px; font-weight: 700; color: var(--navy); }
   .bi-word.right { text-align: right; }
@@ -78,7 +76,6 @@
   .pop { opacity: 0; animation: popIn .38s cubic-bezier(.2, 1.5, .4, 1) forwards; }
   .opt, .bi-opt { transition: transform .16s ease, background .16s ease, border-color .16s ease, color .16s ease; }
   .opt.picked, .bi-opt.picked { background: var(--navy); border-color: var(--navy); color: #fff; transform: scale(1.04); }
-  .opt.picked .dot { background: #fff; color: var(--navy); }
   #qaBox { transition: opacity .19s ease, transform .19s ease; }
   #qaBox.qa-out { opacity: 0; transform: translateX(-28px); }
   #qaBox.qa-out-r { opacity: 0; transform: translateX(28px); }
@@ -125,7 +122,7 @@
           <div class="bi-word right" id="rightWord"><span class="bi-emoji" id="rightEmoji"></span><span id="rightText"></span></div>
         </div>
         <div class="bi-opts" id="bipolarOpts"></div>
-        <div class="bi-hint"><span>1 偏左</span><span>3 居中</span><span>5 偏右</span></div>
+        <div class="bi-hint"><span>偏左</span><span>居中</span><span>偏右</span></div>
       </div>
       </div>
       <div class="row">
@@ -215,11 +212,11 @@
 
   var $ = function (id) { return document.getElementById(id); };
   var LIKERT_LABELS = [
-    ["🚫", "完全不像我"],
-    ["🤏", "不太像我"],
-    ["😐", "一半一半"],
-    ["👌", "有点像我"],
     ["💯", "完全就是我"],
+    ["👌", "有点像我"],
+    ["😐", "一半一半"],
+    ["🤏", "不太像我"],
+    ["🚫", "完全不像我"],
   ];
 
   /* ---------- 断点续答（localStorage，仅存本机浏览器） ---------- */
@@ -280,7 +277,7 @@
           var b = document.createElement("button");
           b.className = "bi-opt pop";
           b.style.animationDelay = (idx * 70) + "ms";
-          b.textContent = val;
+          b.setAttribute("aria-label", "倾向 " + val + " / 5");
           b.onclick = function () { pick(b, val); };
           box.appendChild(b);
         })(v, v - 1);
@@ -290,11 +287,12 @@
       var lbox = $("likertOpts");
       lbox.innerHTML = "";
       LIKERT_LABELS.forEach(function (pair, i) {
+        var val = 5 - i;  // 展示顺序从上到下：5 完全就是我 → 1 完全不像我
         var b = document.createElement("button");
         b.className = "opt pop";
         b.style.animationDelay = (i * 70) + "ms";
-        b.innerHTML = '<span class="dot">' + (i + 1) + "</span><span>" + pair[0] + " " + pair[1] + "</span>";
-        b.onclick = function () { pick(b, i + 1); };
+        b.innerHTML = "<span>" + pair[0] + " " + pair[1] + "</span>";
+        b.onclick = function () { pick(b, val); };
         lbox.appendChild(b);
       });
     }

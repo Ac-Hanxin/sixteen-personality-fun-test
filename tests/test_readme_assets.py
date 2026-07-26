@@ -89,14 +89,15 @@ class ReadmeAssetTests(unittest.TestCase):
             self.assertLess(img.stat().st_size, 150 * 1024, img)
             self.assertEqual(img.read_bytes()[:4], b"RIFF", img)
 
-    def test_likert_labels_map_disagree_to_one_and_agree_to_five(self):
+    def test_likert_labels_display_agree_first_and_map_to_five(self):
         import re
         html = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
         block = re.search(r'LIKERT_LABELS = \[(.*?)\];', html, re.S).group(1)
         items = re.findall(r'\["[^"]*",\s*"([^"]+)"\]', block)
         self.assertEqual(len(items), 5)
-        self.assertIn("不", items[0], "数值 1 必须是不符合方向")
-        self.assertNotIn("不", items[4], "数值 5 必须是符合方向")
+        self.assertNotIn("不", items[0], "顶部选项必须是符合方向（数值 5）")
+        self.assertIn("不", items[4], "底部选项必须是不符合方向（数值 1）")
+        self.assertIn("5 - i", html, "展示顺序反转后，分值必须按 5 - i 映射")
 
     def test_web_version_references_local_assets(self):
         html = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
