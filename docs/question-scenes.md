@@ -1,9 +1,9 @@
-# 48 题场景化拆解（生图用 · 待人工审核）
+# 48 题场景化拆解（生图用）
 
 每题拆解为一个拟人化场景，配合网页版题目展示，帮助用户一眼代入、凭直觉作答。
-本文件只是拆解稿，**审核通过后再交给生图模型出图**。
+对应的生图执行计划见 `docs/image-generation-plan.md`，成品图为 `assets/questions/` 下的 48 张 WebP。
 
-## 审核要点（过一遍时每题打勾）
+## 场景设计要点
 
 - 场景与题目表达的是**同一种行为/倾向**，没有跑偏或加戏；
 - 画面只呈现「情境」，不剧透答案方向（不画对错、不画鄙视链）；
@@ -465,12 +465,3 @@ Flat vector illustration, clean modern editorial style, simple geometric shapes,
 ```
 Flat vector illustration, clean modern editorial style, simple geometric shapes, solid colors with subtle 10% tint shading, plain very-light background #f7f8fb, no text, no logo. Split-screen composition with a thin divider: LEFT panel — in a quiet single room a young person with short black hair in a mustard-yellow crewneck sweater and dark trousers works in deep focus with a rising flow line; RIGHT panel — the same character brainstorms with teammates around a whiteboard, idea sparks flying between everyone.
 ```
-
----
-
-## 审核进度（人工填写）
-
-| 题号 | 场景 OK | 提示词 OK | 备注 |
-| --- | --- | --- | --- |
-| Q1–Q40 | ☐ | ☐ | |
-| S1–S8 | ☐ | ☐ | |

@@ -115,7 +115,7 @@ The "community meme" names are Chinese internet nicknames for the 16Personalitie
 - **Deterministic boundaries**: **exact ties are marked X**, with the first candidate (fixed order) shown; **non-tied axes show the difference and the closest second candidate**; ties for the smallest difference can yield multiple second candidates.
 - **Fully open screening**: Appendix A of the OJTS development page publishes the full list of screened items; selection was empirical — items survived only if they discriminated self-reported types, not because of theory.
 - **Leading independent comparison**: on the developer's OEJTS comparison of several online tests, the OJTS shows the strongest agreement between self-reported type and test result (linked below).
-- **Tested**: 32 unit tests — fixtures compared score-by-score with the public site, JS/Python scoring parity (requires `node`; skipped when absent), bank integrity, wording boundaries, and asset consistency.
+- **Tested**: 33 unit tests — fixtures compared score-by-score with the public site, JS/Python scoring parity (requires `node`; skipped when absent), bank integrity, wording boundaries, and asset consistency.
 
 **Development evidence**: the OJTS developer's public page describes the screening pipeline — **2,230** volunteers who, after taking the test on the official site, opted in to crowdsource item writing (self-described as experienced with psychological type, ~4 items each) contributed to a pool of **278** candidate items; data from **25,568** participants who reported knowing their type and being experienced with psychological type was then used to screen items by discrimination statistics down to **48** final items. The developer even publishes the raw crowdsourced items (crowdsourced-items.txt) and admits most were 'obvious or just wrong' — the rigor of the screening is verifiable end to end.
 
@@ -203,9 +203,9 @@ sixteen-personality-fun-test/
 │   ├── scoring.js            # JS equivalent of score.py (tested score-by-score against it)
 │   ├── data.js               # Question & profile data (generated — do not hand-edit)
 │   └── avatars64.js          # Base64 avatars for canvas rendering (generated)
-├── assets/                   # Group image, 16 avatars, banner, sample images, SVG graphics
-├── docs/character-prompts.md # AI-generation prompts and divergence rules for the characters
-├── tests/                    # 32 unit tests
+├── assets/                   # Group image, 16 avatars, 48 question scene illustrations, banner, samples, SVG graphics
+├── docs/                     # AI-generation prompts, scene breakdowns, divergence rules for characters & question art
+├── tests/                    # 33 unit tests
 └── LICENSE                   # CC BY-NC-SA 4.0
 ```
 
@@ -224,7 +224,7 @@ Assessment flow:
 python3 -m unittest discover -s tests -v
 ```
 
-32 tests cover: scoring correctness (including fixtures compared with the public site), score-by-score parity between the web version's JS and the Python scorer (requires `node`; skipped automatically when absent), question-bank integrity, profile structure and wording boundaries, the SKILL.md contract, and the consistency of this README with its image assets.
+33 tests cover: scoring correctness (including fixtures compared with the public site), score-by-score parity between the web version's JS and the Python scorer (requires `node`; skipped automatically when absent), question-bank integrity, profile structure and wording boundaries, the SKILL.md contract, the completeness of the question scene-image assets, and the consistency of this README with its image assets.
 
 </details>
 
