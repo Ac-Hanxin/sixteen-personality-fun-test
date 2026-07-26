@@ -30,7 +30,8 @@
   .progress-track { height: 8px; background: #E5EAF3; border-radius: 4px; overflow: hidden; margin: 10px 0 4px; }
   .progress-fill { height: 100%; background: var(--navy); border-radius: 4px; transition: width .2s; }
   .qtext { font-size: 20px; font-weight: 700; margin: 10px 0 18px; line-height: 1.5; }
-  .qscene { width: 100%; border-radius: 12px; display: block; margin-top: 12px; }
+  .qscene { width: 100%; border-radius: 12px; display: block; aspect-ratio: 1 / 1;
+    background: #EAEEF5; transition: opacity .15s ease; }
   .bi-emoji { display: block; font-size: 32px; margin-bottom: 6px; }
   .opt {
     display: flex; align-items: center; width: 100%; text-align: left; padding: 13px 16px; margin-top: 10px;
@@ -48,8 +49,19 @@
   .bi-hint span { width: 33%; }
   .bi-hint span:nth-child(2) { text-align: center; }
   .bi-hint span:last-child { text-align: right; }
-  .row { display: flex; gap: 10px; margin-top: 14px; }
-  .row .btn { margin-top: 0; }
+  .quiz-footer { display: flex; gap: 12px; align-items: center; margin-top: 14px; }
+  .quiz-footer .btn { width: auto; flex: none; margin-top: 0; padding: 10px 18px; font-size: 15px; }
+  .quiz-progress { flex: 1; min-width: 0; }
+  .quiz-progress .progress-track { margin: 6px 0 0; }
+  @media (max-width: 480px) {
+    /* 小屏压缩纵向空间：图、题、五个选项争取一屏看完 */
+    .card { padding: 18px 16px; }
+    .qscene { max-height: 300px; object-fit: cover; object-position: center; }
+    .qtext { font-size: 19px; margin: 8px 0 12px; }
+    .opt { padding: 11px 14px; margin-top: 8px; }
+    .bi-opts { margin: 10px 0 2px; }
+    .quiz-footer { margin-top: 12px; }
+  }
   .avatar { width: 168px; border-radius: 14px; display: block; margin: 4px auto 12px; }
   .type-code { font-size: 34px; font-weight: 800; letter-spacing: 2px; color: var(--navy); text-align: center; }
   .type-nick { font-size: 19px; font-weight: 700; text-align: center; }
@@ -109,8 +121,6 @@
   <section id="quiz" class="hidden">
     <div class="card">
       <div id="qaBox">
-      <div class="muted" id="counter">第 1 / 48 题</div>
-      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:2%"></div></div>
       <img class="qscene" id="qscene" src="" alt="题目场景插画">
       <div id="likertBox">
         <div class="qtext" id="qtext"></div>
@@ -125,8 +135,12 @@
         <div class="bi-hint"><span>偏左</span><span>居中</span><span>偏右</span></div>
       </div>
       </div>
-      <div class="row">
+      <div class="quiz-footer">
         <button class="btn ghost" id="undoBtn" style="visibility:hidden">上一题</button>
+        <div class="quiz-progress">
+          <div class="muted" id="counter">第 1 / 48 题</div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:2%"></div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -247,6 +261,28 @@
     try { localStorage.removeItem(STORE_KEY); } catch (e) {}
   }
 
+  /* ---------- 场景图预加载：切题时图片必须与题目同帧出现 ---------- */
+  var sceneCache = {};
+  function sceneNameOf(item) {
+    return item.id.charAt(0).toLowerCase() + item.id.slice(1).padStart(2, "0");
+  }
+  function sceneURL(name) { return "../assets/questions/" + name + ".webp"; }
+  function preloadScenes(from, count) {
+    for (var i = Math.max(0, from); i < Math.min(items.length, from + count); i++) {
+      var n = sceneNameOf(items[i]);
+      if (!sceneCache[n]) {
+        var im = new Image();
+        im.src = sceneURL(n);
+        sceneCache[n] = im;
+      }
+    }
+  }
+  function preloadAllScenes() {  // 开测后闲时把全套图拉进缓存，每题约 60KB
+    items.forEach(function (item, idx) {
+      setTimeout(function () { preloadScenes(idx, 1); }, 800 + idx * 120);
+    });
+  }
+
   function show(id) {
     ["welcome", "quiz", "result"].forEach(function (s) { $(s).classList.toggle("hidden", s !== id); });
     window.scrollTo(0, 0);
@@ -260,11 +296,16 @@
     $("likertBox").classList.toggle("hidden", isBipolar);
     $("bipolarBox").classList.toggle("hidden", !isBipolar);
     var scene = $("qscene");
-    var sceneName = item.id.charAt(0).toLowerCase() + item.id.slice(1).padStart(2, "0");
-    scene.src = "../assets/questions/" + sceneName + ".webp";
+    var sceneName = sceneNameOf(item);
+    var cached = sceneCache[sceneName];
+    var ready = cached && cached.complete && cached.naturalWidth > 0;
+    scene.style.opacity = ready ? "1" : "0";  // 未就绪先藏，绝不留上一题的图
+    scene.onload = function () { scene.style.opacity = "1"; };
+    scene.src = sceneURL(sceneName);
     scene.alt = isBipolar
       ? item.left_zh + " 与 " + item.right_zh + " 的对照场景插画"
       : item.zh_cn + "（场景插画）";
+    preloadScenes(cur + 1, 3);  // 答当前题的同时预取后面 3 题
     if (isBipolar) {
       $("leftEmoji").textContent = item.left_emoji || "";
       $("rightEmoji").textContent = item.right_emoji || "";
@@ -886,12 +927,14 @@
     clearState();
     answers = new Array(48).fill(null);
     cur = 0; result = null; chosenType = null;
+    preloadAllScenes();
     show("quiz");
     renderQuestion();
   }
 
   $("startBtn").onclick = function () {
     readOnly = false;
+    preloadAllScenes();
     var s = loadState();
     if (s) {
       answers = s.answers;
@@ -955,6 +998,7 @@
   var DEMO_ANSWERS = [5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2,
     1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3];
   if (location.hash === "#quiz") {
+    preloadAllScenes();
     show("quiz");
     renderQuestion();
   } else if (location.hash === "#demo" || location.hash === "#shot" || location.hash === "#shotshare") {
