@@ -81,6 +81,14 @@ class ReadmeAssetTests(unittest.TestCase):
             self.assertLess(img.stat().st_size, 60 * 1024, img)
             self.assertEqual(img.read_bytes()[:4], b"RIFF", img)
 
+    def test_question_scene_images_exist_for_all_48_items(self):
+        names = [f"q{i:02d}" for i in range(1, 41)] + [f"s{i:02d}" for i in range(1, 9)]
+        for name in names:
+            img = ROOT / "assets" / "questions" / f"{name}.webp"
+            self.assertTrue(img.is_file(), img)
+            self.assertLess(img.stat().st_size, 150 * 1024, img)
+            self.assertEqual(img.read_bytes()[:4], b"RIFF", img)
+
     def test_likert_labels_map_disagree_to_one_and_agree_to_five(self):
         import re
         html = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
