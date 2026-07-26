@@ -582,37 +582,50 @@
     }
 
     // 结论区
-    t("我是", PAD, 168, '600 32px ' + FONT, "rgba(23,32,51,0.6)");
-    t(chosenType, PAD, 290, '800 112px ' + FONT, "#1C2740");
-    t("（" + p.meme + "）", PAD, 384, '800 60px ' + FONT, "#243B78");
-    t(p.nick, PAD, 452, '700 33px ' + FONT, "rgba(23,32,51,0.75)");
-    t("「" + p.slogan + "」", PAD, 512, '600 29px ' + FONT, "rgba(23,32,51,0.85)");
+    t("我是", PAD, 168, '600 36px ' + FONT, "rgba(23,32,51,0.6)");
+    t(chosenType, PAD, 292, '800 124px ' + FONT, "#1C2740");
+    t("（" + p.meme + "）", PAD, 392, '800 68px ' + FONT, "#243B78");
+    t(p.nick, PAD, 460, '700 40px ' + FONT, "rgba(23,32,51,0.75)");
+    t("「" + p.slogan + "」", PAD, 522, '600 33px ' + FONT, "rgba(23,32,51,0.85)");
 
-    // 梗标签（优点 / 损你 两组）
-    function tagGroup(label, list, isFlaw, startY) {
-      t(label, PAD, startY, '700 24px ' + FONT, isFlaw ? "#8B5B08" : "#243B78");
-      var cx = PAD, cy = startY + 18, maxX = W - PAD;
-      ctx.font = '600 21px ' + FONT;
-      list.forEach(function (tag) {
-        var w = ctx.measureText(tag).width + 32;
-        if (cx + w > maxX) { cx = PAD; cy += 52; }
-        ctx.fillStyle = isFlaw ? "rgba(255,244,224,0.92)" : "rgba(255,255,255,0.88)";
-        roundRect(ctx, cx, cy, w, 40, 20); ctx.fill();
-        ctx.fillStyle = isFlaw ? "#8B5B08" : "#243B78";
-        ctx.textAlign = "left";
-        ctx.fillText(tag, cx + 16, cy + 28);
-        cx += w + 11;
+    // 人设标签：优点 + 损你混编成一组，大小不一、轻微错位旋转，随性手账感
+    function mixedTags(label, startY) {
+      t(label, PAD, startY, '700 28px ' + FONT, "#243B78");
+      var s = p.tags_strengths, f = p.tags_flaws;
+      var mix = [s[0], f[0], s[1], s[2], f[1], s[3], f[2], s[4], f[3], f[4],
+                 s[5], s[6], f[5], s[7], f[6], s[8], f[7], f[8], s[9], f[9]];
+      var flaws = [0,1,0,0,1,0,1,0,1,1,0,0,1,0,1,0,1,1,0,1];
+      var sizes = [27,21,25,19,23,26,20,24,18,22,26,20,24,19,27,21,25,18,23,20];
+      var cx = PAD, cy = startY + 16, maxX = W - PAD;
+      mix.forEach(function (tag, i) {
+        var fs = sizes[i % sizes.length];
+        ctx.font = '600 ' + fs + 'px ' + FONT;
+        var w = ctx.measureText(tag).width + Math.round(fs * 1.4);
+        var h = Math.round(fs * 1.9);
+        if (cx + w > maxX) { cx = PAD; cy += 64; }
+        var jitter = ((i * 37) % 13) - 6;
+        var rot = (((i * 53) % 7) - 3) * 0.9 * Math.PI / 180;
+        ctx.save();
+        ctx.translate(cx + w / 2, cy + h / 2 + jitter);
+        ctx.rotate(rot);
+        ctx.fillStyle = flaws[i] ? "rgba(255,244,224,0.92)" : "rgba(255,255,255,0.88)";
+        roundRect(ctx, -w / 2, -h / 2, w, h, h / 2); ctx.fill();
+        ctx.fillStyle = flaws[i] ? "#8B5B08" : "#243B78";
+        ctx.textAlign = "center";
+        ctx.fillText(tag, 0, fs * 0.35);
+        ctx.restore();
+        cx += w + 12;
       });
-      return cy + 40;
+      ctx.textAlign = "left";
+      return cy + 56;
     }
-    var b1 = tagGroup("你的优点", p.tags_strengths, false, 592);
-    var tagsBottom = tagGroup("损你一下", p.tags_flaws, true, b1 + 46) + 18;
+    var tagsBottom = mixedTags("你的专属标签", 592) + 10;
 
     // 反差萌
-    var cy2 = tagsBottom + 32;
-    t("别人以为的你：" + p.contrast.surface, PAD, cy2, '600 25px ' + FONT, "rgba(23,32,51,0.65)");
-    t("实际上的你：" + p.contrast.truth, PAD, cy2 + 44, '700 27px ' + FONT, "#243B78");
-    tagsBottom = cy2 + 62;
+    var cy2 = tagsBottom + 34;
+    t("别人以为的你：" + p.contrast.surface, PAD, cy2, '600 28px ' + FONT, "rgba(23,32,51,0.65)");
+    t("实际上的你：" + p.contrast.truth, PAD, cy2 + 46, '700 30px ' + FONT, "#243B78");
+    tagsBottom = cy2 + 64;
 
     // 人格指数（紧凑单行版）
     var s = result.scores;
@@ -623,42 +636,42 @@
       ["计划", s.J / (s.J + s.P)],
     ];
     var my = tagsBottom + 56;
-    t("我的人格指数", PAD, my, '700 28px ' + FONT, "#1C2740");
+    t("我的人格指数", PAD, my, '700 32px ' + FONT, "#1C2740");
     var colW = (W - PAD * 2) / 4;
     meters.forEach(function (m, i) {
       var x = PAD + i * colW;
-      t(m[0], x, my + 48, '600 24px ' + FONT, "rgba(23,32,51,0.7)");
+      t(m[0], x, my + 50, '600 26px ' + FONT, "rgba(23,32,51,0.7)");
       ctx.fillStyle = "rgba(255,255,255,0.65)";
-      roundRect(ctx, x, my + 66, colW - 28, 18, 9); ctx.fill();
+      roundRect(ctx, x, my + 68, colW - 28, 20, 10); ctx.fill();
       ctx.fillStyle = "#243B78";
-      roundRect(ctx, x, my + 66, Math.max(18, (colW - 28) * m[1]), 18, 9); ctx.fill();
-      t(Math.round(m[1] * 100) + "%", x, my + 126, '700 26px ' + FONT, "#243B78");
+      roundRect(ctx, x, my + 68, Math.max(20, (colW - 28) * m[1]), 20, 10); ctx.fill();
+      t(Math.round(m[1] * 100) + "%", x, my + 130, '700 29px ' + FONT, "#243B78");
     });
-    var metersBottom = my + 140;
+    var metersBottom = my + 142;
 
     // 本周关键词
     t("本周关键词「" + p.fortune.kw + "」 · 幸运物：" + p.fortune.lucky,
-      PAD, metersBottom + 26, '600 24px ' + FONT, "rgba(23,32,51,0.65)");
-    metersBottom += 44;
+      PAD, metersBottom + 28, '600 26px ' + FONT, "rgba(23,32,51,0.65)");
+    metersBottom += 46;
 
     // 双卡片：第二候选人格 + 最佳拍档（均带头像）
     var cardY = metersBottom + 34;
-    var cardW = (W - PAD * 2 - 26) / 2, cardH = 236;
+    var cardW = (W - PAD * 2 - 26) / 2, cardH = 292;
     function miniCard(x, label, code, line2) {
       ctx.fillStyle = "rgba(255,255,255,0.86)";
       roundRect(ctx, x, cardY, cardW, cardH, 24); ctx.fill();
       var a2 = imgs[code];
-      if (a2) ctx.drawImage(a2, x + 20, cardY + 26, 108, 108 * a2.height / a2.width);
-      var tx = x + 148;
-      t(label, tx, cardY + 52, '600 21px ' + FONT, "rgba(23,32,51,0.55)");
+      if (a2) ctx.drawImage(a2, x + 20, cardY + 30, 116, 116 * a2.height / a2.width);
+      var tx = x + 156;
+      t(label, tx, cardY + 56, '600 23px ' + FONT, "rgba(23,32,51,0.55)");
       var pp = profiles[code];
-      t(code + " · " + pp.nick, tx, cardY + 98, '700 27px ' + FONT, "#1C2740");
-      t("（" + pp.meme + "）", tx, cardY + 138, '700 27px ' + FONT, "#243B78");
+      t(code + " · " + pp.nick, tx, cardY + 106, '700 30px ' + FONT, "#1C2740");
+      t("（" + pp.meme + "）", tx, cardY + 150, '700 30px ' + FONT, "#243B78");
       if (line2) {
-        ctx.font = '23px ' + FONT;
-        var lines = wrapLines(ctx, line2, cardW - 148 - 18).slice(0, 2);
+        ctx.font = '24px ' + FONT;
+        var lines = wrapLines(ctx, line2, cardW - 156 - 20).slice(0, 3);
         lines.forEach(function (ln, i) {
-          t(ln, tx, cardY + 176 + i * 32, '23px ' + FONT, "rgba(23,32,51,0.7)");
+          t(ln, tx, cardY + 194 + i * 34, '24px ' + FONT, "rgba(23,32,51,0.7)");
         });
       }
     }
@@ -672,9 +685,9 @@
     var fy = H - 186;
     ctx.strokeStyle = "rgba(23,32,51,0.15)"; ctx.lineWidth = 2;
     ctx.beginPath(); ctx.moveTo(PAD, fy); ctx.lineTo(W - PAD, fy); ctx.stroke();
-    t("来测测你是哪一种", PAD, fy + 70, '700 32px ' + FONT, "#1C2740");
-    t("ac-hanxin.github.io/sixteen-personality-fun-test/web/", PAD, fy + 116, '600 23px ' + FONT, "rgba(23,32,51,0.6)");
-    t("改编自 OJTS 2.1（CC BY-NC-SA 4.0）· 仅供娱乐", PAD, fy + 156, '21px ' + FONT, "rgba(23,32,51,0.45)");
+    t("来测测你是哪一种", PAD, fy + 70, '700 36px ' + FONT, "#1C2740");
+    t("ac-hanxin.github.io/sixteen-personality-fun-test/web/", PAD, fy + 118, '600 25px ' + FONT, "rgba(23,32,51,0.6)");
+    t("改编自 OJTS 2.1（CC BY-NC-SA 4.0）· 仅供娱乐", PAD, fy + 156, '23px ' + FONT, "rgba(23,32,51,0.45)");
     if (imgs.__qr__) {
       ctx.fillStyle = "#FFFFFF";
       roundRect(ctx, W - PAD - 152, fy + 12, 152, 152, 18); ctx.fill();
