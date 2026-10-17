@@ -2,26 +2,56 @@
   <img src="assets/banner.webp" width="900" alt="16 型人格趣味测试：基于 OJTS 2.1，本地确定性计分，仅供娱乐" />
 </p>
 
+<h1 align="center">16 型人格趣味测试</h1>
+
 <p align="center">
-  <strong>把你的答案变成一份看得懂边界的人格报告：48 题 · 本地确定性计分 · 角色形象 · 长图可晒 · 存档可记</strong><br/>
-  <sub>A reproducible, agent-native Chinese workflow for the Open Jungian Type Scales 2.1 — for entertainment only.</sub>
+  <strong>48 道题，约 5–8 分钟，给你一份看得懂边界的人格报告。</strong><br/>
+  <sub>零安装网页版 · Agent Skill · 本地确定性计分 · 长图可晒 · 存档可记</sub>
+</p>
+
+<p align="center">
+  <a href="https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/"><strong>▶ 立即在线测试</strong></a> ·
+  <a href="https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/#demo">看示例结果</a> ·
+  <a href="https://github.com/Ac-Hanxin/sixteen-personality-fun-test">GitHub</a> ·
+  <a href="https://gitee.com/ac-hanxin/sixteen-personality-fun-test">Gitee 镜像</a>
 </p>
 
 <p align="center">
   <a href="https://img.shields.io/badge/web-zero_install-2f4b7c?style=flat-square"><img alt="web version, zero install" src="https://img.shields.io/badge/web-zero_install-2f4b7c?style=flat-square" /></a>
   <a href="https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-2f4b7c?style=flat-square"><img alt="License: CC BY-NC-SA 4.0" src="https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-2f4b7c?style=flat-square" /></a>
+  <a href="https://img.shields.io/badge/tests-33_passed-2f4b7c?style=flat-square"><img alt="tests: 33 passed" src="https://img.shields.io/badge/tests-33_passed-2f4b7c?style=flat-square" /></a>
 </p>
 
 <p align="center">
   <strong>中文</strong> · <a href="README_EN.md">English</a> ·
-  <a href="#三种用法">用法</a> ·
+  <a href="#先试一下">先试一下</a> ·
   <a href="#你会得到什么">结果</a> ·
   <a href="#十六型速览">十六型</a> ·
   <a href="#可信度与开发证据">可信度</a> ·
+  <a href="#常见问题">常见问题</a> ·
   <a href="#开发者">开发者</a>
 </p>
 
 ---
+
+## 这是什么
+
+基于 **OJTS 2.1** 的中文 16 型人格趣味测试：网页版零安装，Agent 版可以把结果沉淀到 AI 助理的长期记忆里。
+
+- **给普通人**：打开网页就能测，手机也能用，不用注册、不用安装
+- **给 AI 助理用户**：装成 Agent Skill 后，让助理带你答题、计分、生成报告
+- **给开发者**：题库、计分脚本、网页版和 33 项测试都在仓库里，结果可复现
+- **不是官方 MBTI**：这是基于 OJTS 2.1 的娱乐向自我观察工具，不是临床诊断，也不用于招聘或其他高风险决策
+
+> 想直接看效果？[立即在线测试](https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/) · [示例结果](https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/#demo)
+
+## 先试一下
+
+1. 打开 **https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/**
+2. 按第一直觉答完 48 题（约 5–8 分钟）
+3. 查看结果；可以保存分享海报或分析长图
+
+网页版进度自动保存在本机浏览器，刷新可断点续答；不需要登录，也不会要求姓名或账号。
 
 ## 三种用法
 
@@ -30,6 +60,8 @@
 | **A · 网页版** | 任何人，手机即可 | 打开 **https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/** 直接开测，无需安装；`#demo` 看示例结果 |
 | **B · 一键部署** | 有 AI Agent 的人 | 复制下方提示词发给你的 Agent，自动完成部署、测试与记忆沉淀 |
 | **C · 手动安装** | 开发者 | 见[开发者](#开发者)折叠区 |
+
+> **国内访问提示**：网页版托管在 GitHub Pages；如果访问慢，可先下载仓库，直接打开 `web/index.html` 本地使用。Gitee 镜像：[gitee.com/ac-hanxin/sixteen-personality-fun-test](https://gitee.com/ac-hanxin/sixteen-personality-fun-test)。
 
 **B 的提示词（复制即用）**
 
@@ -44,6 +76,8 @@ Hermes 版（利用其长期记忆沉淀结果）：
 ```text
 请克隆 GitHub 项目 https://github.com/Ac-Hanxin/sixteen-personality-fun-test ，将整个目录复制到我的技能目录（Claude Code 为 ~/.claude/skills/，Codex 为 ~/.codex/skills/，其他客户端以实际配置为准），目录名保持 sixteen-personality-fun-test 并保留内部相对结构，确认技能可用后，带我做一次完整的 16 型人格趣味测试；测试结束后，把结果卡存入你的长期记忆。
 ```
+
+> GitHub 访问慢时，把提示词里的 GitHub 地址换成 Gitee 镜像：`https://gitee.com/ac-hanxin/sixteen-personality-fun-test`。
 
 ## 你会得到什么
 
@@ -136,6 +170,32 @@ Hermes 版（利用其长期记忆沉淀结果）：
 
 本项目**不是官方 MBTI**，仅供娱乐与自我探索。不得把结果用于临床、医学、教育分流、招聘、绩效或其他对个人有重大影响的判断。
 
+## 常见问题
+
+### 需要安装或注册吗？
+
+网页版不需要安装，也不需要注册；打开链接就能测。手机浏览器也可以。
+
+### 结果准吗？和官方 MBTI 一样吗？
+
+不一样。本项目基于 OJTS 2.1，不是官方 MBTI，也不是 16Personalities 官方产品；结果适合作为自我观察和娱乐参考，不用于临床诊断、招聘或其他高风险判断。
+
+### 为什么结果不能手动调换？
+
+因为计分是确定性的：同一组 48 个答案，永远得到同一个分数和同一个类型。这样可以复现、可以核对，也避免“结果不好就重选”。
+
+### 出现平分会怎样？
+
+完全平分标记为 X；非平分展示分差并给出最接近的第二候选。具体规则见[可信度与开发证据](#可信度与开发证据)。
+
+### 答案会被保存或上传吗？
+
+网页版在浏览器本地计分，答案不离开你的设备；断点续答进度只保存在本机浏览器，点「重新测试」即清除。Agent 版的对话内容由当前平台处理，受平台数据政策与配置约束。
+
+### 可以商用吗？
+
+项目使用 CC BY-NC-SA 4.0，禁止商业使用；二次改编需署名并以相同方式共享。完整许可见 [LICENSE](LICENSE)。
+
 ## 开发者
 
 <details>
@@ -144,7 +204,10 @@ Hermes 版（利用其长期记忆沉淀结果）：
 前置要求：Python 3.9 或更高版本（计分仅用标准库；导出结果长图需要 `pip3 install Pillow`），以及一个支持 Skills 的 Agent 客户端。
 
 ```bash
+# GitHub
 git clone https://github.com/Ac-Hanxin/sixteen-personality-fun-test.git
+# 或 Gitee 镜像
+# git clone https://gitee.com/ac-hanxin/sixteen-personality-fun-test.git
 cd sixteen-personality-fun-test
 
 # Claude Code（用户级技能目录）
@@ -240,4 +303,6 @@ python3 -m unittest discover -s tests -v
 ## 作者与交流
 
 - 抖音：[Ac-Nova（抖音号：Skylines_1997）](https://www.douyin.com/search/Skylines_1997)——演示视频、使用反馈与版本更新（抖音 App 内搜索该抖音号也可直达）
-- 欢迎 Issues 与 PR：题库勘误、翻译建议、客户端适配反馈
+- GitHub Issues / PR：[github.com/Ac-Hanxin/sixteen-personality-fun-test/issues](https://github.com/Ac-Hanxin/sixteen-personality-fun-test/issues)
+- Gitee Issues：[gitee.com/ac-hanxin/sixteen-personality-fun-test/issues](https://gitee.com/ac-hanxin/sixteen-personality-fun-test/issues)
+- 欢迎反馈：题库勘误、翻译建议、客户端适配反馈
