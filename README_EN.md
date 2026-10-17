@@ -14,6 +14,7 @@
 
 <p align="center">
   <a href="README.md">中文</a> · <strong>English</strong> ·
+  <a href="https://gitee.com/ac-hanxin/sixteen-personality-fun-test">Gitee mirror</a> ·
   <a href="#three-ways-to-use-it">Usage</a> ·
   <a href="#what-you-get">Results</a> ·
   <a href="#the-sixteen-types-at-a-glance">Types</a> ·
@@ -29,7 +30,7 @@
 
 | | Who | How |
 | --- | --- | --- |
-| **A · Web version** | Anyone, phone-friendly | Open **https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/** and start — nothing to install; `#demo` shows a sample result |
+| **A · Web version** | Anyone, phone-friendly | Open **https://Ac-Hanxin.github.io/sixteen-personality-fun-test/web/** and start — nothing to install; `#demo` shows a sample result. Gitee mirror: **https://gitee.com/ac-hanxin/sixteen-personality-fun-test** |
 | **B · One-prompt deploy** | People with an AI agent | Paste a prompt below to your agent: clone, install, assess, and save to long-term memory |
 | **C · Manual install** | Developers | See the [Developers](#developers) sections |
 
@@ -148,7 +149,10 @@ This project is **not the official MBTI**; it is for entertainment and self-expl
 Requirements: Python 3.9+ (scoring uses only the standard library; exporting the result image requires `pip3 install Pillow`), plus an agent client that supports Skills.
 
 ```bash
+# GitHub
 git clone https://github.com/Ac-Hanxin/sixteen-personality-fun-test.git
+# Gitee mirror
+# git clone https://gitee.com/ac-hanxin/sixteen-personality-fun-test.git
 cd sixteen-personality-fun-test
 
 # Claude Code (user-level)
